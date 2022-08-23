@@ -1,27 +1,41 @@
-# CommunityServiceFe
+# Servicio Comunitario
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.1.1.
+El propósito de este repositorio es la implementación del frontend para la app de gestión del  Servicio Comunitario de la Facultad Experimental de Ciencia y Tecnología (FACYT) en la Universidad de Carabobo (UC).
 
-## Development server
+## Tecnologías utilizadas
+- [Node.js](https://nodejs.org/es/)
+- [TypeScript](https://www.typescriptlang.org/download)
+- [Angular v14](https://angular.io/docs)
+- [Bootstrap 5](https://angular.io/docshttps://getbootstrap.com/docs/5.0/getting-started/introduction/)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Instalación
+* Requisitos previos
+    1. Instalar Node.js v16.16.0.
+	2. Instalar Angular/cli
+* Pasos para desplegar el proyecto de forma local
+    1. Clonar el repositorio.
+	2. Instalar las dependencias del `package.json`
+	6. Correr la aplicación.
+	7. Ir al navegador e ingresar a la ruta: http://localhost:4200/
 
-## Code scaffolding
+## Comandos esenciales
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### Instalación de Angular
+```bash
+npm i -g @angular/cli
+```
 
-## Build
+### Instalación de dependencias del package.json
+```bash
+npm i
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Iniciar la app en modo de desarrollo
+```bash
+ng s -o
+```
 
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+### Preparar y ejecutar la app para producción
+```bash
+ng build && ng e2e
+```
