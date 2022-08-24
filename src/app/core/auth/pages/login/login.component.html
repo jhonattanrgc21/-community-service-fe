@@ -1,1 +1,26 @@
-<p>login works!</p>
+<form class="d-flex flex-column w-100">
+	<h3 class="mb-4 text-dark text-center">Iniciar sesi&oacute;n</h3>
+
+	<div class="form-group mb-4">
+		<label class="form-label text-dark" for="email">Correo Electr&oacute;nico</label>
+		<input type="email" id="email" class="form-control" placeholder="Ingrese su correo" />
+	</div>
+
+	<div class="form-group">
+		<label class="form-label text-dark" for="password">Contraseña</label>
+		<input type="password" id="password" class="form-control" placeholder="********" />
+	</div>
+
+	<button class="mt-4 btn btn-primary" type="submit">Ingresar</button>
+
+	<hr class="mt-4 text-black">
+	<div class="d-flex flex-column justify-content-center align-items-center">
+		<span class="text-dark mb-2">
+			¿Olvido su contraseña?
+		</span>
+
+		<a routerLink="/auth/forgot-password" style="font-weight: bold;">
+			Recuperar contraseña
+		</a>
+	</div>
+</form>
