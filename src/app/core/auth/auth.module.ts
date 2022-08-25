@@ -6,6 +6,8 @@ import { AuthComponent } from './auth.component';
 import { LoginComponent } from './pages/login/login.component';
 import { ForgotPasswordComponent } from './pages/forgot-password/forgot-password.component';
 import { ChangePasswordComponent } from './pages/change-password/change-password.component';
+import { MaterialModule } from 'src/app/material.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -13,11 +15,13 @@ import { ChangePasswordComponent } from './pages/change-password/change-password
 		AuthComponent,
 		LoginComponent,
 		ForgotPasswordComponent,
-  ChangePasswordComponent
+		ChangePasswordComponent
 	],
 	imports: [
 		CommonModule,
-		AuthRoutingModule
+		AuthRoutingModule,
+		ReactiveFormsModule,
+		MaterialModule
 	]
 })
 export class AuthModule { }
