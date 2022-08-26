@@ -1,15 +1,21 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AuthService } from '../auth/services/auth.service';
 
 @Component({
-  selector: 'app-protected',
-  templateUrl: './protected.component.html',
-  styleUrls: ['./protected.component.scss']
+	selector: 'app-protected',
+	templateUrl: './protected.component.html',
+	styleUrls: ['./protected.component.scss']
 })
 export class ProtectedComponent implements OnInit {
 
-  constructor() { }
+	constructor(private authService: AuthService, private router: Router) { }
 
-  ngOnInit(): void {
-  }
+	ngOnInit(): void {
+	}
 
+	logout() {
+		this.router.navigateByUrl('/auth')
+		this.authService.logout();
+	}
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-change-password',
@@ -9,10 +10,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 export class ChangePasswordComponent implements OnInit {
 	form: FormGroup;
 
-	constructor(private fb: FormBuilder) {
+	constructor(private fb: FormBuilder, private router: Router) {
 		this.form = this.fb.group({
-			newPassword: [, [Validators.required]],
-			confirmPassword: [, [Validators.required]],
+			newPassword: [, [Validators.required, Validators.minLength(8)]],
+			confirmPassword: [, [Validators.required, Validators.minLength(8)]],
 		});
 	}
 
