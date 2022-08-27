@@ -13,10 +13,10 @@
 
 			<div class="nav-menu">
 				<ul>
-					<li class="active"><a href="#">
+					<li><a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{'exact': true}">
 							<mat-icon class="icon-menu">home</mat-icon>Inicio
 						</a></li>
-					<li><a href="#">
+					<li><a routerLink="/home/documents" routerLinkActive="active">
 							<mat-icon class="icon-menu"><span class="material-icons">
 									<span class="material-icons">
 										description
@@ -64,9 +64,10 @@
 			<span>Servicio Comunitario</span>
 		</mat-toolbar>
 		<!-------------- Toolbar Fin -------------->
+
 		<!-- Aqui se muestra el contenido correspondiente a cada item del sidebar -->
 		<router-outlet></router-outlet>
-		<app-dashboard></app-dashboard>
+
 	</mat-sidenav-content>
 	<!-------------- Sidebar Content Fin -------------->
 </mat-sidenav-container>
