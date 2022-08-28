@@ -9,13 +9,8 @@ import { AuthService } from '../auth/services/auth.service';
 })
 export class ProtectedComponent implements OnInit {
 
-	constructor(private authService: AuthService, private router: Router) { }
+	constructor() { }
 
 	ngOnInit(): void {
-	}
-
-	logout() {
-		this.router.navigateByUrl('/auth')
-		this.authService.logout();
 	}
 }

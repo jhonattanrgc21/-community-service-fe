@@ -1,6 +1,8 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 import { map, Observable, shareReplay } from 'rxjs';
+import { AuthService } from '../core/auth/services/auth.service';
 
 @Component({
 	selector: 'app-shared',
@@ -15,6 +17,10 @@ export class SharedComponent {
 			shareReplay()
 		);
 
-	constructor(private breakpointObserver: BreakpointObserver) { }
+	constructor(private breakpointObserver: BreakpointObserver, private authService: AuthService, private router: Router) { }
 
+	onLogout() {
+		this.authService.logout();
+		this.router.navigateByUrl('/auth')
+	}
 }

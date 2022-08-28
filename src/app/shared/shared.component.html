@@ -44,10 +44,6 @@
 					<li><a routerLink="/layout/tutors" routerLinkActive="active">
 							<mat-icon class="icon-menu">supervised_user_circle</mat-icon>Tutores
 						</a></li>
-					<li><a href="#">
-							<mat-icon class="icon-menu">logout</mat-icon>Cerrar Sesi&oacute;n
-						</a></li>
-
 				</ul>
 			</div>
 		</mat-nav-list>
@@ -57,12 +53,39 @@
 	<!-------------- Sidebar Content Inicio -------------->
 	<mat-sidenav-content>
 		<!-------------- Toolbar Inicio -------------->
-		<mat-toolbar>
-			<button type="button" aria-label="Toggle sidenav" mat-icon-button (click)="drawer.toggle()">
-				<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-			</button>
-			<span>Servicio Comunitario</span>
-		</mat-toolbar>
+		<nav class="p-1 navbar navbar-expand-lg bg-custom-primary">
+			<div class="container-fluid d-inline-flex flex-nowrap">
+				<div class="title d-flex align-items-center">
+					<button class="m-2" type="button" aria-label="Toggle sidenav" mat-icon-button
+						(click)="drawer.toggle()">
+						<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+					</button>
+
+					<h3 class="p-0 m-0">Servicio comunitario</h3>
+				</div>
+
+				<div class="justify-content-end">
+					<div class="d-flex justify-content-end">
+						<div class="user-button more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+							<mat-icon>person</mat-icon>
+							<span class="nav-user-name">Nombre Apellido</span>
+							<mat-icon>keyboard_arrow_down</mat-icon>
+						</div>
+						<mat-menu #menu="matMenu" xPosition="before">
+							<button mat-menu-item>
+								<mat-icon>settings</mat-icon>
+								<span>Perfil</span>
+							</button>
+
+							<button mat-menu-item (click)="onLogout()">
+								<mat-icon>logout</mat-icon>
+								<span>Cerrar sesión</span>
+							</button>
+						</mat-menu>
+					</div>
+				</div>
+			</div>
+		</nav>
 		<!-------------- Toolbar Fin -------------->
 
 		<!-- Aqui se muestra el contenido correspondiente a cada item del sidebar -->
