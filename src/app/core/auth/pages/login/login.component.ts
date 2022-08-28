@@ -36,12 +36,12 @@ export class LoginComponent implements OnInit {
 	 * @description Se encarga de generar el inicio de sesión
 	 */
 	onLogin() {
-		this.router.navigateByUrl('/home')
+		this.router.navigateByUrl('/layout')
 		/*const authLogin: AuthLogin = this.loginForm.value;
 
 		this.authService.login(authLogin).subscribe(ok => {
 			if (ok === true) {
-				this.router.navigateByUrl('/home')
+				this.router.navigateByUrl('/layout')
 			} else {
 				// TODO: mostrar un modal con un error
 				Swal.fire('Error', ok, 'error')
