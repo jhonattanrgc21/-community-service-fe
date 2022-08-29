@@ -12,6 +12,9 @@ import { MatListModule } from '@angular/material/list';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatTableModule } from '@angular/material/table';
+import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
 	exports: [
@@ -27,7 +30,10 @@ import { MatProgressBarModule } from '@angular/material/progress-bar';
 		MatListModule,
 		MatGridListModule,
 		MatMenuModule,
-		MatProgressBarModule
+		MatProgressBarModule,
+		MatTableModule,
+		MatPaginatorModule,
+		MatSortModule
 	]
 })
 export class MaterialModule { };
