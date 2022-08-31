@@ -6,6 +6,7 @@ import { ProjectsComponent } from './projects.component';
 import { ActiveProjectsComponent } from './pages/active-projects/active-projects.component';
 import { InactiveProjectsComponent } from './pages/inactive-projects/inactive-projects.component';
 import { ProjectDetailsComponent } from './pages/project-details/project-details.component';
+import { MaterialModule } from 'src/app/material.module';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { ProjectDetailsComponent } from './pages/project-details/project-details
   ],
   imports: [
     CommonModule,
-    ProjectsRoutingModule
+    ProjectsRoutingModule,
+    MaterialModule
   ]
 })
 export class ProjectsModule { }
