@@ -8,7 +8,7 @@ import { AuthLogin, AuthResponse, User } from '../interfaces/auth.interface';
 	providedIn: 'root'
 })
 export class AuthService {
-	private baseUrl: string = environment.baseUrl;
+	private baseUrlAuth: string = environment.baseUrlAuth;
 	private _user!: User;
 
 	constructor(private httpClient: HttpClient) { }
@@ -28,7 +28,7 @@ export class AuthService {
 	 */
 	login(authLogin: AuthLogin): Observable<any> {
 		// TODO: llamar al endpoint correcto que hace el login
-		const url: string = `${this.baseUrl}/`;
+		const url: string = `${this.baseUrlAuth}/`;
 
 		return this.httpClient.post<AuthResponse>(url, authLogin)
 			.pipe(
@@ -67,7 +67,7 @@ export class AuthService {
 
 	validateToken(): Observable<boolean> {
 		// TODO: llamar al endpoint correcto para hacer el refresh-token
-		const url: string = `${this.baseUrl}/`;
+		const url: string = `${this.baseUrlAuth}/`;
 		const headers = new HttpHeaders().set('x-token', localStorage.getItem('token') || '');
 
 		return this.httpClient.get<AuthResponse>(url, { headers }).pipe(
