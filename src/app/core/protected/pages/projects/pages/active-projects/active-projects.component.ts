@@ -10,7 +10,7 @@ import { ProjectService } from '../../services/projects.service';
 })
 export class ActiveProjectsComponent implements OnInit {
 
-	projects: any[] = [];
+	projects?: Project[] = [];
 
 	constructor(private projectsService: ProjectService) { }
 
@@ -20,19 +20,7 @@ export class ActiveProjectsComponent implements OnInit {
 
 	getActiveProjects() {
 		this.projectsService.findAallActiveProjects().subscribe(response => {
-
-			/*for(let item of response){
-				this.projects.push({
-					name: item.name!,
-					description: item.description!,
-					student_count: item.student_count!,
-					date_start: item.date_start!
-				})
-				console.log(item);
-			}*/
-
 			this.projects = response;
-			console.log(response);
 			console.table(response);
 		})
 	}

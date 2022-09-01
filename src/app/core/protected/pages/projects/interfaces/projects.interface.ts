@@ -1,7 +1,8 @@
 export interface Project {
-	name: string;
-	description: string;	
-	date_start: string;
-	student_count: number;
+	id?: number;
+	name?: string;
+	description?: string;
+	date_start?: string;
+	status?: string;
+	student_count?: number;
 }
-
