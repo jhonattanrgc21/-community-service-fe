@@ -1,14 +1,31 @@
 <!-------------- Background Section Inicio -------------->
-<section class="text-white bg-auth-container vh-100">
+<section class="bg-auth-container vh-100">
 	<!-------------- Container Section Inicio -------------->
-	<div class="container h-100">
+	<div class="h-100">
 		<!-------------- Content Section Inicio -------------->
-		<div class="d-flex justify-content-center align-items-center h-100">
+		<div
+			class="row d-flex justify-content-center align-items-center h-100 vw-100"
+		>
 			<!-------------- Card Inicio -------------->
-			<div class="card card-container d-flex justify-content-center align-content-center p-5">
-				<h1 class=" h3 text-dark text-center">Sistema de Gesti&oacute;n del Servicio Comunitario</h1>
-				<hr class="mt-3 text-black">
+			<div
+				class="col-4 p-4 card d-flex justify-content-center align-content-center"
+			>
+			<div style="width: 85%;" class="m-auto">
+				<div class="mb-3 d-flex flex-column align-items-center border-bottom">
+					<img
+						style="width: 6rem; height: 6rem"
+						class="text-center img-fluid"
+						src="../../../assets/img/logo_facyt.png"
+						alt="Logo Facyt"
+					/>
+					<h2 style="font-size: 25px;" class="mt-2 text-dark text-center">
+						Sistema de Gesti&oacute;n del Servicio Comunitario
+					</h2>
+				</div>
+
 				<router-outlet></router-outlet>
+
+			</div>
 			</div>
 			<!-------------- Card Fin -------------->
 		</div>
