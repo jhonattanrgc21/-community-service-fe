@@ -12,7 +12,7 @@
 }
 
 .mat-nav-list {
-	padding-top: .2rem;
+	padding-top: 0.2rem;
 }
 
 .sidenav .mat-toolbar {
@@ -59,75 +59,21 @@
 	background-color: #ffffff25;
 }
 
-.nav-menu {
-	ul {
-
-		&,
-		li {
-			padding: 0;
-			margin: 0px;
-			list-style: none;
+ul {
+	li {
+		cursor: pointer;
+		&:active,
+		&:focus,
+		&:hover {
+			outline: none;
 		}
 
-		li {
-			a {
-				display: flex;
-				align-items: center;
-				padding-left: 20px;
-				padding-right: 30px;
-				padding-top: 10px;
-				padding-bottom: 10px;
-				color: #8b8b8b;
-				position: relative;
-				transition: .3s padding-left ease;
-
-				&:before {
-					content: "";
-					position: absolute;
-					left: 0;
-					top: 0;
-					bottom: 0;
-					width: 0px;
-					background-color: #0092d0;
-					opacity: 0;
-					visibility: hidden;
-					transition: .3s opacity ease, .3s visibility ease, .3s width ease;
-				}
-
-				&:active,
-				&:focus,
-				&:hover {
-					outline: none;
-				}
-
-				&:hover {
-					background: lighten(#efefef, 5%);
-					color: #000;
-
-					&:before {
-						width: 4px;
-						opacity: 1;
-						visibility: visible;
-					}
-				}
-			}
-
-			&.active {
-				a {
-					background: lighten(#efefef, 5%);
-					color: #000;
-
-					&:before {
-						opacity: 1;
-						visibility: visible;
-						width: 4px;
-					}
-				}
-			}
+		&:hover {
+			background-color: #0092d0;
+			color: #ffffff;
 		}
 	}
 }
-
 
 .icon-menu {
 	margin-right: 5px;
