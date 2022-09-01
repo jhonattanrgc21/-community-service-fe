@@ -1,6 +1,7 @@
 export interface Project {
 	name: string;
-	description: string;
-	students: number;
+	description: string;	
 	date_start: string;
+	student_count: number;
 }
+
