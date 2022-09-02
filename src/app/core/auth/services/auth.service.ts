@@ -8,7 +8,7 @@ import { AuthLogin, AuthResponse, User } from '../interfaces/auth.interface';
 	providedIn: 'root'
 })
 export class AuthService {
-	private baseUrl: string = environment.baseUrl;
+	private baseUrl: string = environment.baseUrlAuth;
 	private _user!: User;
 
 	constructor(private httpClient: HttpClient) { }
@@ -27,8 +27,7 @@ export class AuthService {
 	 * @returns Observable<any>
 	 */
 	login(authLogin: AuthLogin): Observable<any> {
-		// TODO: llamar al endpoint correcto que hace el login
-		const url: string = `${this.baseUrl}/`;
+		const url: string = `${this.baseUrl}/login`;
 
 		return this.httpClient.post<AuthResponse>(url, authLogin)
 			.pipe(
@@ -40,12 +39,16 @@ export class AuthService {
 							localStorage.setItem('token', res.token!)
 							localStorage.setItem('role', res.role!);
 							localStorage.setItem('name', res.name!);
-							localStorage.setItem('document', res.document!);
+							localStorage.setItem(
+								'document',
+								res.identification_document!
+							);
 							this._user = {
 								name: res.name!,
 								uuid: res.uuid!,
-								document: res.document!
-							}
+								identification_document:
+									res.identification_document!,
+							};
 						}
 					}
 				),
@@ -58,11 +61,33 @@ export class AuthService {
 			);
 	}
 
-	logout() {
-		localStorage.removeItem('token');
-		localStorage.removeItem('role');
-		localStorage.removeItem('name');
-		localStorage.removeItem('document');
+	logout(): Observable<any>   {
+		const url: string = `${this.baseUrl}/logout`;
+		const headers = new HttpHeaders()
+			.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
+			.set('Content-Type', 'application/json')
+			.set('Accept', 'application/json');
+
+		return this.httpClient.post<any>(url, {},{headers}).pipe(
+			// Actualiza los datos del usuario que vienen del backend
+			tap(res => {
+				if (res.ok) {
+					// Elimino datos al localStorage
+					localStorage.removeItem('token');
+					localStorage.removeItem('role');
+					localStorage.removeItem('name');
+					localStorage.removeItem('document');
+					this._user = {};
+				}
+			}),
+
+			// Devuelve true si todo salio bien
+			map(res => res.ok),
+
+			// Devuelve un el mensaje de error para la alerta en caso contrario
+			catchError((err) => of(err.error.message))
+		);
+
 	}
 
 	validateToken(): Observable<boolean> {
@@ -76,11 +101,11 @@ export class AuthService {
 				localStorage.setItem('token', res.token!)
 				localStorage.setItem('role', res.role!);
 				localStorage.setItem('name', res.name!);
-				localStorage.setItem('document', res.document!);
+				localStorage.setItem('document', res.identification_document!);
 				this._user = {
 					name: res.name!,
 					uuid: res.uuid!,
-					document: res.document!
+					identification_document: res.identification_document!
 				}
 				return res.ok!;
 			}),

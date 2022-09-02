@@ -15,7 +15,7 @@ export class LoginComponent implements OnInit {
 
 	constructor(private fb: FormBuilder, private router: Router, private authService: AuthService) {
 		this.loginForm = this.fb.group({
-			email: ['test@gmail.com', [Validators.required, Validators.email]],
+			username: ['admin', [Validators.required]],
 			password: ['12345678', [Validators.required, Validators.minLength(8)]],
 		});
 	}
@@ -36,16 +36,15 @@ export class LoginComponent implements OnInit {
 	 * @description Se encarga de generar el inicio de sesión
 	 */
 	onLogin() {
-		this.router.navigateByUrl('/layout')
-		/*const authLogin: AuthLogin = this.loginForm.value;
+		//this.router.navigateByUrl('/layout')
+		const authLogin: AuthLogin = this.loginForm.value;
 
 		this.authService.login(authLogin).subscribe(ok => {
-			if (ok === true) {
+			if (ok == true) {
 				this.router.navigateByUrl('/layout')
 			} else {
-				// TODO: mostrar un modal con un error
 				Swal.fire('Error', ok, 'error')
 			}
-		})*/
+		})
 	}
 }
