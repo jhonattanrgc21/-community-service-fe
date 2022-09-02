@@ -9,7 +9,7 @@ import { Project } from '../../../interfaces/projects.interface';
 	providedIn: 'root'
 })
 export class ProjectService {
-	private _baseUrl: string = environment.baseUrlLayout;
+	private _baseUrl: string = environment.baseUrlProjects;
 
 	constructor(private httpClient: HttpClient) { }
 
@@ -19,6 +19,12 @@ export class ProjectService {
 	 */
 	findAallActiveProjects(): Observable<Project[]> {
 		const url: string = `${this._baseUrl}/projects/get_active_projects`;
+		const headers = new HttpHeaders().set('Accept', 'application/json').set('access_token', 'token');
+		return this.httpClient.get<Project[]>(url, { headers });
+	}
+
+	findInactiveProjects(): Observable<Project[]> {
+		const url: string = `${this._baseUrl}/projects/get_all_projects/by_status/Inactivo`;
 		const headers = new HttpHeaders().set('Accept', 'application/json').set('access_token', 'token');
 		return this.httpClient.get<Project[]>(url, { headers });
 	}

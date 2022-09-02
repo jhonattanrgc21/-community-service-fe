@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Project } from '../../interfaces/projects.interface';
+import { ProjectService } from '../../services/projects.service';
 
 @Component({
   selector: 'app-inactive-projects',
@@ -7,9 +9,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InactiveProjectsComponent implements OnInit {
 
-  constructor() { }
+  projects?: Project[] = []; 
+
+  constructor(private projectsService: ProjectService) { }
 
   ngOnInit(): void {
+    this.getInactiveProjects();
   }
+
+  getInactiveProjects() {
+		this.projectsService.findInactiveProjects().subscribe(response => {
+			this.projects = response;
+			console.table(response);
+		})
+	}
 
 }
