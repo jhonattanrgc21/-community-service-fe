@@ -7,8 +7,8 @@
 			<mat-icon matPrefix>account_circle</mat-icon>
 			Correo Electr&oacute;nico
 		</mat-label>
-		<input type="email" matInput formControlName="email" placeholder="Ingrese su correo">
-		<mat-error *ngIf="isNotValid('email')">
+		<input type="username" matInput formControlName="username" placeholder="Ingrese su username">
+		<mat-error *ngIf="isNotValid('username')">
 			Este campo es <strong>obligatorio</strong>
 		</mat-error>
 	</mat-form-field>

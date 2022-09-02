@@ -1,72 +1,119 @@
 <!-------------- Sidebar Container Inicio -------------->
 <mat-sidenav-container class="sidenav-container">
 	<!-------------- Sidebar Item List Inicio -------------->
-	<mat-sidenav #drawer class="sidenav" fixedInViewport [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-		[mode]="(isHandset$ | async) ? 'over' : 'side'" [opened]="(isHandset$ | async) === false">
-
-		<div class="logo">
-			<img class="logo_img" src="./assets/img/logo_facyt.png" alt="Logo Facyt" />
+	<mat-sidenav
+		#drawer
+		class="sidenav"
+		fixedInViewport
+		[attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+		[mode]="(isHandset$ | async) ? 'over' : 'side'"
+		[opened]="(isHandset$ | async) === false"
+	>
+		<div
+			class="border-bottom d-flex align-items-center justify-content-center"
+			style="height: 4.09rem"
+		>
+			<span style="font-size: 1.3rem">Men&uacute;</span>
 		</div>
 
-		<mat-nav-list>
-			<mat-divider></mat-divider>
+		<ul class="p-0">
+			<li
+				class="sidebar-item d-flex align-items-center justify-content-start bg-auth-container"
+				routerLink="/layout/home"
+				routerLinkActive="active"
+			>
+				<mat-icon class="icon-menu">home</mat-icon>
+				<span>Proyecto inscrito</span>
+			</li>
+			<li
+				class="sidebar-item  d-flex align-items-center justify-content-start"
+				routerLink="/layout/documents"
+				routerLinkActive="active"
+			>
+				<mat-icon class="icon-menu"> description</mat-icon
+				><span>Documentos</span>
+			</li>
+			<li
+				class="sidebar-item  d-flex align-items-center justify-content-start"
+				routerLink="/layout/students"
+				routerLinkActive="active"
+			>
+				<mat-icon class="icon-menu"> supervisor_account</mat-icon>
+				<span>Estudiantes inscritos</span>
+			</li>
+			<li
+				class="sidebar-item  d-flex align-items-center justify-content-start"
+				routerLink="/layout/projects/actives"
+				routerLinkActive="active"
+			>
+				<mat-icon class="icon-menu"> folder </mat-icon>
+				<span>Proyectos activos </span>
+			</li>
 
-			<div class="nav-menu">
-				<ul>
-					<li><a routerLink="/layout/home" routerLinkActive="active">
-							<mat-icon class="icon-menu">home</mat-icon>Proyecto inscrito
-						</a></li>
-					<li><a routerLink="/layout/documents" routerLinkActive="active">
-							<mat-icon class="icon-menu"><span class="material-icons">
-									<span class="material-icons">
-										description
-									</span>
-								</span></mat-icon>Documentos
-						</a></li>
-					<li><a routerLink="/layout/students" routerLinkActive="active">
-							<mat-icon class="icon-menu"><span class="material-icons">
-									supervisor_account
-								</span></mat-icon>Estudiantes inscritos
-						</a></li>
-					<li><a routerLink="/layout/projects/actives" routerLinkActive="active">
-							<mat-icon class="icon-menu"><span class="material-icons">
-									folder
-								</span></mat-icon>Proyectos activos
-						</a></li>
-					<li><a routerLink="/layout/projects/inactives" routerLinkActive="active">
-							<mat-icon class="icon-menu"><span class="material-icons">
-									folder_off
-								</span></mat-icon>Proyectos inactivos
-						</a></li>
-					<li><a routerLink="/layout/tasks" routerLinkActive="active">
-							<mat-icon class="icon-menu">task</mat-icon>Tareas
-						</a></li>
-					<li><a routerLink="/layout/tutors" routerLinkActive="active">
-							<mat-icon class="icon-menu">supervised_user_circle</mat-icon>Tutores
-						</a></li>
-				</ul>
-			</div>
-		</mat-nav-list>
+			<li
+				class="sidebar-item  d-flex align-items-center justify-content-start"
+				routerLink="/layout/projects/inactives"
+				routerLinkActive="active"
+			>
+				<mat-icon class="icon-menu"> folder_off </mat-icon>
+				<span>Proyectos inactivos </span>
+			</li>
+			<li
+				class="sidebar-item  d-flex align-items-center justify-content-start"
+				routerLink="/layout/tasks"
+				routerLinkActive="active"
+			>
+				<mat-icon class="icon-menu">task</mat-icon>
+				<span>Tareas </span>
+			</li>
+			<li
+				class="sidebar-item d-flex align-items-center justify-content-start"
+				routerLink="/layout/tutors"
+				routerLinkActive="active"
+			>
+				<mat-icon class="icon-menu">supervised_user_circle</mat-icon>
+				<span>Tutores </span>
+			</li>
+		</ul>
 	</mat-sidenav>
 	<!-------------- Sidebar Item List Fin -------------->
 
 	<!-------------- Sidebar Content Inicio -------------->
 	<mat-sidenav-content>
 		<!-------------- Toolbar Inicio -------------->
-		<nav class="p-1 navbar navbar-expand-lg bg-custom-primary">
-			<div class="container-fluid d-inline-flex flex-nowrap">
+		<nav class="p-1 navbar navbar-expand-lg border-bottom">
+			<div class="p-0 container-fluid d-inline-flex flex-nowrap">
 				<div class="title d-flex align-items-center">
-					<button class="m-2" type="button" aria-label="Toggle sidenav" mat-icon-button
-						(click)="drawer.toggle()">
-						<mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+					<button
+						class="m-2"
+						type="button"
+						aria-label="Toggle sidenav"
+						mat-icon-button
+						(click)="drawer.toggle()"
+					>
+						<mat-icon aria-label="Side nav toggle icon"
+							>menu</mat-icon
+						>
 					</button>
 
+					<div style="margin-right: .5rem;">
+						<img
+						class="logo"
+							src="./assets/img/logo_facyt.png"
+							alt="Logo Facyt"
+						/>
+
+					</div>
 					<h3 class="p-0 m-0">Servicio comunitario</h3>
 				</div>
 
 				<div class="justify-content-end">
 					<div class="d-flex justify-content-end">
-						<div class="user-button more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+						<div
+							class="user-button more-button"
+							[matMenuTriggerFor]="menu"
+							aria-label="Toggle menu"
+						>
 							<mat-icon>person</mat-icon>
 							<span class="nav-user-name">Nombre Apellido</span>
 							<mat-icon>keyboard_arrow_down</mat-icon>
@@ -77,7 +124,7 @@
 								<span>Perfil</span>
 							</button>
 
-							<button mat-menu-item (click)="onLogout()">
+							<button (click)="onLogout()" mat-menu-item>
 								<mat-icon>logout</mat-icon>
 								<span>Cerrar sesión</span>
 							</button>
@@ -92,7 +139,6 @@
 		<div class="container-fluid">
 			<router-outlet></router-outlet>
 		</div>
-
 	</mat-sidenav-content>
 	<!-------------- Sidebar Content Fin -------------->
 </mat-sidenav-container>

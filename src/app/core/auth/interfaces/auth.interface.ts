@@ -2,15 +2,16 @@ export interface AuthResponse {
 	ok?: boolean;
 	uuid?: number;
 	name?: string;
-	document?: string;
+	identification_document?: string;
 	role?: string;
 	token?: string;
+	type_token?: string;
 	message?: string;
 }
 
 export interface AuthLogin {
-	email: string;
+	username: string;
 	password: string;
 }
 
-export type User = Pick<AuthResponse, 'uuid' | 'name' | 'document'>;
+export type User = Pick<AuthResponse, 'uuid' | 'name' | 'identification_document'>;
