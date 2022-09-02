@@ -1,41 +1,63 @@
-.bg-custom-primary {
-	background-color: #0092d0;
-	color: #ffffff;
-}
-
+// Estilos para el sidebar
 .sidenav-container {
 	height: 100%;
 }
 
 .sidenav {
 	max-width: 50%;
+	background-color: #0494d2;
+	color: white;
 }
 
-.mat-nav-list {
-	padding-top: 0.2rem;
+.sidebar-item {
+	padding: .8rem;
+}
+
+.active {
+	background-color: #026996;
+	color: #ffffff;
+}
+
+ul {
+	li {
+		cursor: pointer;
+		border-bottom: 1px solid rgba(255, 255, 255, .4);
+
+		&:active,
+		&:focus,
+		&:hover {
+			outline: none;
+		}
+
+		&:hover {
+			background-color: #026996;
+			color: #ffffff;
+		}
+	}
+}
+
+.icon-menu {
+	margin-right: 5px;
 }
 
 .sidenav .mat-toolbar {
 	background: inherit;
 }
 
+// Estilos par el toolbar
+.logo {
+	width: 2rem;
+	height: 2rem;
+}
+
 .navbar {
-	border-left: #ffffff74 1pt solid;
+	border-left: 1pt solid #ffffff74;
 }
 
 .mat-toolbar.mat-primary {
 	position: sticky;
 	top: 0;
 	z-index: 1;
-}
-
-.logo_img {
-	height: 60px;
-}
-
-.logo {
-	display: flex;
-	justify-content: center;
 }
 
 .title {
@@ -57,24 +79,4 @@
 .user-button:hover {
 	cursor: pointer;
 	background-color: #ffffff25;
-}
-
-ul {
-	li {
-		cursor: pointer;
-		&:active,
-		&:focus,
-		&:hover {
-			outline: none;
-		}
-
-		&:hover {
-			background-color: #0092d0;
-			color: #ffffff;
-		}
-	}
-}
-
-.icon-menu {
-	margin-right: 5px;
 }
