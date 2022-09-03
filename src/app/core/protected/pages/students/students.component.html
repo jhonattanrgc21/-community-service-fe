@@ -1,1 +1,36 @@
-Estudiantes
+<h2 class="text-center">Listado de estudiantes</h2>
+
+<mat-tab-group mat-align-tabs="start">
+	<!-- Estudiantes Activos Inicio -->
+	<mat-tab label="Activos">
+		<app-dynamic-table
+			[data]="activeStudents"
+			[headers]="activeStudentHeaders"
+			[filter]="true"
+		>
+		</app-dynamic-table>
+	</mat-tab>
+	<!-- Estudiantes Activos Fin -->
+
+	<!-- Estudiantes Inactivos Inicio -->
+	<mat-tab label="Inactivos">
+		<app-dynamic-table
+			[data]="inactiveStudents"
+			[headers]="inactiveStudentHeaders"
+			[filter]="true"
+		>
+		</app-dynamic-table>
+	</mat-tab>
+	<!-- Estudiantes Inctivos Fin -->
+
+	<!-- Estudiantes Aprobados Inicio -->
+	<mat-tab label="Aprobados">
+		<app-dynamic-table
+			[data]="approvedStudents"
+			[headers]="approvedStudentHeaders"
+			[filter]="true"
+		>
+		</app-dynamic-table>
+	</mat-tab>
+	<!-- Estudiantes Aprobados Fin -->
+</mat-tab-group>

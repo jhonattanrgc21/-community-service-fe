@@ -26,7 +26,7 @@
 				<span>Proyecto inscrito</span>
 			</li>
 			<li
-				class="sidebar-item  d-flex align-items-center justify-content-start"
+				class="sidebar-item d-flex align-items-center justify-content-start"
 				routerLink="/layout/documents"
 				routerLinkActive="active"
 			>
@@ -34,7 +34,7 @@
 				><span>Documentos</span>
 			</li>
 			<li
-				class="sidebar-item  d-flex align-items-center justify-content-start"
+				class="sidebar-item d-flex align-items-center justify-content-start"
 				routerLink="/layout/students"
 				routerLinkActive="active"
 			>
@@ -42,7 +42,7 @@
 				<span>Estudiantes inscritos</span>
 			</li>
 			<li
-				class="sidebar-item  d-flex align-items-center justify-content-start"
+				class="sidebar-item d-flex align-items-center justify-content-start"
 				routerLink="/layout/projects/actives"
 				routerLinkActive="active"
 			>
@@ -51,7 +51,7 @@
 			</li>
 
 			<li
-				class="sidebar-item  d-flex align-items-center justify-content-start"
+				class="sidebar-item d-flex align-items-center justify-content-start"
 				routerLink="/layout/projects/inactives"
 				routerLinkActive="active"
 			>
@@ -59,7 +59,7 @@
 				<span>Proyectos inactivos </span>
 			</li>
 			<li
-				class="sidebar-item  d-flex align-items-center justify-content-start"
+				class="sidebar-item d-flex align-items-center justify-content-start"
 				routerLink="/layout/tasks"
 				routerLinkActive="active"
 			>
@@ -96,13 +96,12 @@
 						>
 					</button>
 
-					<div style="margin-right: .5rem;">
+					<div style="margin-right: 0.5rem">
 						<img
-						class="logo"
+							class="logo"
 							src="./assets/img/logo_facyt.png"
 							alt="Logo Facyt"
 						/>
-
 					</div>
 					<h3 class="p-0 m-0">Servicio comunitario</h3>
 				</div>
@@ -136,8 +135,13 @@
 		<!-------------- Toolbar Fin -------------->
 
 		<!-- Aqui se muestra el contenido correspondiente a cada item del sidebar -->
-		<div class="container-fluid">
-			<router-outlet></router-outlet>
+		<div class="container p-1">
+			<div class="mt-1 card d-flex justify-content-between align-items-start">
+				<div class="w-100 card-body ">
+					<router-outlet></router-outlet>
+				</div>
+
+			</div>
 		</div>
 	</mat-sidenav-content>
 	<!-------------- Sidebar Content Fin -------------->
