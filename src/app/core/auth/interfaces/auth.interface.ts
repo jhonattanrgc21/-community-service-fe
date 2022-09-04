@@ -5,7 +5,6 @@ export interface AuthResponse {
 	identification_document?: string;
 	role?: string;
 	token?: string;
-	type_token?: string;
 	message?: string;
 }
 
