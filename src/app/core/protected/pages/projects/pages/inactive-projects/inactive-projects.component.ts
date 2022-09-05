@@ -3,25 +3,22 @@ import { Project } from '../../interfaces/projects.interface';
 import { ProjectService } from '../../services/projects.service';
 
 @Component({
-  selector: 'app-inactive-projects',
-  templateUrl: './inactive-projects.component.html',
-  styleUrls: ['./inactive-projects.component.scss']
+	selector: 'app-inactive-projects',
+	templateUrl: './inactive-projects.component.html',
+	styleUrls: ['./inactive-projects.component.scss'],
 })
 export class InactiveProjectsComponent implements OnInit {
+	inactiveProjects: Project[] = [];
 
-  projects?: Project[] = []; 
+	constructor(private projectsService: ProjectService) {}
 
-  constructor(private projectsService: ProjectService) { }
-
-  ngOnInit(): void {
-    this.getInactiveProjects();
-  }
-
-  getInactiveProjects() {
-		this.projectsService.findInactiveProjects().subscribe(response => {
-			this.projects = response;
-			console.table(response);
-		})
+	ngOnInit(): void {
+		this.getInactiveProjects();
 	}
 
+	getInactiveProjects() {
+		this.projectsService.findInactiveProjects().subscribe((response) => {
+			this.inactiveProjects = response;
+		});
+	}
 }

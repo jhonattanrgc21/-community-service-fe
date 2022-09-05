@@ -4,10 +4,14 @@ import { RouterModule } from '@angular/router';
 import { MaterialModule } from '../material.module';
 import { SharedComponent } from './shared.component';
 import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.component';
-
+import { ProjectCardComponent } from './components/project-card/project-card.component';
 @NgModule({
-	declarations: [SharedComponent, DynamicTableComponent],
-	exports: [SharedComponent, DynamicTableComponent],
+	declarations: [
+		SharedComponent,
+		DynamicTableComponent,
+		ProjectCardComponent,
+	],
+	exports: [SharedComponent, DynamicTableComponent, ProjectCardComponent],
 	imports: [CommonModule, RouterModule, MaterialModule],
 })
 export class SharedModule {}

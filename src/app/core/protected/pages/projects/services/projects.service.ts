@@ -6,12 +6,12 @@ import { Project } from '../../../interfaces/projects.interface';
 
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class ProjectService {
 	private _baseUrl: string = environment.baseUrlProjects;
 
-	constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {}
 
 	/**
 	 * @description Busca todos los proyectos con estatus activo
@@ -19,13 +19,21 @@ export class ProjectService {
 	 */
 	findAallActiveProjects(): Observable<Project[]> {
 		const url: string = `${this._baseUrl}/projects/get_active_projects`;
-		const headers = new HttpHeaders().set('Accept', 'application/json').set('access_token', 'token');
+		const headers = new HttpHeaders()
+			.set('Accept', 'application/json')
+			.set('access_token', 'token');
 		return this.httpClient.get<Project[]>(url, { headers });
 	}
 
+	/**
+	 * @description Busca todos los proyectos con estatus inactivo
+	 * @returns Observable<Project[]>
+	 */
 	findInactiveProjects(): Observable<Project[]> {
-		const url: string = `${this._baseUrl}/projects/get_all_projects/by_status/Inactivo`;
-		const headers = new HttpHeaders().set('Accept', 'application/json').set('access_token', 'token');
+		const url: string = `${this._baseUrl}/projects/get_all_projects/Inactivo`;
+		const headers = new HttpHeaders()
+			.set('Accept', 'application/json')
+			.set('access_token', 'token');
 		return this.httpClient.get<Project[]>(url, { headers });
 	}
 }

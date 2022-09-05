@@ -1,17 +1,4 @@
-<div class="container pb-5 pt-3">
-	<div class="row">
-		<div class="col-md-6 mb-3" *ngFor="let project of projects">
-			<mat-card>
-				<mat-card-title class="mt-2"><span>{{project.name}}</span></mat-card-title>
-				<mat-card-content class="pt-3">
-					<p> {{project.description | slice:0:50}} </p>
-				</mat-card-content>
-				<mat-divider inset></mat-divider>
-				<mat-card-actions>
-					<p>Fecha de finalización: {{project.date_end| date:"dd-MM-yyyy"}}</p>
-				</mat-card-actions>
-			</mat-card>
-		</div>
-	</div>
-</div>
+<!-- Lista de proyectos inactivos -->
+<app-project-card [projects]="inactiveProjects">
 
+</app-project-card>

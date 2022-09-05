@@ -10,7 +10,7 @@ import { ProjectService } from '../../services/projects.service';
 })
 export class ActiveProjectsComponent implements OnInit {
 
-	projects?: Project[] = [];
+	activeProjects: Project[] = [];
 
 	constructor(private projectsService: ProjectService) { }
 
@@ -20,8 +20,7 @@ export class ActiveProjectsComponent implements OnInit {
 
 	getActiveProjects() {
 		this.projectsService.findAallActiveProjects().subscribe(response => {
-			this.projects = response;
-			console.table(response);
+			this.activeProjects = response;
 		})
 	}
 }

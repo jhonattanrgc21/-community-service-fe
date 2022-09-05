@@ -7,19 +7,20 @@ import { ActiveProjectsComponent } from './pages/active-projects/active-projects
 import { InactiveProjectsComponent } from './pages/inactive-projects/inactive-projects.component';
 import { ProjectDetailsComponent } from './pages/project-details/project-details.component';
 import { MaterialModule } from 'src/app/material.module';
-
+import { SharedModule } from 'src/app/shared/shared.module';
 
 @NgModule({
-  declarations: [
-    ProjectsComponent,
-    ActiveProjectsComponent,
-    InactiveProjectsComponent,
-    ProjectDetailsComponent
-  ],
-  imports: [
-    CommonModule,
-    ProjectsRoutingModule,
-    MaterialModule
-  ]
+	declarations: [
+		ProjectsComponent,
+		ActiveProjectsComponent,
+		InactiveProjectsComponent,
+		ProjectDetailsComponent,
+	],
+	imports: [
+		CommonModule,
+		SharedModule,
+		ProjectsRoutingModule,
+		MaterialModule,
+	],
 })
-export class ProjectsModule { }
+export class ProjectsModule {}
