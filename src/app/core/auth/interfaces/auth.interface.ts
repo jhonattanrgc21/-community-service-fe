@@ -13,4 +13,7 @@ export interface AuthLogin {
 	password: string;
 }
 
-export type User = Pick<AuthResponse, 'uuid' | 'name' | 'identification_document'>;
+export type User = Pick<
+	AuthResponse,
+	'uuid' | 'name' | 'identification_document' | 'token' | 'role'
+>;

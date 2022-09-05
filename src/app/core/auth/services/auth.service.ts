@@ -5,13 +5,13 @@ import { environment } from 'src/environments/environment';
 import { AuthLogin, AuthResponse, User } from '../interfaces/auth.interface';
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class AuthService {
 	private baseUrl: string = environment.baseUrlAuth;
 	private _user!: User;
 
-	constructor(private httpClient: HttpClient) { }
+	constructor(private httpClient: HttpClient) {}
 
 	/**
 	 * @description Almacena los datos del usuario despues de iniciar sesión
@@ -29,48 +29,41 @@ export class AuthService {
 	login(authLogin: AuthLogin): Observable<any> {
 		const url: string = `${this.baseUrl}/login`;
 
-		return this.httpClient.post<AuthResponse>(url, authLogin)
-			.pipe(
-				// Actualiza los datos del usuario que vienen del backend
-				tap(
-					(res: AuthResponse) => {
-						if (res.ok) {
-							// Agregando datos al localStorage
-							localStorage.setItem('token', res.token!)
-							localStorage.setItem('role', res.role!);
-							localStorage.setItem('name', res.name!);
-							localStorage.setItem(
-								'document',
-								res.identification_document!
-							);
-							this._user = {
-								name: res.name!,
-								uuid: res.uuid!,
-								identification_document:
-									res.identification_document!,
-							};
-						}
-					}
-				),
+		return this.httpClient.post<AuthResponse>(url, authLogin).pipe(
+			// Actualiza los datos del usuario que vienen del backend
+			tap((res: AuthResponse) => {
+				if (res.ok) {
+					// Agregando datos al localStorage
+					localStorage.setItem('token', res.token!);
+					localStorage.setItem('role', res.role!);
+					localStorage.setItem('name', res.name!);
+					localStorage.setItem(
+						'document',
+						res.identification_document!
+					);
+					this._user = {
+						name: res.name!,
+						uuid: res.uuid!,
+						identification_document: res.identification_document!,
+						token: res.token!,
+						role: res.role!,
+					};
+				}
+			}),
 
-				// Devuelve true si el usuario esta registrado
-				map((res: AuthResponse) => res.ok),
+			// Devuelve true si el usuario esta registrado
+			map((res: AuthResponse) => res.ok),
 
-				// Devuelve un false si el usuario no esta registrado
-				catchError(err => of(err.error.message))
-			);
+			// Devuelve un false si el usuario no esta registrado
+			catchError((err) => of(err.error.message))
+		);
 	}
 
-	logout(): Observable<any>   {
+	logout(): Observable<any> {
 		const url: string = `${this.baseUrl}/logout`;
-		const headers = new HttpHeaders()
-			.set('Authorization', 'Bearer ' + localStorage.getItem('token'))
-			.set('Content-Type', 'application/json')
-			.set('Accept', 'application/json');
-
-		return this.httpClient.post<any>(url, {},{headers}).pipe(
+		return this.httpClient.post<any>(url, {}).pipe(
 			// Actualiza los datos del usuario que vienen del backend
-			tap(res => {
+			tap((res) => {
 				if (res.ok) {
 					// Elimino datos al localStorage
 					localStorage.removeItem('token');
@@ -82,34 +75,38 @@ export class AuthService {
 			}),
 
 			// Devuelve true si todo salio bien
-			map(res => res.ok),
+			map((res) => res.ok),
 
 			// Devuelve un el mensaje de error para la alerta en caso contrario
 			catchError((err) => of(err.error.message))
 		);
-
 	}
 
 	validateToken(): Observable<boolean> {
 		// TODO: llamar al endpoint correcto para hacer el refresh-token
 		const url: string = `${this.baseUrl}/`;
-		const headers = new HttpHeaders().set('x-token', localStorage.getItem('token') || '');
+		const headers = new HttpHeaders().set(
+			'x-token',
+			localStorage.getItem('token') || ''
+		);
 
 		return this.httpClient.get<AuthResponse>(url, { headers }).pipe(
 			map((res: AuthResponse) => {
 				// Agregando datos al localStorage
-				localStorage.setItem('token', res.token!)
+				localStorage.setItem('token', res.token!);
 				localStorage.setItem('role', res.role!);
 				localStorage.setItem('name', res.name!);
 				localStorage.setItem('document', res.identification_document!);
 				this._user = {
 					name: res.name!,
 					uuid: res.uuid!,
-					identification_document: res.identification_document!
-				}
+					identification_document: res.identification_document!,
+					token: res.token!,
+					role: res.role!,
+				};
 				return res.ok!;
 			}),
-			catchError(err => of(false))
+			catchError((err) => of(false))
 		);
 	}
 }

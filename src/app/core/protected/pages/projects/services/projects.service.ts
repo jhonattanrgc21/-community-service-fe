@@ -19,10 +19,7 @@ export class ProjectService {
 	 */
 	findAallActiveProjects(): Observable<Project[]> {
 		const url: string = `${this._baseUrl}/projects/get_active_projects`;
-		const headers = new HttpHeaders()
-			.set('Accept', 'application/json')
-			.set('access_token', 'token');
-		return this.httpClient.get<Project[]>(url, { headers });
+		return this.httpClient.get<Project[]>(url);
 	}
 
 	/**
@@ -31,9 +28,6 @@ export class ProjectService {
 	 */
 	findInactiveProjects(): Observable<Project[]> {
 		const url: string = `${this._baseUrl}/projects/get_all_projects/Inactivo`;
-		const headers = new HttpHeaders()
-			.set('Accept', 'application/json')
-			.set('access_token', 'token');
-		return this.httpClient.get<Project[]>(url, { headers });
+		return this.httpClient.get<Project[]>(url);
 	}
 }
