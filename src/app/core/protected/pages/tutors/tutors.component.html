@@ -1,1 +1,10 @@
-<p>tutors works!</p>
+<h2 class="text-center">Listado de tutores</h2>
+
+<!-- Proyectos y estudiantes Inicio -->
+<app-dynamic-table
+	[data]="allTutors"
+	[headers]="tutorHheaders"
+	[filter]="true"
+>
+</app-dynamic-table>
+

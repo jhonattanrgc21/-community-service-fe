@@ -5,7 +5,7 @@ import { TutorsComponent } from './tutors.component';
 const routes: Routes = [{ path: '', component: TutorsComponent }];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+	imports: [RouterModule.forChild(routes)],
+	exports: [RouterModule],
 })
-export class TutorsRoutingModule { }
+export class TutorsRoutingModule {}

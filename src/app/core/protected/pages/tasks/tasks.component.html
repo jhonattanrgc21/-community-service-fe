@@ -1,1 +1,25 @@
-<p>tasks works!</p>
+<h2 class="text-center">Listado de tareas</h2>
+
+<mat-tab-group mat-align-tabs="start">
+	<!-- Proyectos y estudiantes Inicio -->
+	<mat-tab label="Por proyectos y estudiantes">
+		<app-dynamic-table
+			[data]="allTasks"
+			[headers]="allTaskHeaders"
+			[filter]="true"
+		>
+		</app-dynamic-table>
+	</mat-tab>
+	<!-- Proyectos y estudiantes Fin -->
+
+	<!-- Tutor Inicio -->
+	<mat-tab label="Por tutor">
+		<app-dynamic-table
+			[data]="tutorTasks"
+			[headers]="tutorTaskHeaders"
+			[filter]="true"
+		>
+		</app-dynamic-table>
+	</mat-tab>
+	<!-- Tutor Fin -->
+</mat-tab-group>
