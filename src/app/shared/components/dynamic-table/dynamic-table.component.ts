@@ -34,6 +34,9 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 			this.tableData && this.tableData.length > 0
 				? Object.keys(this.tableData[0])
 				: [];
+
+		// Eliminando la columna ID
+		this.tableCols.splice(0, 1);
 	}
 
 	ngAfterViewInit() {

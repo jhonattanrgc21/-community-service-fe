@@ -1,5 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { Student } from './Interfaces/students.interface';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatTabGroup } from '@angular/material/tabs';
+import {
+	ApprovedStudent,
+	AssignedStudent,
+	Student,
+} from './Interfaces/students.interface';
+import { StudentsService } from './services/students.service';
 
 @Component({
 	selector: 'app-students',
@@ -7,621 +13,127 @@ import { Student } from './Interfaces/students.interface';
 	styleUrls: ['./students.component.scss'],
 })
 export class StudentsComponent implements OnInit {
+	@ViewChild(MatTabGroup) matTabGroup: any;
+
 	// Lista de datos par las tablas
-	activeStudents: Student[] = [
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-		},
-	];
-
-	inactiveStudents: Student[] = [
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 50,
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 70,
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			total_hours: 90,
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 30,
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			total_hours: 50,
-		},
-	];
-
-	approvedStudents: Student[] = [
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 20,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 20,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 20,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 20,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Jhonattan',
-			last_name: 'Garcia',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 70,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Angela',
-			last_name: 'Torrealba',
-			identification: 5651132,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 90,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Luis',
-			last_name: 'Sierra',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 20,
-			date_approval: '3-09-2022',
-		},
-		{
-			first_name: 'Leonel',
-			last_name: 'Loyo',
-			identification: 12345678,
-			career: 'Computacion',
-			project: 'Sistema de SC',
-			total_hours: 50,
-			date_approval: '3-09-2022',
-		},
-	];
+	activeStudents: Student[] = [];
+	inactiveStudents: Student[] = [];
+	approvedStudents: ApprovedStudent[] = [];
+	assignedStudents: AssignedStudent[] = [];
+	unassignedStudents: Student[] = [];
 
 	// Lista de Headers
 	activeStudentHeaders: string[] = [
+		'Cedula',
 		'Nombre',
 		'Apellido',
-		'Cedula',
 		'Carrera',
-		'Proyecto',
 		'Horas',
 	];
 
 	inactiveStudentHeaders: string[] = [
+		'Cedula',
 		'Nombre',
 		'Apellido',
-		'Cedula',
 		'Carrera',
 		'Horas',
 	];
 
 	approvedStudentHeaders: string[] = [
+		'Cedula',
 		'Nombre',
 		'Apellido',
-		'Cedula',
 		'Carrera',
-		'Proyecto',
 		'Horas',
+		'Proyecto',
 		'Fecha de aprobación',
 	];
 
-	constructor() {}
+	assignedStudentHeaders: string[] = [
+		'Cedula',
+		'Nombre',
+		'Apellido',
+		'Carrera',
+		'Proyecto',
+		'Horas',
+	];
 
-	ngOnInit(): void {}
+	unassignedStudentHeaders: string[] = [
+		'Cedula',
+		'Nombre',
+		'Apellido',
+		'Carrera',
+		'Horas',
+	];
+
+	constructor(private studenstServices: StudentsService) {}
+
+	ngOnInit(): void {
+		this.onActiveStudents();
+	}
+
+	handleTabChange() {
+		switch (this.matTabGroup.selectedIndex) {
+			case 0:
+				this.onActiveStudents();
+				break;
+			case 1:
+				this.onInactiveStudents();
+				break;
+			case 2:
+				this.onApprovedStudents();
+				break;
+			case 3:
+				this.onAssignedStudents();
+				break;
+			case 4:
+				this.onUnassignedStudents();
+				break;
+		}
+	}
+
+	onActiveStudents(): void {
+		// Obteniendo la lista de estudiantes activos
+		this.studenstServices
+			.getActiveStudents()
+			.subscribe((res: Student[]) => {
+				this.activeStudents = res;
+			});
+	}
+
+	onInactiveStudents(): void {
+		// Obteniendo la lista de estudiantes inactivos
+		this.studenstServices
+			.getInactiveStudents()
+			.subscribe((res: Student[]) => {
+				this.inactiveStudents = res;
+			});
+	}
+
+	onApprovedStudents(): void {
+		// Obteniendo la lista de estudiantes aprobados
+		this.studenstServices
+			.getApprovedStudents()
+			.subscribe((res: ApprovedStudent[]) => {
+				this.approvedStudents = res;
+			});
+	}
+
+	onAssignedStudents(): void {
+		// Obteniendo la lista de estudiantes asignados a un proyecto
+		this.studenstServices
+			.getAssignedStudents()
+			.subscribe((res: AssignedStudent[]) => {
+				this.assignedStudents = res;
+			});
+	}
+
+	onUnassignedStudents(): void {
+		// Obteniendo la lista de estudiantes no asignados a un proyecto
+		this.studenstServices
+			.getUnassignedStudents()
+			.subscribe((res: Student[]) => {
+				this.unassignedStudents = res;
+			});
+	}
 }

@@ -1,10 +1,19 @@
 export interface Student {
-	id?: number;
+	id: number;
+	identification: string;
 	first_name: string;
 	last_name: string;
-	identification: number;
-	career?: any;
+	/*email: string;
+	phone: string;*/
+	career: string;
 	total_hours: number;
-	project?: any;
-	date_approval?: string;
 }
+
+export interface AssignedStudent extends Student{
+	project: string;
+}
+export interface ApprovedStudent extends AssignedStudent {
+	date_approval: string;
+};
+
+

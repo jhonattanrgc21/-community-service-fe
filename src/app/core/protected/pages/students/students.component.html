@@ -1,36 +1,70 @@
 <h2 class="text-center">Listado de estudiantes</h2>
 
-<mat-tab-group mat-align-tabs="start">
+<mat-tab-group (selectedTabChange)="handleTabChange()" mat-align-tabs="start">
 	<!-- Estudiantes Activos Inicio -->
 	<mat-tab label="Activos">
-		<app-dynamic-table
-			[data]="activeStudents"
-			[headers]="activeStudentHeaders"
-			[filter]="true"
-		>
-		</app-dynamic-table>
+		<ng-container *ngIf="activeStudents.length > 0">
+			<app-dynamic-table
+				[data]="activeStudents"
+				[headers]="activeStudentHeaders"
+				[filter]="true"
+			>
+			</app-dynamic-table>
+		</ng-container>
 	</mat-tab>
 	<!-- Estudiantes Activos Fin -->
 
 	<!-- Estudiantes Inactivos Inicio -->
 	<mat-tab label="Inactivos">
-		<app-dynamic-table
-			[data]="inactiveStudents"
-			[headers]="inactiveStudentHeaders"
-			[filter]="true"
-		>
-		</app-dynamic-table>
+		<ng-container *ngIf="inactiveStudents.length > 0">
+			<app-dynamic-table
+				[data]="inactiveStudents"
+				[headers]="inactiveStudentHeaders"
+				[filter]="true"
+			>
+			</app-dynamic-table>
+		</ng-container>
 	</mat-tab>
 	<!-- Estudiantes Inctivos Fin -->
 
 	<!-- Estudiantes Aprobados Inicio -->
 	<mat-tab label="Aprobados">
-		<app-dynamic-table
-			[data]="approvedStudents"
-			[headers]="approvedStudentHeaders"
-			[filter]="true"
-		>
-		</app-dynamic-table>
+		<ng-container *ngIf="approvedStudents.length > 0">
+			<app-dynamic-table
+				[data]="approvedStudents"
+				[headers]="approvedStudentHeaders"
+				[filter]="true"
+			>
+			</app-dynamic-table>
+		</ng-container>
 	</mat-tab>
 	<!-- Estudiantes Aprobados Fin -->
+
+	<!-- Estudiantes asignados a un proyecto Inicio -->
+	<mat-tab (click)="onAssignedStudents()" label="Asignados a un proyecto" >
+		<ng-container *ngIf="assignedStudents.length > 0">
+			<app-dynamic-table
+				[data]="assignedStudents"
+				[headers]="assignedStudentHeaders"
+				[filter]="true"
+			>
+			</app-dynamic-table>
+
+		</ng-container>
+	</mat-tab>
+	<!-- Estudiantes asignados a un proyecto Fin -->
+
+	<!-- Estudiantes no asignados a un proyecto Inicio -->
+	<mat-tab label="No asignados a un proyecto">
+		<ng-container *ngIf="unassignedStudents.length > 0">
+			<app-dynamic-table
+				[data]="unassignedStudents"
+				[headers]="unassignedStudentHeaders"
+				[filter]="true"
+			>
+			</app-dynamic-table>
+
+		</ng-container>
+	</mat-tab>
+	<!-- Estudiantes no asignados a un proyecto Fin -->
 </mat-tab-group>
