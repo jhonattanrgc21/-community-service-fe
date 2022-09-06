@@ -1,5 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
+import { ActivatedRoute } from '@angular/router';
 import {
 	ApprovedStudent,
 	AssignedStudent,
@@ -66,10 +67,13 @@ export class StudentsComponent implements OnInit {
 		'Horas',
 	];
 
-	constructor(private studenstServices: StudentsService) {}
+	constructor(
+		private studenstServices: StudentsService,
+		private _activatedRoute: ActivatedRoute
+	) {}
 
 	ngOnInit(): void {
-		this.onActiveStudents();
+		this.activeStudents = this._activatedRoute.snapshot.data['students'];
 	}
 
 	handleTabChange() {
