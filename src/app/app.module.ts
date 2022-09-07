@@ -2,8 +2,7 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialModule } from './material.module';
-import { HttpClientModule } from "@angular/common/http"
-
+import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
@@ -12,9 +11,7 @@ import { ProtectedModule } from './core/protected/protected.module';
 import { AuthModule } from './core/auth/auth.module';
 
 @NgModule({
-	declarations: [
-		AppComponent
-	],
+	declarations: [AppComponent],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
@@ -24,9 +21,9 @@ import { AuthModule } from './core/auth/auth.module';
 		MaterialModule,
 		SharedModule,
 		AuthModule,
-		ProtectedModule
+		ProtectedModule,
 	],
 	providers: [],
-	bootstrap: [AppComponent]
+	bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

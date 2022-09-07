@@ -10,7 +10,7 @@ import { AuthService } from 'src/app/core/auth/services/auth.service';
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
-	constructor(private authService: AuthService) {}
+	constructor() {}
 
 	intercept(
 		req: HttpRequest<any>,
@@ -18,7 +18,7 @@ export class AppInterceptor implements HttpInterceptor {
 	): Observable<HttpEvent<any>> {
 		const newReq = req.clone({
 			setHeaders: {
-				Authorization: 'Bearer ' + this.authService.user.token,
+				Authorization: 'Bearer ' + localStorage.getItem('token'),
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
 			},

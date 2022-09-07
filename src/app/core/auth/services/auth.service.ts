@@ -66,10 +66,7 @@ export class AuthService {
 			tap((res) => {
 				if (res.ok) {
 					// Elimino datos al localStorage
-					localStorage.removeItem('token');
-					localStorage.removeItem('role');
-					localStorage.removeItem('name');
-					localStorage.removeItem('document');
+					localStorage.clear();
 					this._user = {};
 				}
 			}),
@@ -84,13 +81,8 @@ export class AuthService {
 
 	validateToken(): Observable<boolean> {
 		// TODO: llamar al endpoint correcto para hacer el refresh-token
-		const url: string = `${this.baseUrl}/`;
-		const headers = new HttpHeaders().set(
-			'x-token',
-			localStorage.getItem('token') || ''
-		);
-
-		return this.httpClient.get<AuthResponse>(url, { headers }).pipe(
+		const url: string = `${this.baseUrl}/refresh-token`;
+		return this.httpClient.get<AuthResponse>(url).pipe(
 			map((res: AuthResponse) => {
 				// Agregando datos al localStorage
 				localStorage.setItem('token', res.token!);
