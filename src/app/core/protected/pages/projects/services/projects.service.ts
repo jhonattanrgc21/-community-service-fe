@@ -11,15 +11,15 @@ import { Project } from '../../../interfaces/projects.interface';
 export class ProjectService {
 	private _baseUrl: string = environment.baseUrlProjects;
 
-	constructor(private httpClient: HttpClient) {}
+	constructor(private _httpClient: HttpClient) {}
 
 	/**
 	 * @description Busca todos los proyectos con estatus activo
 	 * @returns Observable<Project[]>
 	 */
-	findAallActiveProjects(): Observable<Project[]> {
+	findAllActiveProjects(): Observable<Project[]> {
 		const url: string = `${this._baseUrl}/projects/get_active_projects`;
-		return this.httpClient.get<Project[]>(url);
+		return this._httpClient.get<Project[]>(url);
 	}
 
 	/**
@@ -28,6 +28,6 @@ export class ProjectService {
 	 */
 	findInactiveProjects(): Observable<Project[]> {
 		const url: string = `${this._baseUrl}/projects/get_all_projects/Inactivo`;
-		return this.httpClient.get<Project[]>(url);
+		return this._httpClient.get<Project[]>(url);
 	}
 }

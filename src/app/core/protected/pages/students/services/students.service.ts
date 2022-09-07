@@ -9,30 +9,30 @@ import { ApprovedStudent, AssignedStudent, Student } from '../Interfaces/student
 })
 export class StudentsService {
 	private baseUrl: string = `${environment.baseUrlProjects}/users/get_students`;
-	constructor(private httpClient: HttpClient) {}
+	constructor(private _httpClient: HttpClient) {}
 
-	getActiveStudents(): Observable<Student[]> {
+	findActiveStudents(): Observable<Student[]> {
 		const url: string = `${this.baseUrl}/Activo`;
-		return this.httpClient.get<Student[]>(url);
+		return this._httpClient.get<Student[]>(url);
 	}
 
-	getInactiveStudents(): Observable<Student[]> {
+	findInactiveStudents(): Observable<Student[]> {
 		const url: string = `${this.baseUrl}/Inactivo`;
-		return this.httpClient.get<Student[]>(url);
+		return this._httpClient.get<Student[]>(url);
 	}
 
-	getAssignedStudents(): Observable<AssignedStudent[]> {
+	findAssignedStudents(): Observable<AssignedStudent[]> {
 		const url: string = `${this.baseUrl}/Asignado`;
-		return this.httpClient.get<AssignedStudent[]>(url);
+		return this._httpClient.get<AssignedStudent[]>(url);
 	}
 
-	getUnassignedStudents(): Observable<Student[]> {
+	findUnassignedStudents(): Observable<Student[]> {
 		const url: string = `${this.baseUrl}/No-asignado`;
-		return this.httpClient.get<Student[]>(url);
+		return this._httpClient.get<Student[]>(url);
 	}
 
-	getApprovedStudents(): Observable<ApprovedStudent[]> {
+	findApprovedStudents(): Observable<ApprovedStudent[]> {
 		const url: string = `${this.baseUrl}/Aprobado`;
-		return this.httpClient.get<ApprovedStudent[]>(url);
+		return this._httpClient.get<ApprovedStudent[]>(url);
 	}
 }

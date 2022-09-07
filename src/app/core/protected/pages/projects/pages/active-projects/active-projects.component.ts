@@ -12,14 +12,14 @@ export class ActiveProjectsComponent implements OnInit {
 
 	activeProjects: Project[] = [];
 
-	constructor(private projectsService: ProjectService) { }
+	constructor(private _projectsService: ProjectService) { }
 
 	ngOnInit(): void {
 		this.getActiveProjects();
 	}
 
 	getActiveProjects() {
-		this.projectsService.findAallActiveProjects().subscribe(response => {
+		this._projectsService.findAllActiveProjects().subscribe(response => {
 			this.activeProjects = response;
 		})
 	}

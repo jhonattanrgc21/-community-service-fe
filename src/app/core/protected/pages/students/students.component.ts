@@ -68,7 +68,7 @@ export class StudentsComponent implements OnInit {
 	];
 
 	constructor(
-		private studenstServices: StudentsService,
+		private _studenstServices: StudentsService,
 		private _activatedRoute: ActivatedRoute
 	) {}
 
@@ -98,8 +98,8 @@ export class StudentsComponent implements OnInit {
 
 	onActiveStudents(): void {
 		// Obteniendo la lista de estudiantes activos
-		this.studenstServices
-			.getActiveStudents()
+		this._studenstServices
+			.findActiveStudents()
 			.subscribe((res: Student[]) => {
 				this.activeStudents = res;
 			});
@@ -107,8 +107,8 @@ export class StudentsComponent implements OnInit {
 
 	onInactiveStudents(): void {
 		// Obteniendo la lista de estudiantes inactivos
-		this.studenstServices
-			.getInactiveStudents()
+		this._studenstServices
+			.findInactiveStudents()
 			.subscribe((res: Student[]) => {
 				this.inactiveStudents = res;
 			});
@@ -116,8 +116,8 @@ export class StudentsComponent implements OnInit {
 
 	onApprovedStudents(): void {
 		// Obteniendo la lista de estudiantes aprobados
-		this.studenstServices
-			.getApprovedStudents()
+		this._studenstServices
+			.findApprovedStudents()
 			.subscribe((res: ApprovedStudent[]) => {
 				this.approvedStudents = res;
 			});
@@ -125,8 +125,8 @@ export class StudentsComponent implements OnInit {
 
 	onAssignedStudents(): void {
 		// Obteniendo la lista de estudiantes asignados a un proyecto
-		this.studenstServices
-			.getAssignedStudents()
+		this._studenstServices
+			.findAssignedStudents()
 			.subscribe((res: AssignedStudent[]) => {
 				this.assignedStudents = res;
 			});
@@ -134,8 +134,8 @@ export class StudentsComponent implements OnInit {
 
 	onUnassignedStudents(): void {
 		// Obteniendo la lista de estudiantes no asignados a un proyecto
-		this.studenstServices
-			.getUnassignedStudents()
+		this._studenstServices
+			.findUnassignedStudents()
 			.subscribe((res: Student[]) => {
 				this.unassignedStudents = res;
 			});

@@ -10,14 +10,14 @@ import { ProjectService } from '../../services/projects.service';
 export class InactiveProjectsComponent implements OnInit {
 	inactiveProjects: Project[] = [];
 
-	constructor(private projectsService: ProjectService) {}
+	constructor(private _projectsService: ProjectService) {}
 
 	ngOnInit(): void {
 		this.getInactiveProjects();
 	}
 
 	getInactiveProjects() {
-		this.projectsService.findInactiveProjects().subscribe((response) => {
+		this._projectsService.findInactiveProjects().subscribe((response) => {
 			this.inactiveProjects = response;
 		});
 	}

@@ -11,7 +11,7 @@ export class StudentsResolver implements Resolve<any> {
 	/**
 	 * Constructor
 	 */
-	constructor(private studentsService: StudentsService) {}
+	constructor(private _studentsService: StudentsService) {}
 
 	/**
 	 * Resolver
@@ -20,6 +20,6 @@ export class StudentsResolver implements Resolve<any> {
 	 * @param state
 	 */
 	resolve(): Observable<Student[]> {
-		return this.studentsService.getActiveStudents();
+		return this._studentsService.findActiveStudents();
 	}
 }
