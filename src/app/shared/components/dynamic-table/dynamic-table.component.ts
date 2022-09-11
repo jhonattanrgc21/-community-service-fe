@@ -29,6 +29,12 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 	constructor() {}
 
 	ngOnInit(): void {
+		// Eliminando campos innecesarios
+		this.tableData = this.tableData.map(item => {
+			delete item.project_id;
+			return item
+		})
+
 		this.dataSource.data = this.tableData;
 		this.tableCols =
 			this.tableData && this.tableData.length > 0

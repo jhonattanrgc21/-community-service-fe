@@ -23,7 +23,11 @@ export class SharedComponent {
 		private breakpointObserver: BreakpointObserver,
 		private authService: AuthService,
 		private router: Router
-	) {}
+	) { }
+
+	onGoProfile(): void{
+		this.router.navigateByUrl('/layout/profile');
+	}
 
 	onLogout() {
 		this.authService.logout().subscribe((ok) => {

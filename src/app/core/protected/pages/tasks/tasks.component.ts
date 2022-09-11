@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { Task, TutorTask } from './interfaces/tasks.iterface';
+import { TasksService } from './services/tasks.service';
 @Component({
 	selector: 'app-tasks',
 	templateUrl: './tasks.component.html',
@@ -7,88 +9,52 @@ import { Task, TutorTask } from './interfaces/tasks.iterface';
 })
 export class TasksComponent implements OnInit {
 	// Listas de tareas
-	allTasks: Task[] = [
-		{
-			name: 'Tarea 1',
-			description: 'Prueba 1',
-			date_start: '4/09/2022',
-			identification_tutor: '123456',
-			tutor: 'Usuario Aadmin',
-			hours: 12,
-			status: 'En progreso',
-		},
-		{
-			name: 'Tarea 2',
-			description: 'Prueba 2',
-			date_start: '4/09/2022',
-			identification_tutor: '123456',
-			tutor: 'Usuario Aadmin',
-			hours: 12,
-			status: 'En progreso',
-		},
-		{
-			name: 'Tarea 3',
-			description: 'Prueba 3',
-			date_start: '4/09/2022',
-			identification_tutor: '123456',
-			tutor: 'Usuario Aadmin',
-			hours: 12,
-			status: 'En progreso',
-		},
-	];
-
-	tutorTasks: TutorTask[] = [
-		{
-			name: 'Tarea 1',
-			description: 'Prueba 1',
-			date_start: '4/09/2022',
-			identification_responsible: '123456',
-			responsible: 'Usuario Aadmin',
-			hours: 12,
-			status: 'En progreso',
-		},
-		{
-			name: 'Tarea 2',
-			description: 'Prueba 2',
-			date_start: '4/09/2022',
-			identification_responsible: '123456',
-			responsible: 'Usuario Aadmin',
-			hours: 12,
-			status: 'En progreso',
-		},
-		{
-			name: 'Tarea 3',
-			description: 'Prueba 3',
-			date_start: '4/09/2022',
-			identification_responsible: '123456',
-			responsible: 'Usuario Aadmin',
-			hours: 12,
-			status: 'En progreso',
-		},
-	];
+	tasksList: Task[] | TutorTask[] = [];
 
 	// Listas de headers
-	allTaskHeaders: string[] = [
-		'Nombre',
+	headersList: string[] = [];
 
-		'Descripción',
-		'Fecha de inicio',
-		'Cedula del tutor',
-		'Tutor',
-		'Horas estimadas',
-		'Estatus',
-	];
+	constructor(
+		private _tasksSrvices: TasksService,
+		private _authService: AuthService
+	) {}
 
-	tutorTaskHeaders: string[] = [
-		'Nombre',
-		'Descripción',
-		'Fecha de inicio',
-		'Cedula del responsable',
-		'Responsable',
-		'Horas estimadas',
-		'Estatus',
-	];
-	constructor() {}
+	ngOnInit(): void {
+		if (this._authService.user.role == 'student') {
+			this._tasksSrvices
+				.findAllTaskByStudent()
+				.subscribe((res: Task[]) => {
+					this.tasksList = res;
+					this.headersList = [
+						'Nombre',
+						'Descripción',
+						'C.I tutor',
+						'Nombre del tutor',
+						'Fecha de inicio',
+						'Fecha de finalización',
+						'Horas',
+						'Estatus',
+					];
+				});
+		}
 
-	ngOnInit(): void {}
+		if (this._authService.user.role == 'tutor') {
+			this._tasksSrvices
+				.findAllTaskByTutor()
+				.subscribe((res: TutorTask[]) => {
+					this.tasksList = res;
+					this.headersList = [
+						'Nombre',
+						'Descripción',
+						'C.I estudiante',
+						'Nombre del estudiante',
+						'Proyecto',
+						'Horas',
+						'Fecha de inicio',
+						'Fecha de finalización',
+						'Estatus',
+					];
+				});
+		}
+	}
 }

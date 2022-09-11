@@ -1,21 +1,25 @@
 export interface Task {
-	//id: number;
+	id: number;
 	name: string;
 	description: string;
+	tutor_indentification: string;
+	tutor_name: string;
 	date_start: string;
-	tutor: string;
-	identification_tutor: string;
-	hours: number;
+	date_end: string;
+	cost: number;
 	status: string;
 }
 
 export interface TutorTask {
-	//id: number;
+	id: number;
 	name: string;
 	description: string;
+	student_indentification: string;
+	student_name: string;
+	project_id: number,
+    project_name: string,
+	cost: number;
 	date_start: string;
-	responsible: string;
-	identification_responsible: string;
-	hours: number;
+	date_end: string;
 	status: string;
 }

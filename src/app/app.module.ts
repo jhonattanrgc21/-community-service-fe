@@ -9,6 +9,7 @@ import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProtectedModule } from './core/protected/protected.module';
 import { AuthModule } from './core/auth/auth.module';
+import { DatePipe } from '@angular/common';
 
 @NgModule({
 	declarations: [AppComponent],
@@ -23,7 +24,7 @@ import { AuthModule } from './core/auth/auth.module';
 		AuthModule,
 		ProtectedModule,
 	],
-	providers: [],
+	providers: [ DatePipe],
 	bootstrap: [AppComponent],
 })
 export class AppModule {}

@@ -19,7 +19,7 @@ const routes: Routes = [
 				component: ForgotPasswordComponent
 			},
 			{
-				path: 'change-password',
+				path: 'change-password/:token',
 				component: ChangePasswordComponent
 			},
 			{

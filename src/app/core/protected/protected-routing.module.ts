@@ -13,6 +13,7 @@ const routes: Routes = [
 			{ path: 'students', loadChildren: () => import('./pages/students/students.module').then(m => m.StudentsModule) },
 			{ path: 'tasks', loadChildren: () => import('./pages/tasks/tasks.module').then(m => m.TasksModule) },
 			{ path: 'tutors', loadChildren: () => import('./pages/tutors/tutors.module').then(m => m.TutorsModule) },
+			{ path: 'profile', loadChildren: () => import('./pages/profile/profile.module').then(m => m.ProfileModule) },
 			{
 				path: '**',
 				redirectTo: 'home'

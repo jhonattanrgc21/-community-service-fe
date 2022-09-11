@@ -1,0 +1,314 @@
+<div class="row">
+	<!-- Menu de configuracion Inicio -->
+	<div class="col-12 col-md-3 mb-4">
+		<mat-selection-list #options [multiple]="false">
+			<mat-list-option
+				*ngFor="let option of settings"
+				(click)="changeOption(option)"
+				[selected]="option.title == 'General'"
+			>
+				{{ option.title }}
+
+				<mat-divider></mat-divider>
+			</mat-list-option>
+		</mat-selection-list>
+	</div>
+	<!-- Menu de configuracion Fin -->
+
+	<!-- Contenido dinamico Inicio -->
+	<div class="col-12 col-md-9" [ngSwitch]="selectedOption">
+		<mat-card>
+			<section *ngSwitchCase="1">
+				<mat-card-title>General</mat-card-title>
+				<mat-divider></mat-divider>
+
+				<form [formGroup]="generalForm" (ngSubmit)="onSaveGeneral()" class="mt-3">
+					<div class="row d-flex flex-wrap">
+						<!-------------- Nombre Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>badge</mat-icon>
+									Nombre
+								</mat-label>
+								<input
+									type="text"
+									matInput
+									formControlName="first_name"
+									placeholder="Ingrese su nombre"
+								/>
+								<mat-error
+									*ngIf="
+										isNotValid(generalForm, 'first_name')
+									"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!-------------- Nombre input Fin -------------->
+
+						<!-------------- Apellido Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>badge</mat-icon>
+									Apellido
+								</mat-label>
+								<input
+									type="text"
+									matInput
+									formControlName="last_name"
+									placeholder="Ingrese su apellido"
+								/>
+								<mat-error
+									*ngIf="isNotValid(generalForm, 'last_name')"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!-------------- Apellido Fin -------------->
+
+						<!-------------- Cedula Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>dns</mat-icon>
+									Cedula
+								</mat-label>
+								<input
+									type="text"
+									matInput
+									formControlName="identification"
+									placeholder="Ingrese su cedula"
+									readonly=""
+								/>
+								<mat-error
+									*ngIf="
+										isNotValid(
+											generalForm,
+											'identification'
+										)
+									"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!-------------- Cedula Fin -------------->
+
+						<!-------------- Teléfono Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix
+										>phone_in_talk_watchface_indicator</mat-icon
+									>
+									Teléfono
+								</mat-label>
+								<input
+									type="text"
+									matInput
+									formControlName="phone"
+									placeholder="Ingrese su teléfono"
+								/>
+								<mat-error
+									*ngIf="isNotValid(generalForm, 'phone')"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!-------------- Teléfono Fin -------------->
+
+						<!-------------- Correo Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>email</mat-icon>
+									Correo Electr&oacute;nico
+								</mat-label>
+								<input
+									type="email"
+									matInput
+									formControlName="email"
+									placeholder="Ingrese su correo"
+								/>
+								<mat-error
+									*ngIf="isNotValid(generalForm, 'email')"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!-------------- Correo Fin -------------->
+
+						<!-------------- Username Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>badge</mat-icon>
+									Username
+								</mat-label>
+								<input
+									type="text"
+									matInput
+									formControlName="username"
+									placeholder="Ingrese su nombre"
+								/>
+								<mat-error
+									*ngIf="isNotValid(generalForm, 'username')"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!-------------- Username Fin -------------->
+
+						<!-------------- Carrera input Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>list</mat-icon>
+									Carrera
+								</mat-label>
+
+								<mat-select formControlName="career">
+									<mat-option
+										*ngFor="let career of careers"
+										[value]="career.id"
+									>
+										{{ career.name }}
+									</mat-option>
+								</mat-select>
+								<mat-error
+									*ngIf="isNotValid(generalForm, 'career')"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!-------------- Carrera input Fin -------------->
+					</div>
+
+					<div class="d-flex justify-content-center">
+						<button
+							type="submit"
+							[disabled]="generalForm.invalid"
+							class="btn btn-primary"
+						>
+							<span
+								class="d-flex justify-content-between align-items-center"
+							>
+								<mat-icon style="margin-right: 5px"
+									>save</mat-icon
+								>
+								Guardar
+							</span>
+						</button>
+					</div>
+				</form>
+			</section>
+
+			<section *ngSwitchCase="2">
+				<mat-card-title>Cambio de contraseña</mat-card-title>
+				<mat-divider></mat-divider>
+
+				<form [formGroup]="changePasswordForm" (ngSubmit)="onSaveChangePassword()" class="mt-3">
+					<div class="row d-flex flex-wrap">
+						<!-------------- Contraseña actual Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>key</mat-icon>
+									Contraseña actual
+								</mat-label>
+								<input
+									type="password"
+									matInput
+									formControlName="current_password"
+									placeholder="Ingrese su contraseña actual"
+								/>
+								<mat-error
+									*ngIf="
+										isNotValid(changePasswordForm, 'current_password')
+									"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!--------------  Contraseña actual Fin -------------->
+
+						<!-------------- Nueva contraseña Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>key</mat-icon>
+									Nueva contraseña
+								</mat-label>
+								<input
+									type="password"
+									matInput
+									formControlName="new_password"
+									placeholder="Ingrese su nueva contraseña"
+								/>
+								<mat-error
+									*ngIf="
+										isNotValid(changePasswordForm, 'new_password')
+									"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!--------------  Nueva contraseña Fin -------------->
+
+						<!-------------- Nueva contraseña Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>key</mat-icon>
+									Confirme su nueva contraseña
+								</mat-label>
+								<input
+									type="password"
+									matInput
+									formControlName="confirm_new_password"
+									placeholder="Vuelva a ingresar su nueva contraseña"
+								/>
+								<mat-error
+									*ngIf="
+										isNotValid(changePasswordForm, 'confirm_new_password')
+									"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!--------------  Nueva contraseña Fin -------------->
+					</div>
+
+					<div class="d-flex justify-content-center">
+						<button
+							type="submit"
+							[disabled]="changePasswordForm.invalid"
+							class="btn btn-primary"
+						>
+							<span
+								class="d-flex justify-content-between align-items-center"
+							>
+								<mat-icon style="margin-right: 5px"
+									>save</mat-icon
+								>
+								Guardar
+							</span>
+						</button>
+					</div>
+				</form>
+			</section>
+		</mat-card>
+	</div>
+	<!-- Contenido dinamico Fin -->
+</div>
