@@ -31,7 +31,7 @@ export class ProfileComponent implements OnInit {
 		last_name: ['', [Validators.required]],
 		identification: ['', { disable: true }, [Validators.required]],
 		phone: ['', [Validators.required]],
-		email: ['', [Validators.required]],
+		email: ['', [Validators.required, Validators.email]],
 		username: ['', { disable: true }, [Validators.required]],
 		career: ['', [Validators.required]],
 	});

@@ -20,3 +20,14 @@ a {
 	-o-transition: all 0.4s;
 	-moz-transition: all 0.4s;
 }
+
+.return-view {
+	cursor: pointer;
+	&:hover{
+		color: #0075be;
+		-webkit-transition: all 0.3s ease-in-out;
+		-moz-transition: all 0.3s ease-in-out;
+		-o-transition: all 0.3s ease-in-out;
+		transition: all 0.3s ease-in-out;
+	}
+}

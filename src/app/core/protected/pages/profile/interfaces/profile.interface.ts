@@ -6,7 +6,7 @@ export interface GeneralProfile{
 	phone: string;
 	email: string;
 	username: string;
-	career: number;
+	career: string;
 }
 
 export interface ChangePassowrd {

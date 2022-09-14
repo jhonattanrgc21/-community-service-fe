@@ -6,7 +6,6 @@ import {
 	HttpRequest,
 } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { AuthService } from 'src/app/core/auth/services/auth.service';
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
@@ -19,6 +18,8 @@ export class AppInterceptor implements HttpInterceptor {
 		const newReq = req.clone({
 			setHeaders: {
 				Authorization: 'Bearer ' + localStorage.getItem('token'),
+				access_token:
+					'eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJhZHVyYW4iLCJyb2xlcyI6IlJPTEVfR09EIiwiZXhwIjoxNjYxOTYyODQ2LCJpYXQiOjE2NjE5NTcwODZ9.qGeESQPLr64BzFrNYXmppSIXmUVADFbiA4niJZf38SkHGQzcalmHp2C44971G2dnpTRO3qcuitaVeab2p8YWEw',
 				'Content-Type': 'application/json',
 				Accept: 'application/json',
 			},

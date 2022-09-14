@@ -1,6 +1,6 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, tap } from 'rxjs';
+import { catchError, map, Observable, of, tap, debounceTime } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthLogin, AuthResponse, User } from '../interfaces/auth.interface';
 
@@ -36,13 +36,11 @@ export class AuthService {
 					// Agregando datos al localStorage
 					localStorage.setItem('token', res.token!);
 					localStorage.setItem('role', res.role!);
-					localStorage.setItem('name', res.name!);
 					localStorage.setItem(
 						'document',
 						res.identification_document!
 					);
 					this._user = {
-						name: res.name!,
 						uuid: res.uuid!,
 						identification_document: res.identification_document!,
 						token: res.token!,
@@ -80,17 +78,14 @@ export class AuthService {
 	}
 
 	validateToken(): Observable<boolean> {
-		// TODO: llamar al endpoint correcto para hacer el refresh-token
 		const url: string = `${this.baseUrl}/refresh-token`;
 		return this.httpClient.get<AuthResponse>(url).pipe(
 			map((res: AuthResponse) => {
 				// Agregando datos al localStorage
 				localStorage.setItem('token', res.token!);
 				localStorage.setItem('role', res.role!);
-				localStorage.setItem('name', res.name!);
 				localStorage.setItem('document', res.identification_document!);
 				this._user = {
-					name: res.name!,
 					uuid: res.uuid!,
 					identification_document: res.identification_document!,
 					token: res.token!,

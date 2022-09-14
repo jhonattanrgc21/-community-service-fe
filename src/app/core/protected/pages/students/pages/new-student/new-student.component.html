@@ -1,11 +1,13 @@
-<div class="row">
+<mat-icon routerLink="../" class="return-view">arrow_back</mat-icon>
+
+<div class="mt-2 row">
 	<!-- Menu de configuracion Inicio -->
 	<div class="col-12 col-md-3 mb-4">
 		<mat-selection-list #options [multiple]="false">
 			<mat-list-option
 				*ngFor="let option of settings"
 				(click)="changeOption(option)"
-				[selected]="option.title == 'General'"
+				[selected]="option.title == 'Registrar un studiante'"
 			>
 				{{ option.title }}
 
@@ -18,11 +20,16 @@
 	<!-- Contenido dinamico Inicio -->
 	<div class="col-12 col-md-9" [ngSwitch]="selectedOption">
 		<mat-card>
+			<!-- Registrar un estudiante Inicio -->
 			<section *ngSwitchCase="1">
-				<mat-card-title>General</mat-card-title>
+				<mat-card-title>Registrar un estudiante</mat-card-title>
 				<mat-divider></mat-divider>
 
-				<form [formGroup]="generalForm" (ngSubmit)="onSaveGeneral()" class="mt-3">
+				<form
+					[formGroup]="generalForm"
+					(ngSubmit)="onSaveStudent()"
+					class="mt-3"
+				>
 					<div class="row d-flex flex-wrap">
 						<!-------------- Nombre Inicio -------------->
 						<div class="col-12 col-md-6">
@@ -70,18 +77,49 @@
 						</div>
 						<!-------------- Apellido Fin -------------->
 
+						<!-------------- Nacionalidad Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>badge</mat-icon>
+									Nacionalidad
+								</mat-label>
+
+								<mat-select formControlName="nationality">
+									<mat-option
+										*ngFor="
+											let nationality of nationalities
+										"
+										[value]="nationality"
+									>
+										{{ nationality }}
+									</mat-option>
+								</mat-select>
+
+								<mat-error
+									*ngIf="
+										isNotValid(generalForm, 'nationality')
+									"
+								>
+									Este campo es
+									<strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!-------------- Nacionalidad Fin -------------->
+
 						<!-------------- Cedula Inicio -------------->
 						<div class="col-12 col-md-6">
 							<mat-form-field class="text-dark mb-4 w-75">
 								<mat-label>
-									<mat-icon matPrefix>dns</mat-icon>
+									<mat-icon matPrefix>badge</mat-icon>
 									C&eacute;dula
 								</mat-label>
 								<input
 									type="text"
 									matInput
 									formControlName="identification"
-									placeholder="Ingrese su cedula"
+									placeholder="Ingrese su cédula"
 								/>
 								<mat-error
 									*ngIf="
@@ -91,11 +129,34 @@
 										)
 									"
 								>
-									Este campo es <strong>obligatorio</strong>
+									Este campo es
+									<strong>obligatorio</strong>
 								</mat-error>
 							</mat-form-field>
 						</div>
 						<!-------------- Cedula Fin -------------->
+
+						<!-------------- Correo Inicio -------------->
+						<div class="col-12 col-md-6">
+							<mat-form-field class="text-dark mb-4 w-75">
+								<mat-label>
+									<mat-icon matPrefix>email</mat-icon>
+									Correo Electr&oacute;nico
+								</mat-label>
+								<input
+									type="email"
+									matInput
+									formControlName="email"
+									placeholder="Ingrese su correo"
+								/>
+								<mat-error
+									*ngIf="isNotValid(generalForm, 'email')"
+								>
+									Este campo es <strong>obligatorio</strong>
+								</mat-error>
+							</mat-form-field>
+						</div>
+						<!-------------- Correo Fin -------------->
 
 						<!-------------- Teléfono Inicio -------------->
 						<div class="col-12 col-md-6">
@@ -120,50 +181,6 @@
 							</mat-form-field>
 						</div>
 						<!-------------- Teléfono Fin -------------->
-
-						<!-------------- Correo Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>email</mat-icon>
-									Correo Electr&oacute;nico
-								</mat-label>
-								<input
-									type="email"
-									matInput
-									formControlName="email"
-									placeholder="Ingrese su correo"
-								/>
-								<mat-error
-									*ngIf="isNotValid(generalForm, 'email')"
-								>
-									Este campo es <strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!-------------- Correo Fin -------------->
-
-						<!-------------- Username Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>badge</mat-icon>
-									Username
-								</mat-label>
-								<input
-									type="text"
-									matInput
-									formControlName="username"
-									placeholder="Ingrese su nombre"
-								/>
-								<mat-error
-									*ngIf="isNotValid(generalForm, 'username')"
-								>
-									Este campo es <strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!-------------- Username Fin -------------->
 
 						<!-------------- Carrera input Inicio -------------->
 						<div class="col-12 col-md-6">
@@ -209,104 +226,70 @@
 					</div>
 				</form>
 			</section>
+			<!-- Registrar un estudiante Fin -->
 
+			<!-- Registrar varios estudiante Inicio -->
 			<section *ngSwitchCase="2">
-				<mat-card-title>Cambio de contraseña</mat-card-title>
+				<mat-card-title>Registrar varios estudiantes</mat-card-title>
 				<mat-divider></mat-divider>
 
-				<form [formGroup]="changePasswordForm" (ngSubmit)="onSaveChangePassword()" class="mt-3">
-					<div class="row d-flex flex-wrap">
-						<!-------------- Contraseña actual Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>key</mat-icon>
-									Contraseña actual
-								</mat-label>
-								<input
-									type="password"
-									matInput
-									formControlName="current_password"
-									placeholder="Ingrese su contraseña actual"
-								/>
-								<mat-error
-									*ngIf="
-										isNotValid(changePasswordForm, 'current_password')
-									"
-								>
-									Este campo es <strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!--------------  Contraseña actual Fin -------------->
+				<p class="mt-4">
+					En esta secci&oacute;n podr&aacute; realizar una carga
+					masiva para el registro de varios estudiantes mediante un
+					archivo de excel. Por favor siga los siguientes pasos:
+				</p>
 
-						<!-------------- Nueva contraseña Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>key</mat-icon>
-									Nueva contraseña
-								</mat-label>
-								<input
-									type="password"
-									matInput
-									formControlName="new_password"
-									placeholder="Ingrese su nueva contraseña"
-								/>
-								<mat-error
-									*ngIf="
-										isNotValid(changePasswordForm, 'new_password')
-									"
-								>
-									Este campo es <strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!--------------  Nueva contraseña Fin -------------->
+				<!-- Lista de pasos para la carga masiva Inicio -->
+				<ol>
+					<li>
+						Descargue el formato de entrada:
+						<a
+							href="../../../../../../../assets/docs/registro_estudiantes.xlsx"
+							target="_blank"
+							download="registro_estudiantes.xlsx"
+							>formato para el registro de estudiantes</a
+						>.
+					</li>
+					<li>
+						Complete los campos solicitados para cada uno de los
+						estudiantes en el formato espeficiado en el paso
+						anterior.
+					</li>
+					<li>
+						Pulse el botón “Seleccionar archivo” para cargar la
+						lista de estudiantes a registrar.
+					</li>
+				</ol>
+				<!-- Lista de pasos para la carga masiva Fin -->
 
-						<!-------------- Nueva contraseña Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>key</mat-icon>
-									Confirme su nueva contraseña
-								</mat-label>
-								<input
-									type="password"
-									matInput
-									formControlName="confirm_new_password"
-									placeholder="Vuelva a ingresar su nueva contraseña"
-								/>
-								<mat-error
-									*ngIf="
-										isNotValid(changePasswordForm, 'confirm_new_password')
-									"
-								>
-									Este campo es <strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!--------------  Nueva contraseña Fin -------------->
-					</div>
+				<div class="d-flex justify-content-center">
+					<input
+						type="file"
+						(change)="onLoadExcel($event)"
+						name="fileUpload"
+						accept=".xls, .xlsx"
+					/>
+				</div>
 
-					<div class="d-flex justify-content-center">
-						<button
-							type="submit"
-							[disabled]="changePasswordForm.invalid"
-							class="btn btn-primary"
-						>
-							<span
-								class="d-flex justify-content-between align-items-center"
-							>
-								<mat-icon style="margin-right: 5px"
-									>save</mat-icon
-								>
-								Guardar
-							</span>
+				<!-- Pre-visualizacion de estudiantes a registrar Inicio -->
+				<ng-container *ngIf="newStudents.length > 0">
+					<mat-divider class="mt-4"></mat-divider>
+					<div class="mt-4 mb-2 d-flex justify-content-end">
+						<button type="button" class="btn btn-primary">
+							Confirmar registro
 						</button>
 					</div>
-				</form>
+					<h2 class="text-center m-0">Listado de estudiantes a registrar</h2>
+					<app-dynamic-table
+						[data]="newStudents"
+						[headers]="headersNewStudent"
+						[filter]="true"
+					>
+					</app-dynamic-table>
+				</ng-container>
+				<!-- Pre-visualizacion de estudiantes a registrar Fin -->
 			</section>
+			<!-- Registrar varios estudiante Fin -->
 		</mat-card>
 	</div>
 	<!-- Contenido dinamico Fin -->

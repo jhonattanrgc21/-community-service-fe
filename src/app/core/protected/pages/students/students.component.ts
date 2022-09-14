@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {
 	ApprovedStudent,
 	AssignedStudent,
@@ -25,7 +25,7 @@ export class StudentsComponent implements OnInit {
 
 	// Lista de Headers
 	activeStudentHeaders: string[] = [
-		'Cedula',
+		'Cédula',
 		'Nombre',
 		'Apellido',
 		'Carrera',
@@ -33,7 +33,7 @@ export class StudentsComponent implements OnInit {
 	];
 
 	inactiveStudentHeaders: string[] = [
-		'Cedula',
+		'Cédula',
 		'Nombre',
 		'Apellido',
 		'Carrera',
@@ -41,7 +41,7 @@ export class StudentsComponent implements OnInit {
 	];
 
 	approvedStudentHeaders: string[] = [
-		'Cedula',
+		'Cédula',
 		'Nombre',
 		'Apellido',
 		'Carrera',
@@ -51,7 +51,7 @@ export class StudentsComponent implements OnInit {
 	];
 
 	assignedStudentHeaders: string[] = [
-		'Cedula',
+		'Cédula',
 		'Nombre',
 		'Apellido',
 		'Carrera',
@@ -60,7 +60,7 @@ export class StudentsComponent implements OnInit {
 	];
 
 	unassignedStudentHeaders: string[] = [
-		'Cedula',
+		'Cédula',
 		'Nombre',
 		'Apellido',
 		'Carrera',
@@ -69,7 +69,8 @@ export class StudentsComponent implements OnInit {
 
 	constructor(
 		private _studenstServices: StudentsService,
-		private _activatedRoute: ActivatedRoute
+		private _activatedRoute: ActivatedRoute,
+		private _router: Router
 	) {}
 
 	ngOnInit(): void {
@@ -139,5 +140,9 @@ export class StudentsComponent implements OnInit {
 			.subscribe((res: Student[]) => {
 				this.unassignedStudents = res;
 			});
+	}
+
+	goToNewStudent(): void {
+		this._router.navigateByUrl('/layout/students/new-student');
 	}
 }

@@ -1,3 +1,5 @@
+import { GeneralProfile } from "../../profile/interfaces/profile.interface";
+
 export interface Student {
 	id: number;
 	identification: string;
@@ -14,4 +16,4 @@ export interface ApprovedStudent extends AssignedStudent {
 	date_approval: string;
 };
 
-
+export type NewStudent = Omit<GeneralProfile, 'username' | 'id'>;

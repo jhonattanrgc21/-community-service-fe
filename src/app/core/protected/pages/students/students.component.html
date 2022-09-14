@@ -1,4 +1,14 @@
+<div class="mb-2 d-flex justify-content-end">
+	<button
+		type="button"
+		class="btn btn-outline-primary"
+		(click)="goToNewStudent()"
+	>
+		Nuevo
+	</button>
+</div>
 <h2 class="text-center">Listado de estudiantes</h2>
+
 
 <mat-tab-group (selectedTabChange)="handleTabChange()" mat-align-tabs="start">
 	<!-- Estudiantes Activos Inicio -->
@@ -41,7 +51,7 @@
 	<!-- Estudiantes Aprobados Fin -->
 
 	<!-- Estudiantes asignados a un proyecto Inicio -->
-	<mat-tab (click)="onAssignedStudents()" label="Asignados a un proyecto" >
+	<mat-tab (click)="onAssignedStudents()" label="Asignados a un proyecto">
 		<ng-container *ngIf="assignedStudents.length > 0">
 			<app-dynamic-table
 				[data]="assignedStudents"
@@ -49,7 +59,6 @@
 				[filter]="true"
 			>
 			</app-dynamic-table>
-
 		</ng-container>
 	</mat-tab>
 	<!-- Estudiantes asignados a un proyecto Fin -->
@@ -63,7 +72,6 @@
 				[filter]="true"
 			>
 			</app-dynamic-table>
-
 		</ng-container>
 	</mat-tab>
 	<!-- Estudiantes no asignados a un proyecto Fin -->

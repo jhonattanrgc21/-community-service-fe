@@ -42,7 +42,10 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 				: [];
 
 		// Eliminando la columna ID
-		this.tableCols.splice(0, 1);
+		const posId = this.tableCols.indexOf('id');
+		if (posId != -1) {
+			this.tableCols.splice(posId, 1);
+		}
 	}
 
 	ngAfterViewInit() {

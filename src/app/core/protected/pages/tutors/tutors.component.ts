@@ -13,7 +13,7 @@ export class TutorsComponent implements OnInit {
 
 	// Headers
 	tutorHheaders: string[] = [
-		'Cedula',
+		'Cédula',
 		'Nnombre',
 		'Apellido',
 		'Correo eectrónico',
