@@ -25,7 +25,7 @@ export class TasksService {
 		const url: string = `${this._baseUrl}/get_student_tasks`;
 		return this._httpClient
 			.post<Task[]>(url, {
-				identification: this._authService.user.identification_document,
+				identification: this._authService.user.identification,
 			})
 			.pipe(
 				tap((res: Task[]) => {
@@ -52,7 +52,7 @@ export class TasksService {
 		const url: string = `${this._baseUrl}/get_tutor_tasks`;
 		return this._httpClient
 			.post<TutorTask[]>(url, {
-				identification: this._authService.user.identification_document,
+				identification: this._authService.user.identification,
 			})
 			.pipe(
 				tap((res: TutorTask[]) => {

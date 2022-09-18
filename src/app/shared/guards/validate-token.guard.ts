@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import {
 	CanActivate,
-	CanActivateChild,
 	CanLoad,
 	Router,
 } from '@angular/router';
@@ -12,7 +11,7 @@ import { AuthService } from 'src/app/core/auth/services/auth.service';
 	providedIn: 'root',
 })
 export class ValidateTokenGuard
-	implements CanActivate, CanLoad, CanActivateChild
+	implements CanActivate, CanLoad
 {
 	constructor(private roter: Router, private authService: AuthService) {}
 
@@ -27,16 +26,6 @@ export class ValidateTokenGuard
 	}
 
 	canLoad(): Observable<boolean> | boolean {
-		return this.authService.validateToken().pipe(
-			tap((valid: boolean) => {
-				if (!valid) {
-					this.roter.navigateByUrl('/auth');
-				}
-			})
-		);
-	}
-
-	canActivateChild(): Observable<boolean> | boolean {
 		return this.authService.validateToken().pipe(
 			tap((valid: boolean) => {
 				if (!valid) {

@@ -11,7 +11,6 @@ const routes: Routes = [
 		path: 'layout',
 		loadChildren: () => import('./core/protected/protected.module').then(m => m.ProtectedModule),
 		canActivate: [ValidateTokenGuard],
-		canActivateChild: [ValidateTokenGuard],
 		canLoad: [ValidateTokenGuard]
 	},
 	{

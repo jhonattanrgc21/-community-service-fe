@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, Observable, of, tap, debounceTime } from 'rxjs';
+import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthLogin, AuthResponse, User } from '../interfaces/auth.interface';
 
@@ -38,11 +38,11 @@ export class AuthService {
 					localStorage.setItem('role', res.role!);
 					localStorage.setItem(
 						'document',
-						res.identification_document!
+						res.identification!
 					);
 					this._user = {
 						uuid: res.uuid!,
-						identification_document: res.identification_document!,
+						identification: res.identification!,
 						token: res.token!,
 						role: res.role!,
 					};
@@ -84,10 +84,10 @@ export class AuthService {
 				// Agregando datos al localStorage
 				localStorage.setItem('token', res.token!);
 				localStorage.setItem('role', res.role!);
-				localStorage.setItem('document', res.identification_document!);
+				localStorage.setItem('document', res.identification!);
 				this._user = {
 					uuid: res.uuid!,
-					identification_document: res.identification_document!,
+					identification: res.identification!,
 					token: res.token!,
 					role: res.role!,
 				};

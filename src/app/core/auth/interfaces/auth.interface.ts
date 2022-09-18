@@ -2,7 +2,7 @@ export interface AuthResponse {
 	ok?: boolean;
 	uuid?: number;
 	name?: string;
-	identification_document?: string;
+	identification?: string;
 	role?: string;
 	token?: string;
 	message?: string;
@@ -15,5 +15,5 @@ export interface AuthLogin {
 
 export type User = Pick<
 	AuthResponse,
-	'uuid' | 'name' | 'identification_document' | 'token' | 'role'
+	'uuid' | 'name' | 'identification' | 'token' | 'role'
 >;

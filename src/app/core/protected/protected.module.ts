@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { CommonModule} from '@angular/common';
 import { LayoutModule } from '@angular/cdk/layout';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInterceptor } from 'src/app/shared/interceptors/interceptor.service';
