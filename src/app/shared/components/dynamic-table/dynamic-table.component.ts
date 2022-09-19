@@ -42,10 +42,8 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 				: [];
 
 		// Eliminando la columna ID
-		const posId = this.tableCols.indexOf('id');
-		if (posId != -1) {
-			this.tableCols.splice(posId, 1);
-		}
+		this.removeAatributes(this.tableCols, 'id');
+		this.removeAatributes(this.tableCols, 'role');
 	}
 
 	ngAfterViewInit() {
@@ -55,5 +53,12 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 	applyFilter(event: Event) {
 		const filterValue = (event.target as HTMLInputElement).value;
 		this.dataSource.filter = filterValue.trim().toLowerCase();
+	}
+
+	removeAatributes(array: any, value: string): void{
+		const posId = array.indexOf(value);
+		if (posId != -1) {
+			array.splice(posId, 1);
+		}
 	}
 }

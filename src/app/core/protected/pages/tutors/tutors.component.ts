@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Tutor } from './interfaces/tutors.interface';
 
 @Component({
@@ -22,10 +22,15 @@ export class TutorsComponent implements OnInit {
 	];
 
 	constructor(
-		private _activatedRoute: ActivatedRoute
+		private _activatedRoute: ActivatedRoute,
+		private _router: Router
 	) {}
 
 	ngOnInit(): void {
 		this.allTutors = this._activatedRoute.snapshot.data['tutors'];
+	}
+
+	goToNewTutor(): void {
+		this._router.navigateByUrl('/layout/tutors/new-tutor');
 	}
 }

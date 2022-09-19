@@ -16,4 +16,6 @@ export interface ApprovedStudent extends AssignedStudent {
 	date_approval: string;
 };
 
-export type NewStudent = Omit<GeneralProfile, 'username' | 'id'>;
+export interface NewStudent extends Omit<GeneralProfile, 'username' | 'id'>{
+	role: string;
+}

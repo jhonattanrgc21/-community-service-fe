@@ -1,14 +1,14 @@
 <ng-container *ngIf="settings.length > 0">
 	<app-dynamic-register
-		[name] = "'estudiantes'"
-		[role] = "'student'"
+		[name] = "'tutores'"
+		[role] = "'tutor'"
 		[settings] = settings
 		[selectedOption] = selectedOption
 		[pathFormat] = pathFormat
 		[downloadName] = downloadName
 
-		(addNewUser)="onSaveStudent($event)"
-		(addNewUsers)="onSaveStudents($event)"
+		(addNewUser)="onSaveTutor($event)"
+		(addNewUsers)="onSaveTutors($event)"
 	>
 	</app-dynamic-register>
 </ng-container>
