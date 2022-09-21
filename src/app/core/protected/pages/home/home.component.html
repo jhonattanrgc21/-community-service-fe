@@ -3,19 +3,27 @@
 
 <div class="mt-3">
 	<!-- Aqui van los proyectos -->
-	<section class="w-100 mb-4 row d-flex align-items-start justify-content-between">
+	<section
+		class="w-100 mb-5 row d-flex align-items-start justify-content-between"
+	>
 		<!-- Card de datos del proyecto -->
 		<div class="col-12 col-md-4">
-			<mat-card class="mt-3" style="min-height: 160px;">
+			<mat-card class="mt-3" style="min-height: 160px">
 				<mat-card-title>Datos del proyecto</mat-card-title>
 				<mat-divider inset></mat-divider>
 				<mat-card-content class="pt-3">
 					<p>
-						<span style="font-weight: 500">Nombre:</span> Proyecto 1
+						<span style="font-weight: 500">Nombre: </span>
+						<ng-container *ngIf="cardInfo.name; else notFound">{{
+							cardInfo.name
+						}}</ng-container>
 					</p>
 					<p>
-						<span style="font-weight: 500">Fecha de inicio:</span>
-						N/A
+						<span style="font-weight: 500">Fecha de inicio: </span>
+						<ng-container
+							*ngIf="cardInfo.date_start; else notFound"
+							>{{ cardInfo.date_start }}</ng-container
+						>
 					</p>
 				</mat-card-content>
 			</mat-card>
@@ -23,15 +31,28 @@
 
 		<!-- Card de datos del tutor -->
 		<div class="col-12 col-md-4">
-			<mat-card class="mt-3" style="min-height: 160px;">
+			<mat-card class="mt-3" style="min-height: 160px">
 				<mat-card-title>Datos del tutor</mat-card-title>
 				<mat-divider inset></mat-divider>
 				<mat-card-content class="pt-3">
 					<p>
-						<span style="font-weight: 500">Nombre:</span> Proyecto 1
+						<span style="font-weight: 500">Nombre: </span>
+						<ng-container
+							*ngIf="cardInfo.coordinator; else notFound"
+							>{{ cardInfo.coordinator }}</ng-container
+						>
 					</p>
 					<p>
-						<span style="font-weight: 500">Cedula:</span> 12345678
+						<span style="font-weight: 500">Cedula: </span>
+						<ng-container
+							*ngIf="
+								cardInfo.identification_coordinator;
+								else notFound
+							"
+							>{{
+								cardInfo.identification_coordinator
+							}}</ng-container
+						>
 					</p>
 				</mat-card-content>
 			</mat-card>
@@ -39,20 +60,30 @@
 
 		<!-- Card de horas del servicio -->
 		<div class="col-12 col-md-4">
-			<mat-card class="mt-3" style="min-height: 160px;">
+			<mat-card class="mt-3" style="min-height: 160px">
 				<mat-card-title>Horas del servicio</mat-card-title>
 				<mat-divider inset></mat-divider>
 				<mat-card-content class="pt-3">
-					<p><span style="font-weight: 500">Acumuladas:</span> 50</p>
-					<p><span style="font-weight: 500">Pendiente:</span> 70</p>
+					<p>
+						<span style="font-weight: 500">Acumuladas: </span>
+						<ng-container *ngIf="cardInfo.hours; else notFound">{{
+							cardInfo.hours
+						}}</ng-container>
+					</p>
+					<p>
+						<span style="font-weight: 500">Pendiente:</span>
+						{{ pendingHours }}
+					</p>
 				</mat-card-content>
 			</mat-card>
 		</div>
+
+		<ng-template #notFound>N/A</ng-template>
 	</section>
 
 	<!-- Aqui va la tabla de las tareas finalizadas -->
 	<ng-container *ngIf="tasksList.length > 0">
-		<h2 class="text-center m-0">Listado de tareas completadas</h2>
+		<h2 class="text-center mb-0">Listado de tareas completadas</h2>
 		<app-dynamic-table
 			[data]="tasksList"
 			[headers]="headersList"
