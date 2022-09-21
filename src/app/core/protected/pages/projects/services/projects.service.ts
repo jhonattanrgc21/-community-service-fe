@@ -27,7 +27,7 @@ export class ProjectService {
 	 * @returns Observable<Project[]>
 	 */
 	findInactiveProjects(): Observable<Project[]> {
-		const url: string = `${this._baseUrl}/projects/get_all_projects/Inactivo`;
+		const url: string = `${this._baseUrl}/projects/get_all_projects/by_status/Inactivo`;
 		return this._httpClient.get<Project[]>(url);
 	}
 }

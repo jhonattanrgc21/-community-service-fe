@@ -1,22 +1,28 @@
-<div class="mb-2 d-flex justify-content-end">
-	<button
-		type="button"
-		class="btn btn-outline-primary"
-		(click)="goToNewTutor()"
-	>
-		Nuevo
-	</button>
+<span class="p-2">Tutores</span>
+<mat-divider class="mt-3"></mat-divider>
+
+<div class="mt-3">
+	<div class="mb-2 d-flex justify-content-end">
+		<button
+			type="button"
+			class="btn btn-outline-primary"
+			(click)="goToNewTutor()"
+		>
+			Nuevo
+		</button>
+	</div>
+
+	<h2 class="text-center">Listado de tutores</h2>
+
+	<!-- Proyectos y estudiantes Inicio -->
+	<ng-container *ngIf="allTutors.length > 0">
+		<app-dynamic-table
+			[data]="allTutors"
+			[headers]="tutorHheaders"
+			[filter]="true"
+		>
+		</app-dynamic-table>
+	</ng-container>
+
+
 </div>
-
-<h2 class="text-center">Listado de tutores</h2>
-
-<!-- Proyectos y estudiantes Inicio -->
-<ng-container *ngIf="allTutors.length > 0">
-	<app-dynamic-table
-		[data]="allTutors"
-		[headers]="tutorHheaders"
-		[filter]="true"
-	>
-	</app-dynamic-table>
-</ng-container>
-

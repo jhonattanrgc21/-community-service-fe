@@ -1,57 +1,24 @@
-.grid-container {
-	margin: 5px;
+mat-card-title span:hover {
+    cursor: pointer;
+    color: #0075be;
+    -webkit-transition: all 0.3s ease-in-out;
+    -moz-transition: all 0.3s ease-in-out;
+    -o-transition: all 0.3s ease-in-out;
+    transition: all 0.3s ease-in-out;
 }
 
-.dashboard-card {
-	position: absolute;
-	top: 15px;
-	left: 15px;
-	right: 15px;
-	bottom: 15px;
+mat-card{
+    border-bottom: 2px solid #4db3de;
 }
 
-.more-button {
-	position: absolute;
-	top: 5px;
-	right: 10px;
+
+mat-card-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
 }
 
-.dashboard-card-content {
-	text-align: center;
+mat-card-actions p {
+    padding: 5px;
 }
 
-.project-title {
-	margin-left: 20px;
-	width: 100%;
-	display: flex;
-	justify-content: flex-start;
-}
-
-.student-hours {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-}
-
-.progress {
-	width: 100%;
-	height: 25px;
-	margin-left: 10px;
-	margin-right: 20px;
-}
-
-.progress-bar {
-
-	background-color: #0092d0;
-	color: #ffffff;
-}
-
-.mat-form-field {
-	font-size: 14px;
-	width: 100%;
-}
-
-td,
-th {
-	width: 25%;
-}
