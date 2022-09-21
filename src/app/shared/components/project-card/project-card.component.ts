@@ -1,4 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
+import { PageEvent } from '@angular/material/paginator';
 
 @Component({
 	selector: 'app-project-card',
@@ -9,7 +10,16 @@ export class ProjectCardComponent implements OnInit {
 	@Input('projects') projects!: any[];
 	@Input('active') isActive?: boolean = false;
 
+	pageNumber: number = 1;
+	pageSize: number = 6;
+	pageSizeOptions: number[] = [6, 12, 18, 30, 60];
+
 	constructor() {}
 
 	ngOnInit(): void {}
+
+	handlePage(event: PageEvent): void{
+		this.pageNumber = event.pageIndex + 1;
+		this.pageSize = event.pageSize;
+	}
 }

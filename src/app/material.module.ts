@@ -13,9 +13,10 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatTableModule } from '@angular/material/table';
-import { MatPaginatorModule } from '@angular/material/paginator';
+import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs'
+import { CustomMatPaginatorIntl } from "./shared/config/paginator-es";
 @NgModule({
 	exports: [
 		MatToolbarModule,
@@ -35,6 +36,9 @@ import { MatTabsModule } from '@angular/material/tabs'
 		MatPaginatorModule,
 		MatSortModule,
 		MatTabsModule,
+	],
+	providers: [
+		{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
 	],
 })
 export class MaterialModule {};

@@ -12,7 +12,7 @@ import { AuthModule } from './core/auth/auth.module';
 import { DatePipe } from '@angular/common';
 
 @NgModule({
-	declarations: [AppComponent],
+	declarations: [AppComponent ],
 	imports: [
 		BrowserModule,
 		AppRoutingModule,
