@@ -9,6 +9,7 @@ import { DynamicTableComponent } from './components/dynamic-table/dynamic-table.
 import { ProjectCardComponent } from './components/project-card/project-card.component';
 import { DynamicRegisterComponent } from './components/dynamic-register/dynamic-register.component';
 import { PaginatePipe } from './pipes/paginate.pipe';
+import { FilterPipe } from './pipes/filter.pipe';
 @NgModule({
 	declarations: [
 		SharedComponent,
@@ -16,6 +17,7 @@ import { PaginatePipe } from './pipes/paginate.pipe';
 		ProjectCardComponent,
 		DynamicRegisterComponent,
 		PaginatePipe,
+		FilterPipe,
 	],
 	exports: [
 		SharedComponent,

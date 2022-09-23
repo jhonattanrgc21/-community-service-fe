@@ -1,7 +1,19 @@
+<!-- Filtro de busqueda Inicio -->
+<mat-form-field class="mt-2 mb-2 w-25" appearance="standard">
+	<mat-label>Filtro</mat-label>
+	<input
+		matInput
+		(keyup)="applyFilter($event)"
+		placeholder="Buscar..."
+		#input
+	/>
+</mat-form-field>
+<!-- Filtro de busqueda Fin -->
+
 <div class="row">
 	<div
 		class="col-md-4 mb-3"
-		*ngFor="let project of projects | paginate: pageSize:pageNumber"
+		*ngFor="let project of projects | paginate: pageSize:pageNumber | filter:filterProject "
 	>
 		<mat-card>
 			<mat-card-title class="mt-2"
