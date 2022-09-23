@@ -4,6 +4,7 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MaterialModule } from './material.module';
 import { HttpClientModule } from "@angular/common/http";
 import { AppRoutingModule } from './app-routing.module';
+import { NgxSpinnerModule } from 'ngx-spinner';
 import { AppComponent } from './app.component';
 import { SharedModule } from './shared/shared.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -18,6 +19,7 @@ import { DatePipe } from '@angular/common';
 		AppRoutingModule,
 		BrowserAnimationsModule,
 		HttpClientModule,
+		NgxSpinnerModule,
 		MatNativeDateModule,
 		MaterialModule,
 		SharedModule,

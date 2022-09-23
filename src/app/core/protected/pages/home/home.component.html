@@ -14,14 +14,14 @@
 				<mat-card-content class="pt-3">
 					<p>
 						<span style="font-weight: 500">Nombre: </span>
-						<ng-container *ngIf="cardInfo.name; else notFound">{{
+						<ng-container *ngIf="cardInfo?.name; else notFound">{{
 							cardInfo.name
 						}}</ng-container>
 					</p>
 					<p>
 						<span style="font-weight: 500">Fecha de inicio: </span>
 						<ng-container
-							*ngIf="cardInfo.date_start; else notFound"
+							*ngIf="cardInfo?.date_start; else notFound"
 							>{{ cardInfo.date_start }}</ng-container
 						>
 					</p>
@@ -38,7 +38,7 @@
 					<p>
 						<span style="font-weight: 500">Nombre: </span>
 						<ng-container
-							*ngIf="cardInfo.coordinator; else notFound"
+							*ngIf="cardInfo?.coordinator; else notFound"
 							>{{ cardInfo.coordinator }}</ng-container
 						>
 					</p>
@@ -46,7 +46,7 @@
 						<span style="font-weight: 500">Cedula: </span>
 						<ng-container
 							*ngIf="
-								cardInfo.identification_coordinator;
+								cardInfo?.identification_coordinator;
 								else notFound
 							"
 							>{{
@@ -66,7 +66,7 @@
 				<mat-card-content class="pt-3">
 					<p>
 						<span style="font-weight: 500">Acumuladas: </span>
-						<ng-container *ngIf="cardInfo.hours; else notFound">{{
+						<ng-container *ngIf="cardInfo?.hours; else notFound">{{
 							cardInfo.hours
 						}}</ng-container>
 					</p>
@@ -82,7 +82,7 @@
 	</section>
 
 	<!-- Aqui va la tabla de las tareas finalizadas -->
-	<ng-container *ngIf="tasksList.length > 0">
+	<ng-container *ngIf="tasksList != null && tasksList.length > 0">
 		<h2 class="text-center mb-0">Listado de tareas completadas</h2>
 		<app-dynamic-table
 			[data]="tasksList"

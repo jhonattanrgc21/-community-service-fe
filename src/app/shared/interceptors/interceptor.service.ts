@@ -5,16 +5,18 @@ import {
 	HttpHandler,
 	HttpRequest,
 } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { Observable, finalize } from 'rxjs';
+import { SpinnerService } from '../services/spinner.service';
 
 @Injectable()
 export class AppInterceptor implements HttpInterceptor {
-	constructor() {}
+	constructor(private _spinnerService: SpinnerService) {}
 
 	intercept(
 		req: HttpRequest<any>,
 		next: HttpHandler
 	): Observable<HttpEvent<any>> {
+		this._spinnerService.show();
 		const newReq = req.clone({
 			setHeaders: {
 				Authorization: 'Bearer ' + localStorage.getItem('token'),
@@ -22,6 +24,8 @@ export class AppInterceptor implements HttpInterceptor {
 				Accept: 'application/json',
 			},
 		});
-		return next.handle(newReq);
+		return next.handle(newReq).pipe(
+			finalize(() => this._spinnerService.hide())
+		);
 	}
 }
