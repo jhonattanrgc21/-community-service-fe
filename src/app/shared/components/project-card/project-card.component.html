@@ -17,7 +17,7 @@
 	>
 		<mat-card>
 			<mat-card-title class="mt-2"
-				><span>{{ project.name }}</span></mat-card-title
+				><span (click)="selectedProject(project.id)">{{ project.name }}</span></mat-card-title
 			>
 			<mat-card-content class="pt-3">
 				<p>{{ project.description | slice: 0:50 }}</p>

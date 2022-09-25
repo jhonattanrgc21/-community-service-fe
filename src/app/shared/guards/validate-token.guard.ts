@@ -6,6 +6,7 @@ import {
 } from '@angular/router';
 import { Observable, tap } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
+import { ROUTES } from '../constants/constants';
 
 @Injectable({
 	providedIn: 'root',
@@ -19,7 +20,7 @@ export class ValidateTokenGuard
 		return this.authService.validateToken().pipe(
 			tap((valid: boolean) => {
 				if (!valid) {
-					this.roter.navigateByUrl('/auth');
+					this.roter.navigateByUrl(ROUTES.login);
 				}
 			})
 		);
@@ -29,7 +30,7 @@ export class ValidateTokenGuard
 		return this.authService.validateToken().pipe(
 			tap((valid: boolean) => {
 				if (!valid) {
-					this.roter.navigateByUrl('/auth');
+					this.roter.navigateByUrl(ROUTES.login);
 				}
 			})
 		);

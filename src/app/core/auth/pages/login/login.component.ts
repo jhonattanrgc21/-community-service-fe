@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { ROUTES } from 'src/app/shared/constants/constants';
 import Swal from 'sweetalert2';
 import { AuthLogin } from '../../interfaces/auth.interface';
 import { AuthService } from '../../services/auth.service';
@@ -36,12 +37,11 @@ export class LoginComponent implements OnInit {
 	 * @description Se encarga de generar el inicio de sesión
 	 */
 	onLogin() {
-		//this.router.navigateByUrl('/layout')
 		const authLogin: AuthLogin = this.loginForm.value;
 
 		this.authService.login(authLogin).subscribe(ok => {
 			if (ok == true) {
-				this.router.navigateByUrl('/layout')
+				this.router.navigateByUrl(ROUTES.dashboard);
 			} else {
 				Swal.fire('Error', ok, 'error')
 			}

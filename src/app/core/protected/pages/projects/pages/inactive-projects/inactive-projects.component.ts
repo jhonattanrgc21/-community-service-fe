@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ROUTES } from 'src/app/shared/constants/constants';
 import { Project } from '../../interfaces/projects.interface';
 import { ProjectService } from '../../services/projects.service';
 
@@ -10,7 +12,10 @@ import { ProjectService } from '../../services/projects.service';
 export class InactiveProjectsComponent implements OnInit {
 	inactiveProjects: Project[] = [];
 
-	constructor(private _projectsService: ProjectService) {}
+	constructor(
+		private _projectsService: ProjectService,
+		private _router: Router
+	) {}
 
 	ngOnInit(): void {
 		this.getInactiveProjects();
@@ -20,5 +25,9 @@ export class InactiveProjectsComponent implements OnInit {
 		this._projectsService.findInactiveProjects().subscribe((response) => {
 			this.inactiveProjects = response;
 		});
+	}
+
+	detailsProject(id: number): void {
+		this._router.navigate([ROUTES.inactiveProjectDetails, id]);
 	}
 }

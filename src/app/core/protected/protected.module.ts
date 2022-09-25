@@ -4,7 +4,6 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppInterceptor } from 'src/app/shared/interceptors/interceptor.service';
 
-import { NgxSpinnerModule } from 'ngx-spinner';
 import { ProtectedRoutingModule } from './protected-routing.module';
 import { ProtectedComponent } from './protected.component';
 import { SharedModule } from 'src/app/shared/shared.module';
@@ -18,7 +17,6 @@ import { SharedModule } from 'src/app/shared/shared.module';
 		CommonModule,
 		LayoutModule,
 		SharedModule,
-		NgxSpinnerModule,
 		ProtectedRoutingModule,
 	],
 })

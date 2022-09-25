@@ -1,6 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { ROUTES } from 'src/app/shared/constants/constants';
 import {
 	ApprovedStudent,
 	AssignedStudent,
@@ -143,6 +144,6 @@ export class StudentsComponent implements OnInit {
 	}
 
 	goToNewStudent(): void {
-		this._router.navigateByUrl('/layout/students/new-student');
+		this._router.navigateByUrl(ROUTES.newStudents);
 	}
 }

@@ -1,1 +1,98 @@
-<p>project-details works!</p>
+<mat-icon routerLink="../" class="return-view">arrow_back</mat-icon>
+
+<div class="mb-5 d-flex align-items-start justify-content-center">
+	<mat-card class="w-75">
+		<mat-card-title class="text-center">
+			<ng-container *ngIf="project?.name">
+				{{ project.name | titlecase }}
+			</ng-container>
+		</mat-card-title>
+		<mat-card-content class="mt-4">
+			<p>
+				<span style="font-weight: 500">Descripci&oacute;n:</span>
+				<ng-container *ngIf="project?.description">
+					{{ project.description | titlecase }}
+				</ng-container>
+			</p>
+
+			<p>
+				<span style="font-weight: 500">Fecha de inicio:</span>
+				<ng-container *ngIf="project?.date_start">
+					{{ project.date_start | date: 'dd/MM/yyyy' }}
+				</ng-container>
+			</p>
+
+			<p *ngIf="project?.date_end">
+				<span style="font-weight: 500">Fecha de finalizaci&oacute;n:</span>
+				{{ project.date_end | date: 'dd/MM/yyyy'}}
+			</p>
+
+			<p>
+				<span style="font-weight: 500">C.I Coordinador:</span>
+				<ng-container *ngIf="project?.coordinator_identification">
+					{{ project.coordinator_identification | uppercase }}
+				</ng-container>
+			</p>
+
+			<p>
+				<span style="font-weight: 500">Nombre y Apellido del Coordinador:</span>
+				<ng-container
+					*ngIf="
+						project?.coordinator_first_name &&
+						project?.coordinator_last_name
+					"
+				>
+					{{ project.coordinator_first_name | titlecase }}
+					{{ project.coordinator_last_name | titlecase }}
+				</ng-container>
+		</mat-card-content>
+	</mat-card>
+</div>
+
+<ng-container *ngIf="project?.status == 'Activo'">
+	<mat-tab-group
+		(selectedTabChange)="handleTabChange()"
+		mat-align-tabs="start"
+	>
+		<!-- Tareas del proyecto Inicio -->
+		<mat-tab label="Tareas">
+			<ng-container *ngIf="taskStudent.length > 0">
+				<app-dynamic-table
+					[data]="taskStudent"
+					[headers]="taskHeaders"
+					[filter]="true"
+				>
+				</app-dynamic-table>
+			</ng-container>
+		</mat-tab>
+		<!-- Tareas del proyecto Fin -->
+
+		<!-- Estudiantes inscritos al proyecto Inicio -->
+		<mat-tab label="Estudiantes inscritos">
+			<ng-container *ngIf="students.length > 0">
+				<app-dynamic-table
+					[data]="students"
+					[headers]="studentHeaders"
+					[filter]="true"
+				>
+				</app-dynamic-table>
+			</ng-container>
+		</mat-tab>
+		<!-- Estudiantes inscritos al proyecto Fin -->
+
+		<!-- Estudiantes Aprobados Inicio -->
+		<mat-tab label="Estudiantes para aprobar">
+			<ng-container *ngIf="studentsApproval.length > 0">
+				<app-dynamic-table
+					[data]="studentsApproval"
+					[headers]="studentHeaders"
+					[filter]="true"
+					[select]="true"
+					(confirmedSelection)="onSaveStudentsAprobbal($event)"
+				>
+				</app-dynamic-table>
+			</ng-container>
+		</mat-tab>
+		<!-- Estudiantes Aprobados Fin -->
+	</mat-tab-group>
+</ng-container>

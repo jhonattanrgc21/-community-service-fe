@@ -17,6 +17,7 @@ import { MatPaginatorIntl, MatPaginatorModule } from '@angular/material/paginato
 import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs'
 import { CustomMatPaginatorIntl } from "./shared/config/paginator-es";
+import { MatCheckboxModule } from '@angular/material/checkbox';
 @NgModule({
 	exports: [
 		MatToolbarModule,
@@ -36,6 +37,7 @@ import { CustomMatPaginatorIntl } from "./shared/config/paginator-es";
 		MatPaginatorModule,
 		MatSortModule,
 		MatTabsModule,
+		MatCheckboxModule,
 	],
 	providers: [
 		{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },

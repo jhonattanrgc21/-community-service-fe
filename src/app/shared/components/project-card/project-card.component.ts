@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, OnInit } from '@angular/core';
 import { PageEvent } from '@angular/material/paginator';
 
 @Component({
@@ -9,6 +9,8 @@ import { PageEvent } from '@angular/material/paginator';
 export class ProjectCardComponent implements OnInit {
 	@Input('projects') projects!: any[];
 	@Input('active') isActive?: boolean = false;
+
+	@Output() project = new EventEmitter<number>();
 
 	filterProject: string = '';
 	pageNumber: number = 1;
@@ -29,5 +31,9 @@ export class ProjectCardComponent implements OnInit {
 			this.filterProject = (event.target as HTMLInputElement).value;
 			this.filterProject = this.filterProject.toLowerCase();
 		}, 1000);
+	}
+
+	selectedProject(id: number): void{
+		this.project.emit(id);
 	}
 }

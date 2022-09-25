@@ -1,9 +1,12 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import {
 	AfterViewInit,
 	Component,
 	OnInit,
 	ViewChild,
 	Input,
+	Output,
+	EventEmitter,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
@@ -17,7 +20,10 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 	// Valores de entrada
 	@Input('headers') tableHeaders: string[] = [];
 	@Input('data') tableData!: any[];
-	@Input('filter') isFilter?: Boolean = false;
+	@Input('filter') isFilter?: boolean = false;
+	@Input('select') isSelect?: boolean = false;
+
+	@Output() confirmedSelection = new EventEmitter<any[]>();
 
 	// Paginador
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -25,21 +31,27 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 	// Variables para manipular datos de a tabla
 	tableCols: any[] = [];
 	dataSource = new MatTableDataSource<any>();
+	selection = new SelectionModel<any>(true, []);
 
 	constructor() {}
 
 	ngOnInit(): void {
 		// Eliminando campos innecesarios
-		this.tableData = this.tableData.map(item => {
+		this.tableData = this.tableData.map((item) => {
 			delete item.project_id;
-			return item
-		})
+			return item;
+		});
 
 		this.dataSource.data = this.tableData;
 		this.tableCols =
 			this.tableData && this.tableData.length > 0
 				? Object.keys(this.tableData[0])
 				: [];
+
+		if (this.isSelect) {
+			this.tableHeaders.unshift('select');
+			this.tableCols.unshift('select');
+		}
 
 		// Eliminando la columna ID
 		this.removeAatributes(this.tableCols, 'id');
@@ -55,10 +67,45 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}
 
-	removeAatributes(array: any, value: string): void{
+	removeAatributes(array: any, value: string): void {
 		const posId = array.indexOf(value);
 		if (posId != -1) {
 			array.splice(posId, 1);
 		}
+	}
+
+	/** Whether the number of selected elements matches the total number of rows. */
+	isAllSelected() {
+		const numSelected = this.selection.selected.length;
+		const numRows = this.dataSource.data.length;
+		return numSelected === numRows;
+	}
+
+	/** Selects all rows if they are not all selected; otherwise clear selection. */
+	toggleAllRows() {
+		if (this.isAllSelected()) {
+			this.selection.clear();
+			return;
+		}
+
+		this.selection.select(...this.dataSource.data);
+	}
+
+	/** The label for the checkbox on the passed row */
+	checkboxLabel(row?: any): string {
+		if (!row) {
+			return `${this.isAllSelected() ? 'deselect' : 'select'} all`;
+		}
+		return `${this.selection.isSelected(row) ? 'deselect' : 'select'} row ${
+			row.position + 1
+		}`;
+	}
+
+	viewConfirmButton(): boolean {
+		return this.selection.selected.length > 0;
+	}
+
+	onConfirmSelection(): void {
+		this.confirmedSelection.emit(this.selection.selected)
 	}
 }

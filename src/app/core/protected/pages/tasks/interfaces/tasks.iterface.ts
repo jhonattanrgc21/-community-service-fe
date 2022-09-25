@@ -16,10 +16,16 @@ export interface TutorTask {
 	description: string;
 	student_indentification: string;
 	student_name: string;
-	project_id: number,
-    project_name: string,
+	project_id: number;
+	project_name: string;
 	cost: number;
 	date_start: string;
 	date_end: string;
 	status: string;
+}
+
+export interface TaskProject
+	extends Omit<Task, 'tutor_indentification' | 'tutor_name'> {
+	identification: string;
+	fullname: string;
 }

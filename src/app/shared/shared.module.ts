@@ -10,6 +10,7 @@ import { ProjectCardComponent } from './components/project-card/project-card.com
 import { DynamicRegisterComponent } from './components/dynamic-register/dynamic-register.component';
 import { PaginatePipe } from './pipes/paginate.pipe';
 import { FilterPipe } from './pipes/filter.pipe';
+import { NgxSpinnerModule } from 'ngx-spinner';
 
 @NgModule({
 	declarations: [
@@ -18,7 +19,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 		ProjectCardComponent,
 		DynamicRegisterComponent,
 		PaginatePipe,
-		FilterPipe
+		FilterPipe,
 	],
 	exports: [
 		SharedComponent,
@@ -28,6 +29,12 @@ import { FilterPipe } from './pipes/filter.pipe';
 		PaginatePipe,
 		FilterPipe,
 	],
-	imports: [CommonModule, RouterModule, ReactiveFormsModule, MaterialModule],
+	imports: [
+		CommonModule,
+		RouterModule,
+		ReactiveFormsModule,
+		MaterialModule,
+		NgxSpinnerModule,
+	],
 })
 export class SharedModule {}

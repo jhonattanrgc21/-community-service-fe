@@ -1,10 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { HttpHeaders } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { map, Observable, shareReplay } from 'rxjs';
 import Swal from 'sweetalert2';
 import { AuthService } from '../core/auth/services/auth.service';
+import { ROUTES } from './constants/constants';
 
 @Component({
 	selector: 'app-shared',
@@ -26,13 +26,13 @@ export class SharedComponent {
 	) { }
 
 	onGoProfile(): void{
-		this.router.navigateByUrl('/layout/profile');
+		this.router.navigateByUrl(ROUTES.profile);
 	}
 
 	onLogout() {
 		this.authService.logout().subscribe((ok) => {
 			if (ok == true) {
-				this.router.navigateByUrl('/auth');
+				this.router.navigateByUrl(ROUTES.login);
 			} else {
 				Swal.fire('Error', ok, 'error');
 			}
