@@ -7,12 +7,14 @@ import { InactiveProjectsComponent } from './pages/inactive-projects/inactive-pr
 import { ProjectDetailsComponent } from './pages/project-details/project-details.component';
 import { MaterialModule } from 'src/app/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { NewProjectComponent } from './pages/new-project/new-project.component';
 
 @NgModule({
 	declarations: [
 		ActiveProjectsComponent,
 		InactiveProjectsComponent,
 		ProjectDetailsComponent,
+		NewProjectComponent,
 	],
 	imports: [
 		CommonModule,

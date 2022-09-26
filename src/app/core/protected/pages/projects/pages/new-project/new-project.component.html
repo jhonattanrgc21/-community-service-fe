@@ -1,0 +1,14 @@
+<ng-container *ngIf="settings.length > 0">
+	<app-dynamic-register
+		[name] = "'proyectos'"
+		[isProject]="true"
+		[settings] = settings
+		[selectedOption] = selectedOption
+		[pathFormat] = pathFormat
+		[downloadName] = downloadName
+
+		(addNewProject)="onSaveProject($event)"
+		(addNewProjects)="onSaveProjects($event)"
+	>
+	</app-dynamic-register>
+</ng-container>

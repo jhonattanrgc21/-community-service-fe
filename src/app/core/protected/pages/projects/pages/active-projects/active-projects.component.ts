@@ -29,4 +29,8 @@ export class ActiveProjectsComponent implements OnInit {
 	detailsProject(id: number): void{
 		this._router.navigate([ROUTES.activeProjectDetails, id]);
 	}
+
+	goToNewProject(): void {
+		this._router.navigateByUrl(ROUTES.newProjects);
+	}
 }

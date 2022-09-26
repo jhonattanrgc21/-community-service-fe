@@ -19,7 +19,7 @@ export class ProfileComponent implements OnInit {
 
 	careers = [
 		{ id: 1, name: 'Computación' },
-		{ id: 2, name: 'Física' },
+		{ id: 2, name: 'Química' },
 		{ id: 3, name: 'Física' },
 		{ id: 4, name: 'Matemática' },
 		{ id: 5, name: 'Biología' },

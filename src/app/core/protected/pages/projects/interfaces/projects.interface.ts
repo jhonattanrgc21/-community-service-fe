@@ -15,3 +15,12 @@ export interface ProjectDetails extends Omit<Project, 'student_count'> {
 	coordinator_first_name?: string;
 	coordinator_last_name?: string;
 }
+
+export interface NewProject
+	extends Omit<
+		ProjectDetails,
+		'id' | 'date_end' | 'status' | 'coordinator_id' | 'career_name'
+	> {
+	career: string;
+	coordinator_career: string;
+}

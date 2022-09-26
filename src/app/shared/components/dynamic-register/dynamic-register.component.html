@@ -25,206 +25,523 @@
 				<mat-card-title>{{ selectedOption.title }}</mat-card-title>
 				<mat-divider></mat-divider>
 
-				<form
-					[formGroup]="generalForm"
-					(ngSubmit)="saveNewUser()"
-					class="mt-3"
-				>
-					<div class="row d-flex flex-wrap">
-						<!-------------- Nombre Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>badge</mat-icon>
-									Nombre
-								</mat-label>
-								<input
-									type="text"
-									matInput
-									formControlName="first_name"
-									placeholder="Ingrese su nombre"
-								/>
-								<mat-error
-									*ngIf="
-										isNotValid(generalForm, 'first_name')
-									"
+				<ng-container *ngIf="isProject; else notProject">
+					<form
+						[formGroup]="projectForm"
+						(ngSubmit)="saveNewProject()"
+						class="mt-3"
+					>
+						<div class="d-flex flex-wrap">
+							<!-------------- Nombre Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>badge</mat-icon>
+										Nombre
+									</mat-label>
+									<input
+										type="text"
+										matInput
+										formControlName="name"
+										placeholder="Ingrese el nombre"
+									/>
+									<mat-error
+										*ngIf="isNotValid(projectForm, 'name')"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Nombre Fin -------------->
+
+														<!-------------- Descripción Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field
+									class="text-dark mb-4 w-75"
 								>
-									Este campo es <strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!-------------- Nombre input Fin -------------->
+									<mat-label>
+										<mat-icon matPrefix
+											>description</mat-icon
+										>
+										Descripti&oacute;n
+									</mat-label>
+									<textarea
+										matInput
+										formControlName="description"
+										placeholder="Ingrese la descripcion"
+										cdkTextareaAutosize
+										#autosize="cdkTextareaAutosize"
+										cdkAutosizeMinRows="1"
+										cdkAutosizeMaxRows="5"
+									></textarea>
 
-						<!-------------- Apellido Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>badge</mat-icon>
-									Apellido
-								</mat-label>
-								<input
-									type="text"
-									matInput
-									formControlName="last_name"
-									placeholder="Ingrese su apellido"
-								/>
-								<mat-error
-									*ngIf="isNotValid(generalForm, 'last_name')"
-								>
-									Este campo es <strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!-------------- Apellido Fin -------------->
-
-						<!-------------- Nacionalidad Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>badge</mat-icon>
-									Nacionalidad
-								</mat-label>
-
-								<mat-select formControlName="nationality">
-									<mat-option
-										*ngFor="
-											let nationality of nationalities
+									<mat-error
+										*ngIf="
+											isNotValid(
+												projectForm,
+												'description'
+											)
 										"
-										[value]="nationality"
 									>
-										{{ nationality }}
-									</mat-option>
-								</mat-select>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Descripción Fin -------------->
 
-								<mat-error
-									*ngIf="
-										isNotValid(generalForm, 'nationality')
-									"
-								>
-									Este campo es
-									<strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!-------------- Nacionalidad Fin -------------->
-
-						<!-------------- Cedula Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>badge</mat-icon>
-									C&eacute;dula
-								</mat-label>
-								<input
-									type="text"
-									matInput
-									formControlName="identification"
-									placeholder="Ingrese su cédula"
-								/>
-								<mat-error
-									*ngIf="
-										isNotValid(
-											generalForm,
-											'identification'
-										)
-									"
-								>
-									Este campo es
-									<strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!-------------- Cedula Fin -------------->
-
-						<!-------------- Correo Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>email</mat-icon>
-									Correo Electr&oacute;nico
-								</mat-label>
-								<input
-									type="email"
-									matInput
-									formControlName="email"
-									placeholder="Ingrese su correo"
-								/>
-								<mat-error
-									*ngIf="isNotValid(generalForm, 'email')"
-								>
-									Este campo es <strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!-------------- Correo Fin -------------->
-
-						<!-------------- Teléfono Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix
-										>phone_in_talk_watchface_indicator</mat-icon
+							<!-------------- Fecha de inicio Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>Fecha de inicio</mat-label>
+									<input
+										formControlName="date_start"
+										matInput
+										[matDatepicker]="picker"
+									/>
+									<mat-datepicker-toggle
+										matSuffix
+										[for]="picker"
 									>
-									Teléfono
-								</mat-label>
-								<input
-									type="text"
-									matInput
-									formControlName="phone"
-									placeholder="Ingrese su teléfono"
-								/>
-								<mat-error
-									*ngIf="isNotValid(generalForm, 'phone')"
-								>
-									Este campo es <strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!-------------- Teléfono Fin -------------->
-
-						<!-------------- Carrera input Inicio -------------->
-						<div class="col-12 col-md-6">
-							<mat-form-field class="text-dark mb-4 w-75">
-								<mat-label>
-									<mat-icon matPrefix>list</mat-icon>
-									Carrera
-								</mat-label>
-
-								<mat-select formControlName="career">
-									<mat-option
-										*ngFor="let career of careers"
-										[value]="career.name"
+										<mat-icon matDatepickerToggleIcon
+											>keyboard_arrow_down</mat-icon
+										>
+									</mat-datepicker-toggle>
+									<mat-datepicker #picker></mat-datepicker>
+									<mat-error
+										*ngIf="
+											isNotValid(
+												projectForm,
+												'date_start'
+											)
+										"
 									>
-										{{ career.name }}
-									</mat-option>
-								</mat-select>
-								<mat-error
-									*ngIf="isNotValid(generalForm, 'career')"
-								>
-									Este campo es <strong>obligatorio</strong>
-								</mat-error>
-							</mat-form-field>
-						</div>
-						<!-------------- Carrera input Fin -------------->
-					</div>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Fecha de inicio Fin -------------->
 
-					<div class="d-flex justify-content-center">
-						<button
-							type="submit"
-							[disabled]="generalForm.invalid"
-							class="btn btn-primary"
-						>
-							<span
-								class="d-flex justify-content-between align-items-center"
+							<!-------------- Carrera Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>list</mat-icon>
+										Carrera
+									</mat-label>
+
+									<mat-select formControlName="career">
+										<mat-option
+											*ngFor="let career of careers"
+											[value]="career.name"
+										>
+											{{ career.name }}
+										</mat-option>
+									</mat-select>
+									<mat-error
+										*ngIf="
+											isNotValid(projectForm, 'career')
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Carrera Fin -------------->
+
+							<!-------------- Nacionalidad Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>badge</mat-icon>
+										Nacionalidad del Coordinador
+									</mat-label>
+
+									<mat-select
+										formControlName="coordinator_nationality"
+									>
+										<mat-option
+											*ngFor="
+												let nationality of nationalities
+											"
+											[value]="nationality"
+										>
+											{{ nationality }}
+										</mat-option>
+									</mat-select>
+
+									<mat-error
+										*ngIf="
+											isNotValid(
+												projectForm,
+												'coordinator_nationality'
+											)
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Nacionalidad Fin -------------->
+
+							<!-------------- Cedula Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>badge</mat-icon>
+										C&eacute;dula del Coordinador
+									</mat-label>
+									<input
+										type="text"
+										matInput
+										formControlName="coordinator_identification"
+										placeholder="Ingrese la cédula"
+									/>
+									<mat-error
+										*ngIf="
+											isNotValid(
+												projectForm,
+												'coordinator_identification'
+											)
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Cedula Fin -------------->
+
+							<!-------------- Nombre del coordinador Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>badge</mat-icon>
+										Nombre del Coordinador
+									</mat-label>
+									<input
+										type="text"
+										matInput
+										formControlName="coordinator_first_name"
+										placeholder="Ingrese el nombre"
+									/>
+									<mat-error
+										*ngIf="
+											isNotValid(
+												projectForm,
+												'coordinator_first_name'
+											)
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Nombre del coordinador Fin -------------->
+
+							<!-------------- Apellido del coordinador Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>badge</mat-icon>
+										Apellido del Coordinador
+									</mat-label>
+									<input
+										type="text"
+										matInput
+										formControlName="coordinator_last_name"
+										placeholder="Ingrese el apellido"
+									/>
+									<mat-error
+										*ngIf="
+											isNotValid(
+												projectForm,
+												'coordinator_last_name'
+											)
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Apellido Fin -------------->
+
+							<!-------------- Carrera Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>list</mat-icon>
+										Carrera del coordinador
+									</mat-label>
+
+									<mat-select
+										formControlName="coordinator_career"
+									>
+										<mat-option
+											*ngFor="let career of careers"
+											[value]="career.name"
+										>
+											{{ career.name }}
+										</mat-option>
+									</mat-select>
+									<mat-error
+										*ngIf="
+											isNotValid(
+												projectForm,
+												'coordinator_career'
+											)
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Carrera Fin -------------->
+						</div>
+
+						<div class="d-flex justify-content-center">
+							<button
+								type="submit"
+								[disabled]="projectForm.invalid"
+								class="btn btn-primary"
 							>
-								<mat-icon style="margin-right: 5px"
-									>save</mat-icon
+								<span
+									class="d-flex justify-content-between align-items-center"
 								>
-								Guardar
-							</span>
-						</button>
-					</div>
-				</form>
+									<mat-icon style="margin-right: 5px"
+										>save</mat-icon
+									>
+									Guardar
+								</span>
+							</button>
+						</div>
+					</form>
+				</ng-container>
+
+				<ng-template #notProject>
+					<form
+						[formGroup]="generalForm"
+						(ngSubmit)="saveNewUser()"
+						class="mt-3"
+					>
+						<div class="row d-flex flex-wrap">
+							<!-------------- Nombre Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>badge</mat-icon>
+										Nombre
+									</mat-label>
+									<input
+										type="text"
+										matInput
+										formControlName="first_name"
+										placeholder="Ingrese su nombre"
+									/>
+									<mat-error
+										*ngIf="
+											isNotValid(
+												generalForm,
+												'first_name'
+											)
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Nombre Fin -------------->
+
+							<!-------------- Apellido Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>badge</mat-icon>
+										Apellido
+									</mat-label>
+									<input
+										type="text"
+										matInput
+										formControlName="last_name"
+										placeholder="Ingrese su apellido"
+									/>
+									<mat-error
+										*ngIf="
+											isNotValid(generalForm, 'last_name')
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Apellido Fin -------------->
+
+							<!-------------- Nacionalidad Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>badge</mat-icon>
+										Nacionalidad
+									</mat-label>
+
+									<mat-select formControlName="nationality">
+										<mat-option
+											*ngFor="
+												let nationality of nationalities
+											"
+											[value]="nationality"
+										>
+											{{ nationality }}
+										</mat-option>
+									</mat-select>
+
+									<mat-error
+										*ngIf="
+											isNotValid(
+												generalForm,
+												'nationality'
+											)
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Nacionalidad Fin -------------->
+
+							<!-------------- Cedula Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>badge</mat-icon>
+										C&eacute;dula
+									</mat-label>
+									<input
+										type="text"
+										matInput
+										formControlName="identification"
+										placeholder="Ingrese su cédula"
+									/>
+									<mat-error
+										*ngIf="
+											isNotValid(
+												generalForm,
+												'identification'
+											)
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Cedula Fin -------------->
+
+							<!-------------- Correo Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>email</mat-icon>
+										Correo Electr&oacute;nico
+									</mat-label>
+									<input
+										type="email"
+										matInput
+										formControlName="email"
+										placeholder="Ingrese su correo"
+									/>
+									<mat-error
+										*ngIf="isNotValid(generalForm, 'email')"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Correo Fin -------------->
+
+							<!-------------- Teléfono Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix
+											>phone_in_talk_watchface_indicator</mat-icon
+										>
+										Teléfono
+									</mat-label>
+									<input
+										type="text"
+										matInput
+										formControlName="phone"
+										placeholder="Ingrese su teléfono"
+									/>
+									<mat-error
+										*ngIf="isNotValid(generalForm, 'phone')"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Teléfono Fin -------------->
+
+							<!-------------- Carrera Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>list</mat-icon>
+										Carrera
+									</mat-label>
+
+									<mat-select formControlName="career">
+										<mat-option
+											*ngFor="let career of careers"
+											[value]="career.name"
+										>
+											{{ career.name }}
+										</mat-option>
+									</mat-select>
+									<mat-error
+										*ngIf="
+											isNotValid(generalForm, 'career')
+										"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Carrera Fin -------------->
+						</div>
+
+						<div class="d-flex justify-content-center">
+							<button
+								type="submit"
+								[disabled]="generalForm.invalid"
+								class="btn btn-primary"
+							>
+								<span
+									class="d-flex justify-content-between align-items-center"
+								>
+									<mat-icon style="margin-right: 5px"
+										>save</mat-icon
+									>
+									Guardar
+								</span>
+							</button>
+						</div>
+					</form>
+				</ng-template>
 			</section>
 			<!-- Registrar un estudiante Fin -->
 
@@ -275,11 +592,17 @@
 				<ng-container *ngIf="rows.length > 0">
 					<mat-divider class="mt-4"></mat-divider>
 					<div class="mt-4 mb-2 d-flex justify-content-end">
-						<button type="button" (click)="saveNewUsers()" class="btn btn-primary">
+						<button
+							type="button"
+							(click)="isProject?  saveNewProjects():saveNewUsers()"
+							class="btn btn-primary"
+						>
 							Confirmar registro
 						</button>
 					</div>
-					<h2 class="text-center m-0">Listado de {{ name }} a registrar</h2>
+					<h2 class="text-center m-0">
+						Listado de {{ name }} a registrar
+					</h2>
 					<app-dynamic-table
 						[data]="rows"
 						[headers]="headers"

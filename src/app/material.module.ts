@@ -18,6 +18,10 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatTabsModule } from '@angular/material/tabs'
 import { CustomMatPaginatorIntl } from "./shared/config/paginator-es";
 import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MAT_DATE_LOCALE } from "@angular/material/core";
+
+
 @NgModule({
 	exports: [
 		MatToolbarModule,
@@ -38,9 +42,11 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 		MatSortModule,
 		MatTabsModule,
 		MatCheckboxModule,
+		MatDatepickerModule,
 	],
 	providers: [
 		{ provide: MatPaginatorIntl, useClass: CustomMatPaginatorIntl },
+		{ provide: MAT_DATE_LOCALE, useValue: 'en-GB' },
 	],
 })
 export class MaterialModule {};

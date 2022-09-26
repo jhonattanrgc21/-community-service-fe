@@ -1,7 +1,20 @@
 <span class="p-2">Proyectos activos</span>
 <mat-divider class="mt-3 mb-3"></mat-divider>
 
-<!-- Lista de proyectos activos -->
-<app-project-card  [projects]="activeProjects" (project)="detailsProject($event)" [active]="true">
+<div class="mb-2 d-flex justify-content-end">
+	<button
+		type="button"
+		class="btn btn-outline-primary"
+		(click)="goToNewProject()"
+	>
+		Nuevo
+	</button>
+</div>
 
+<!-- Lista de proyectos activos -->
+<app-project-card
+	[projects]="activeProjects"
+	(project)="detailsProject($event)"
+	[active]="true"
+>
 </app-project-card>
