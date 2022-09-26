@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { Task, TutorTask } from './interfaces/tasks.iterface';
+import { NewTaskComponent } from './pages/new-task/new-task.component';
 import { TasksService } from './services/tasks.service';
 @Component({
 	selector: 'app-tasks',
@@ -15,11 +17,16 @@ export class TasksComponent implements OnInit {
 	headersList: string[] = [];
 
 	constructor(
+		public dialog: MatDialog,
 		private _tasksSrvices: TasksService,
 		private _authService: AuthService
 	) {}
 
 	ngOnInit(): void {
+		this.loadData();
+	}
+
+	loadData(): void {
 		if (this._authService.user.role == 'student') {
 			this._tasksSrvices
 				.findAllTaskByStudent()
@@ -56,5 +63,15 @@ export class TasksComponent implements OnInit {
 					];
 				});
 		}
+	}
+
+	addNewTask(): void {
+		const dialogRef = this.dialog.open(NewTaskComponent, {
+			width: '25%',
+		});
+
+		dialogRef.afterClosed().subscribe((isRefresh) => {
+			this.loadData();
+		});
 	}
 }

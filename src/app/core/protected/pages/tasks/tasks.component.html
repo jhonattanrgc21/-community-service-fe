@@ -1,12 +1,18 @@
 <span class="p-2">Mis tareas</span>
 <mat-divider class="mt-3"></mat-divider>
 
-<ng-container *ngIf="tasksList.length > 0">
-	<h2 class="text-center">Listado de tareas</h2>
-	<app-dynamic-table
-		[data]="tasksList"
-		[headers]="headersList"
-		[filter]="true"
-	>
-	</app-dynamic-table>
-</ng-container>
+<div class="mt-4">
+	<div class="mb-2 d-flex justify-content-end">
+		<button type="button" class="btn btn-outline-primary" (click)="addNewTask()">Nuevo</button>
+	</div>
+
+	<ng-container *ngIf="tasksList.length > 0">
+		<h2 class="text-center mb-0">Listado de tareas</h2>
+		<app-dynamic-table
+			[data]="tasksList"
+			[headers]="headersList"
+			[filter]="true"
+		>
+		</app-dynamic-table>
+	</ng-container>
+</div>

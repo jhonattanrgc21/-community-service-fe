@@ -1,0 +1,140 @@
+<div>
+	<h1 mat-dialog-title>Nueva Tarea</h1>
+	<form [formGroup]="taskForm" (ngSubmit)="onSaveNewTask()">
+		<div mat-dialog-content>
+			<div class="d-flex flex-column">
+				<!-- Nombre Inicio-->
+				<mat-form-field>
+					<input
+						formControlName="name"
+						matInput
+						type="text"
+						placeholder="Nombre"
+					/>
+					<mat-error *ngIf="isNotValid(taskForm, 'name')" class="mb-3">
+						Este campo es
+						<strong>obligatorio</strong>
+					</mat-error>
+				</mat-form-field>
+				<!-- Nombre Fin -->
+
+				<!-- Descripcion Inicio -->
+				<mat-form-field>
+					<input
+						formControlName="description"
+						matInput
+						type="text"
+						placeholder="Descripción"
+					/>
+					<mat-error *ngIf="isNotValid(taskForm, 'description')" class="mb-3">
+						Este campo es
+						<strong>obligatorio</strong>
+					</mat-error>
+				</mat-form-field>
+				<!-- Descripcion Fin -->
+
+				<!--Costo Inicio -->
+				<mat-form-field>
+					<input
+						formControlName="cost"
+						matInput
+						type="number"
+						placeholder="Peso en horas"
+					/>
+					<mat-error *ngIf="isNotValid(taskForm, 'cost')" class="mb-3">
+						Este campo es
+						<strong>obligatorio</strong>
+					</mat-error>
+				</mat-form-field>
+				<!--Costo Fin -->
+
+				<!-- Responsable Inicio -->
+				<ng-container *ngIf="students.length > 0">
+					<mat-form-field>
+						<mat-select
+							placeholder="Responsable"
+							formControlName="student_identification"
+						>
+							<mat-option
+								*ngFor="let student of students"
+								[value]="student.identification"
+							>
+								{{ student.identification }} /
+								{{ student.first_name }} {{ student.last_name }}
+							</mat-option>
+						</mat-select>
+						<mat-error
+							*ngIf="
+								isNotValid(taskForm, 'student_identification')
+							"
+							class="mb-3"
+						>
+							Este campo es <strong>obligatorio</strong>
+						</mat-error>
+					</mat-form-field>
+				</ng-container>
+				<!-- Responsable Fin -->
+
+				<!--  Tutor del Responsable Inicio -->
+				<ng-container *ngIf="tutors.length > 0">
+					<mat-form-field>
+						<mat-select
+							placeholder="Tutor del Responsable"
+							formControlName="tutor_identification"
+						>
+							<mat-option
+								*ngFor="let tutor of tutors"
+								[value]="tutor.identification"
+							>
+								{{ tutor.identification }} /
+								{{ tutor.first_name }} {{ tutor.last_name }}
+							</mat-option>
+						</mat-select>
+						<mat-error
+							*ngIf="isNotValid(taskForm, 'tutor_identification')"
+							class="mb-3"
+						>
+							Este campo es <strong>obligatorio</strong>
+						</mat-error>
+					</mat-form-field>
+				</ng-container>
+				<!--  Tutor del Responsable Fin -->
+
+				<!--  Asignar a un proyecto Inicio -->
+				<ng-container *ngIf="projects.length > 0">
+					<mat-form-field>
+						<mat-select
+							placeholder="Asignar a un proyecto "
+							formControlName="project_id"
+						>
+							<mat-option
+								*ngFor="let project of projects"
+								[value]="project.id"
+							>
+								{{ project.name }}
+							</mat-option>
+						</mat-select>
+						<mat-error
+							*ngIf="isNotValid(taskForm, 'project_id')"
+							class="mb-3"
+						>
+							Este campo es <strong>obligatorio</strong>
+						</mat-error>
+					</mat-form-field>
+				</ng-container>
+				<!--  Asignar a un proyecto Fin -->
+			</div>
+		</div>
+		<div mat-dialog-actions class="d-flex flex-wrap justify-content-between">
+			<button class="btn btn-secondary" (click)="onClose()">Cancelar</button>
+			<button
+				type="submit"
+				[disabled]="taskForm.invalid"
+				class="btn btn-primary"
+				cdkFocusInitial
+			>
+				Guardar
+			</button>
+		</div>
+	</form>
+</div>

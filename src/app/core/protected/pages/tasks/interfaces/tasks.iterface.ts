@@ -29,3 +29,10 @@ export interface TaskProject
 	identification: string;
 	fullname: string;
 }
+
+export interface NewTask
+	extends Pick<
+			Task,
+			'name' | 'description' | 'tutor_indentification' | 'cost'
+		>,
+		Pick<TutorTask, 'student_indentification' | 'project_id'> {}

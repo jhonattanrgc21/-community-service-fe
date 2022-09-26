@@ -4,7 +4,12 @@ import { Injectable } from '@angular/core';
 import { Observable, tap, map, catchError, of } from 'rxjs';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { environment } from 'src/environments/environment';
-import { Task, TutorTask, TaskProject } from '../interfaces/tasks.iterface';
+import {
+	Task,
+	TutorTask,
+	TaskProject,
+	NewTask,
+} from '../interfaces/tasks.iterface';
 
 @Injectable({
 	providedIn: 'root',
@@ -92,6 +97,14 @@ export class TasksService {
 			}),
 			map((res: TaskProject[]) => res),
 			catchError((err) => of([]))
+		);
+	}
+
+	createTask(newTask: NewTask): Observable<boolean> {
+		const url: string = `${this._baseUrl}/create_task`;
+		return this._httpClient.post<boolean>(url, newTask).pipe(
+			map((res) => true),
+			catchError((err) => of(false))
 		);
 	}
 }
