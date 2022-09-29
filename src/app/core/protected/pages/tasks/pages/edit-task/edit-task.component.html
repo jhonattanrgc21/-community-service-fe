@@ -1,0 +1,103 @@
+<ng-container *ngIf="data.name">
+	<h1 mat-dialog-title>{{ data.name }}</h1>
+</ng-container>
+
+<form  [formGroup]="taskForm" >
+	<div mat-dialog-content>
+		<div class="d-flex flex-column">
+			<!-- Descripcion Inicio -->
+			<p>
+				<span style="font-weight: 500">Descripci&oacute;n:</span>
+				<ng-container *ngIf="data?.description">
+					{{ data.description | titlecase }}
+				</ng-container>
+			</p>
+			<!-- Descripcion Fin -->
+
+			<!-- Responsable Inicio -->
+			<ng-container *ngIf="isStudent; else isTutor">
+				<p>
+					<span style="font-weight: 500">C.I Tutor:</span>
+					<ng-container *ngIf="data?.tutor_indentification">
+						{{ data.tutor_indentification | uppercase }}
+					</ng-container>
+				</p>
+
+				<p>
+					<span style="font-weight: 500">Nombre del Tutor:</span>
+					<ng-container *ngIf="data?.tutor_name">
+						{{ data.tutor_name }}
+					</ng-container>
+				</p>
+			</ng-container>
+
+			<ng-template #isTutor>
+				<p>
+					<span style="font-weight: 500">C.I Estudiante:</span>
+					<ng-container *ngIf="data?.student_indentification">
+						{{ data.student_indentification | uppercase }}
+					</ng-container>
+				</p>
+
+				<p>
+					<span style="font-weight: 500">Nombre del Estudiante:</span>
+					<ng-container *ngIf="data?.student_name">
+						{{ data.student_name }}
+					</ng-container>
+				</p>
+			</ng-template>
+			<!-- Responsable Fin -->
+
+			<!-- Fecha de inicio Inicio -->
+			<p>
+				<span style="font-weight: 500">fecha de inicio:</span>
+				<ng-container *ngIf="data.date_start">
+					{{ data.date_start }}
+				</ng-container>
+			</p>
+			<!-- Fecha de inicio Fin -->
+
+			<!-- Fecha de inicio Inicio -->
+			<ng-container *ngIf="data?.date_end">
+				<p>
+					<span style="font-weight: 500"
+						>fecha de finalizaci&oacute;n:</span
+					>
+					{{ data.date_end }}
+				</p>
+			</ng-container>
+			<!-- Fecha de inicio Fin -->
+
+			<!--Costo Inicio -->
+			<p>
+				<span style="font-weight: 500">Horas:</span>
+				<ng-container *ngIf="data?.cost">
+					{{ data.cost }}
+				</ng-container>
+			</p>
+			<!--Costo Fin -->
+
+			<!--  Asignar a un proyecto Inicio -->
+			<ng-container *ngIf="data?.status">
+				<mat-form-field>
+					<mat-select placeholder="Estatus" formControlName="status">
+						<mat-option
+							*ngFor="let status of statuses"
+							[value]="status"
+						>
+							{{ status | titlecase }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</ng-container>
+			<!--  Asignar a un proyecto Fin -->
+		</div>
+	</div>
+
+	<div mat-dialog-actions class="d-flex flex-wrap justify-content-between">
+		<button class="btn btn-secondary" (click)="onClose()">Cancelar</button>
+		<button (click)="onSaveTask()" class="btn btn-primary" cdkFocusInitial>
+			Guardar
+		</button>
+	</div>
+</form>

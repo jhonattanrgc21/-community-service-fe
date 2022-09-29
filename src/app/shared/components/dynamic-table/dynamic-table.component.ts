@@ -22,8 +22,10 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 	@Input('data') tableData!: any[];
 	@Input('filter') isFilter?: boolean = false;
 	@Input('select') isSelect?: boolean = false;
+	@Input('edit') isEdit?: boolean = false;
 
 	@Output() confirmedSelection = new EventEmitter<any[]>();
+	@Output() editRow = new EventEmitter<any>();
 
 	// Paginador
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -36,12 +38,6 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 	constructor() {}
 
 	ngOnInit(): void {
-		// Eliminando campos innecesarios
-		this.tableData = this.tableData.map((item) => {
-			delete item.project_id;
-			return item;
-		});
-
 		this.dataSource.data = this.tableData;
 		this.tableCols =
 			this.tableData && this.tableData.length > 0
@@ -53,8 +49,14 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 			this.tableCols.unshift('select');
 		}
 
-		// Eliminando la columna ID
+		if (this.isEdit) {
+			this.tableHeaders.push(' ');
+			this.tableCols.push('edit');
+		}
+
+		// Eliminando columnas innecesarios
 		this.removeAatributes(this.tableCols, 'id');
+		this.removeAatributes(this.tableCols, 'project_id');
 		this.removeAatributes(this.tableCols, 'role');
 	}
 
@@ -106,6 +108,10 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 	}
 
 	onConfirmSelection(): void {
-		this.confirmedSelection.emit(this.selection.selected)
+		this.confirmedSelection.emit(this.selection.selected);
+	}
+
+	onEdit(row: any): void {
+		this.editRow.emit(row);
 	}
 }

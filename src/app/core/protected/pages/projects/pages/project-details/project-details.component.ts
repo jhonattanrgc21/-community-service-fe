@@ -133,7 +133,7 @@ export class ProjectDetailsComponent implements OnInit {
 	/**
 	 * @description Guarda en la BD a los estudiantes aprobados
 	 */
-	onSaveStudentsAprobbal(studentsAprobbal: Student[]): void {
+	onSaveStudentsAprobbal(studentsApproval: Student[]): void {
 		// TODO: Agregar la peticion que guarda los estudiantes aprobados
 
 		// Para refrescar la tabla

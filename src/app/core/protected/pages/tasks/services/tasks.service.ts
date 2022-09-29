@@ -30,7 +30,8 @@ export class TasksService {
 		const url: string = `${this._baseUrl}/get_student_tasks`;
 		return this._httpClient
 			.post<Task[]>(url, {
-				identification: this._authService.user.identification,
+				identification:
+					this._authService.user.identification,
 			})
 			.pipe(
 				tap((res: Task[]) => {
@@ -103,6 +104,14 @@ export class TasksService {
 	createTask(newTask: NewTask): Observable<boolean> {
 		const url: string = `${this._baseUrl}/create_task`;
 		return this._httpClient.post<boolean>(url, newTask).pipe(
+			map((res) => true),
+			catchError((err) => of(false))
+		);
+	}
+
+	editTask(id: number, status: string): Observable<boolean> {
+		const url: string = `${this._baseUrl}/update_task_status/${id}/${status}`;
+		return this._httpClient.put<boolean>(url, {}).pipe(
 			map((res) => true),
 			catchError((err) => of(false))
 		);

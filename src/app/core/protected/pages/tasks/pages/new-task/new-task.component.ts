@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { MatDialogRef} from '@angular/material/dialog';
+import { MatDialogRef } from '@angular/material/dialog';
 import { Project } from '../../../projects/interfaces/projects.interface';
 import { ProjectService } from '../../../projects/services/projects.service';
 import { AssignedStudent } from '../../../students/Interfaces/students.interface';
@@ -55,16 +55,18 @@ export class NewTaskComponent implements OnInit {
 		});
 
 		// Obteniendo la lista de todos los proyectos activos
-		this._projectService.findAllActiveProjects().subscribe((res: Project[]) => {
-			this.projects = res;
-		})
+		this._projectService
+			.findAllActiveProjects()
+			.subscribe((res: Project[]) => {
+				this.projects = res;
+			});
 	}
 
 	/**
 	 * @description Permite cerrar el modal
 	 */
-	onClose(): void {
-		this.dialogRef.close();
+	onClose(message?: string): void {
+		this.dialogRef.close(message);
 	}
 
 	/**
@@ -77,21 +79,26 @@ export class NewTaskComponent implements OnInit {
 		this.newTask.name = this.newTask.name.trim();
 		this.newTask.description = this.newTask.description.trim();
 
-		this._tasksService.createTask(this.newTask).subscribe((isCreated: Boolean) => {
-			if (isCreated) {
-				Swal.fire({ title: 'Guardado', text: 'Tarea creada con exito!', icon: 'success' });
-			}
-			else {
-				Swal.fire({
-					title: 'Error',
-					text: 'No se pudo crear la tarea',
-					icon: 'error',
-				});
-			}
-		});
+		this._tasksService
+			.createTask(this.newTask)
+			.subscribe((isCreated: Boolean) => {
+				if (isCreated) {
+					Swal.fire({
+						title: 'Guardado',
+						text: 'Tarea creada con exito!',
+						icon: 'success',
+					});
+				} else {
+					Swal.fire({
+						title: 'Error',
+						text: 'No se pudo crear la tarea',
+						icon: 'error',
+					});
+				}
+			});
 
 		// Cerrando el modal
-		this.onClose();
+		this.onClose('created');
 	}
 
 	/**

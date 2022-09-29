@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { Task, TutorTask } from './interfaces/tasks.iterface';
+import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 import { NewTaskComponent } from './pages/new-task/new-task.component';
 import { TasksService } from './services/tasks.service';
 @Component({
@@ -71,7 +72,22 @@ export class TasksComponent implements OnInit {
 		});
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
-			this.loadData();
+			if (isRefresh) {
+				this.loadData();
+			}
+		});
+	}
+
+	editTask(task: any): void {
+		const dialogRef = this.dialog.open(EditTaskComponent, {
+			width: '25%',
+			data: task,
+		});
+
+		dialogRef.afterClosed().subscribe((isRefresh) => {
+			if (isRefresh) {
+				this.loadData();
+			}
 		});
 	}
 }

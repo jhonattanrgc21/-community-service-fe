@@ -1,7 +1,11 @@
 <div style="width: 95%; margin: auto" [ngClass]="{ 'mt-4': !isFilter }">
-
-	<div *ngIf="viewConfirmButton()" class="mt-3 d-flex align-items-start justify-content-end">
-		<button (click)="onConfirmSelection()" class="btn btn-primary">Confirmar</button>
+	<div
+		*ngIf="viewConfirmButton()"
+		class="mt-3 d-flex align-items-start justify-content-end"
+	>
+		<button (click)="onConfirmSelection()" class="btn btn-primary">
+			Confirmar
+		</button>
 	</div>
 
 	<!-- Filtro de busqueda Inicio -->
@@ -25,8 +29,24 @@
 		<table class="w-100" mat-table [dataSource]="dataSource">
 			<ng-container *ngFor="let col of tableCols; index as i">
 				<ng-container matColumnDef="{{ col }}">
+					<!-- Columna de edicion -->
+					<ng-container *ngIf="col == 'edit'">
+						<th
+							class="text-center"
+							mat-header-cell
+							*matHeaderCellDef
+						>
+							{{ tableHeaders[i] }}
+						</th>
+						<td class="text-center" mat-cell *matCellDef="let row">
+							<button mat-icon-button (click)="onEdit(row)">
+								<mat-icon>edit</mat-icon>
+							</button>
+						</td>
+					</ng-container>
+
 					<!-- Columna de seleccion -->
-					<ng-container *ngIf="col == 'select'; else notSelect">
+					<ng-container *ngIf="col == 'select'">
 						<th mat-header-cell *matHeaderCellDef>
 							<mat-checkbox
 								(change)="$event ? toggleAllRows() : null"
@@ -52,14 +72,16 @@
 					</ng-container>
 
 					<!-- Otras columnas -->
-					<ng-template #notSelect>
-						<th class="text-center" mat-header-cell *matHeaderCellDef>
-							{{ tableHeaders[i] }}
-						</th>
-						<td class="text-center" mat-cell *matCellDef="let element">
-							{{ element[col] }}
-						</td>
-					</ng-template>
+					<th
+						class="text-center"
+						mat-header-cell
+						*matHeaderCellDef
+					>
+						{{ tableHeaders[i] }}
+					</th>
+					<td class="text-center" mat-cell *matCellDef="let row">
+						{{ row[col] }}
+					</td>
 				</ng-container>
 			</ng-container>
 

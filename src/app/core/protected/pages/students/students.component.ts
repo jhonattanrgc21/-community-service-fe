@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ROUTES } from 'src/app/shared/constants/constants';
@@ -7,6 +8,7 @@ import {
 	AssignedStudent,
 	Student,
 } from './Interfaces/students.interface';
+import { EditStudentComponent } from './pages/edit-student/edit-student.component';
 import { StudentsService } from './services/students.service';
 
 @Component({
@@ -25,15 +27,7 @@ export class StudentsComponent implements OnInit {
 	unassignedStudents: Student[] = [];
 
 	// Lista de Headers
-	activeStudentHeaders: string[] = [
-		'Cédula',
-		'Nombre',
-		'Apellido',
-		'Carrera',
-		'Horas',
-	];
-
-	inactiveStudentHeaders: string[] = [
+	studentHeaders: string[] = [
 		'Cédula',
 		'Nombre',
 		'Apellido',
@@ -42,11 +36,7 @@ export class StudentsComponent implements OnInit {
 	];
 
 	approvedStudentHeaders: string[] = [
-		'Cédula',
-		'Nombre',
-		'Apellido',
-		'Carrera',
-		'Horas',
+		...this.studentHeaders,
 		'Proyecto',
 		'Fecha de aprobación',
 	];
@@ -60,18 +50,11 @@ export class StudentsComponent implements OnInit {
 		'Horas',
 	];
 
-	unassignedStudentHeaders: string[] = [
-		'Cédula',
-		'Nombre',
-		'Apellido',
-		'Carrera',
-		'Horas',
-	];
-
 	constructor(
 		private _studenstServices: StudentsService,
 		private _activatedRoute: ActivatedRoute,
-		private _router: Router
+		private _router: Router,
+		public dialog: MatDialog
 	) {}
 
 	ngOnInit(): void {
@@ -145,5 +128,18 @@ export class StudentsComponent implements OnInit {
 
 	goToNewStudent(): void {
 		this._router.navigateByUrl(ROUTES.newStudents);
+	}
+
+	onEditStudent(student: any): void {
+		const dialogRef = this.dialog.open(EditStudentComponent, {
+			width: '25%',
+			data: student
+		});
+
+		dialogRef.afterClosed().subscribe((isRefresh) => {
+			/*if (isRefresh) {
+				this.loadData();
+			}*/
+		});
 	}
 }

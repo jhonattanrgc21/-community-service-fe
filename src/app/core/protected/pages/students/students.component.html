@@ -2,7 +2,7 @@
 <mat-divider class="mt-3"></mat-divider>
 
 <div class="mt-4">
-	<div class=" mb-2 d-flex justify-content-end">
+	<div class="mb-2 d-flex justify-content-end">
 		<button
 			type="button"
 			class="btn btn-outline-primary"
@@ -13,14 +13,19 @@
 	</div>
 	<h2 class="text-center">Listado de estudiantes</h2>
 
-	<mat-tab-group (selectedTabChange)="handleTabChange()" mat-align-tabs="start">
+	<mat-tab-group
+		(selectedTabChange)="handleTabChange()"
+		mat-align-tabs="start"
+	>
 		<!-- Estudiantes Activos Inicio -->
 		<mat-tab label="Activos">
 			<ng-container *ngIf="activeStudents.length > 0">
 				<app-dynamic-table
 					[data]="activeStudents"
-					[headers]="activeStudentHeaders"
+					[headers]="studentHeaders"
 					[filter]="true"
+					[edit]="true"
+					(editRow)="onEditStudent($event)"
 				>
 				</app-dynamic-table>
 			</ng-container>
@@ -32,8 +37,10 @@
 			<ng-container *ngIf="inactiveStudents.length > 0">
 				<app-dynamic-table
 					[data]="inactiveStudents"
-					[headers]="inactiveStudentHeaders"
+					[headers]="studentHeaders"
 					[filter]="true"
+					[edit]="true"
+					(editRow)="onEditStudent($event)"
 				>
 				</app-dynamic-table>
 			</ng-container>
@@ -47,6 +54,8 @@
 					[data]="approvedStudents"
 					[headers]="approvedStudentHeaders"
 					[filter]="true"
+					[edit]="true"
+					(editRow)="onEditStudent($event)"
 				>
 				</app-dynamic-table>
 			</ng-container>
@@ -60,6 +69,8 @@
 					[data]="assignedStudents"
 					[headers]="assignedStudentHeaders"
 					[filter]="true"
+					[edit]="true"
+					(editRow)="onEditStudent($event)"
 				>
 				</app-dynamic-table>
 			</ng-container>
@@ -71,14 +82,14 @@
 			<ng-container *ngIf="unassignedStudents.length > 0">
 				<app-dynamic-table
 					[data]="unassignedStudents"
-					[headers]="unassignedStudentHeaders"
+					[headers]="studentHeaders"
 					[filter]="true"
+					[edit]="true"
+					(editRow)="onEditStudent($event)"
 				>
 				</app-dynamic-table>
 			</ng-container>
 		</mat-tab>
 		<!-- Estudiantes no asignados a un proyecto Fin -->
 	</mat-tab-group>
-
 </div>
-

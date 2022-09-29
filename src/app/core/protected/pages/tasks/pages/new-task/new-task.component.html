@@ -1,6 +1,6 @@
 <div>
 	<h1 mat-dialog-title>Nueva Tarea</h1>
-	<form [formGroup]="taskForm" (ngSubmit)="onSaveNewTask()">
+	<form [formGroup]="taskForm">
 		<div mat-dialog-content>
 			<div class="d-flex flex-column">
 				<!-- Nombre Inicio-->
@@ -128,8 +128,8 @@
 		<div mat-dialog-actions class="d-flex flex-wrap justify-content-between">
 			<button class="btn btn-secondary" (click)="onClose()">Cancelar</button>
 			<button
-				type="submit"
 				[disabled]="taskForm.invalid"
+				(click)="onSaveNewTask()"
 				class="btn btn-primary"
 				cdkFocusInitial
 			>

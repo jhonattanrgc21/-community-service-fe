@@ -7,9 +7,10 @@ import { MaterialModule } from 'src/app/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NewTaskComponent } from './pages/new-task/new-task.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { EditTaskComponent } from './pages/edit-task/edit-task.component';
 
 @NgModule({
-	declarations: [TasksComponent, NewTaskComponent],
+	declarations: [TasksComponent, NewTaskComponent, EditTaskComponent],
 	imports: [
 		CommonModule,
 		ReactiveFormsModule,
