@@ -29,10 +29,13 @@ export class ProfileComponent implements OnInit {
 		id: [],
 		first_name: ['', [Validators.required]],
 		last_name: ['', [Validators.required]],
-		identification: ['', { disable: true }, [Validators.required]],
+		identification: [
+			{ disabled: true, value: null },
+			[Validators.required],
+		],
 		phone: ['', [Validators.required]],
 		email: ['', [Validators.required, Validators.email]],
-		username: ['', { disable: true }, [Validators.required]],
+		username: [{ disabled: true, value: null }, [Validators.required]],
 		career: ['', [Validators.required]],
 	});
 

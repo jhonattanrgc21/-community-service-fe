@@ -137,9 +137,10 @@ export class StudentsComponent implements OnInit {
 		});
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
-			/*if (isRefresh) {
-				this.loadData();
-			}*/
+			if (isRefresh) {
+				// TODO: Hacer que se recargue la tabla de la vista actual
+				this.handleTabChange();
+			}
 		});
 	}
 }

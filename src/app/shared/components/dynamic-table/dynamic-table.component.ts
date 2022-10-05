@@ -9,6 +9,7 @@ import {
 	EventEmitter,
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -26,6 +27,8 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 
 	@Output() confirmedSelection = new EventEmitter<any[]>();
 	@Output() editRow = new EventEmitter<any>();
+
+	@ViewChild(MatSort) sort!: MatSort;
 
 	// Paginador
 	@ViewChild(MatPaginator) paginator!: MatPaginator;
@@ -62,6 +65,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 
 	ngAfterViewInit() {
 		this.dataSource.paginator = this.paginator;
+		this.dataSource.sort = this.sort;
 	}
 
 	applyFilter(event: Event) {

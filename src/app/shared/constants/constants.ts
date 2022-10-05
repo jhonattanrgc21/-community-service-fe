@@ -1,10 +1,12 @@
 export const Careers = [
 	{ id: 1, name: 'Computación' },
 	{ id: 2, name: 'Física' },
-	{ id: 3, name: 'Física' },
+	{ id: 3, name: 'Química'},
 	{ id: 4, name: 'Matemática' },
 	{ id: 5, name: 'Biología' },
 ];
+
+export const StatusUser: string[] = ['Activo', 'Inactivo', 'Aprobado']
 
 export const Nationalities: string[] = ['V', 'E', 'J', 'G'];
 

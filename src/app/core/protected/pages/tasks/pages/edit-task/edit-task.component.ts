@@ -57,16 +57,20 @@ export class EditTaskComponent implements OnInit {
 						text: 'Estatus actualizado con exito!',
 						icon: 'success',
 					});
+
+					// Cerrando el modal
+					this.onClose('edit');
 				} else {
 					Swal.fire({
 						title: 'Error',
 						text: 'No se pudo actualizar el estatus de la tarea',
 						icon: 'error',
 					});
+					// Cerrando el modal
+					this.onClose();
 				}
 			});
 
-		// Cerrando el modal
-		this.onClose('edit');
+
 	}
 }

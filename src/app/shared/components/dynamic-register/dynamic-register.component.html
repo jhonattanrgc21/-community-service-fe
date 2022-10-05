@@ -55,11 +55,9 @@
 							</div>
 							<!-------------- Nombre Fin -------------->
 
-														<!-------------- Descripción Inicio -------------->
+							<!-------------- Descripción Inicio -------------->
 							<div class="col-12 col-md-6">
-								<mat-form-field
-									class="text-dark mb-4 w-75"
-								>
+								<mat-form-field class="text-dark mb-4 w-75">
 									<mat-label>
 										<mat-icon matPrefix
 											>description</mat-icon
@@ -594,7 +592,9 @@
 					<div class="mt-4 mb-2 d-flex justify-content-end">
 						<button
 							type="button"
-							(click)="isProject?  saveNewProjects():saveNewUsers()"
+							(click)="
+								isProject ? saveNewProjects() : saveNewUsers()
+							"
 							class="btn btn-primary"
 						>
 							Confirmar registro

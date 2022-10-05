@@ -26,7 +26,7 @@
 
 	<!-- Tabla dinamica Inicio -->
 	<div class="mat-elevation-z8 mb-1">
-		<table class="w-100" mat-table [dataSource]="dataSource">
+		<table class="w-100" mat-table matSort [dataSource]="dataSource">
 			<ng-container *ngFor="let col of tableCols; index as i">
 				<ng-container matColumnDef="{{ col }}">
 					<!-- Columna de edicion -->
@@ -75,6 +75,7 @@
 					<th
 						class="text-center"
 						mat-header-cell
+						mat-sort-header
 						*matHeaderCellDef
 					>
 						{{ tableHeaders[i] }}
