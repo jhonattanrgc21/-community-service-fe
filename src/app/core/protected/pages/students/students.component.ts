@@ -54,7 +54,7 @@ export class StudentsComponent implements OnInit {
 		private _studenstServices: StudentsService,
 		private _activatedRoute: ActivatedRoute,
 		private _router: Router,
-		public dialog: MatDialog
+		public dialog: MatDialog,
 	) {}
 
 	ngOnInit(): void {
@@ -133,7 +133,7 @@ export class StudentsComponent implements OnInit {
 	onEditStudent(student: any): void {
 		const dialogRef = this.dialog.open(EditStudentComponent, {
 			width: '25%',
-			data: student
+			data: student,
 		});
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {

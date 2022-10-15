@@ -6,7 +6,7 @@ import {
 	ViewChild,
 	Input,
 	Output,
-	EventEmitter,
+	EventEmitter
 } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -22,8 +22,8 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 	@Input('headers') tableHeaders: string[] = [];
 	@Input('data') tableData!: any[];
 	@Input('filter') isFilter?: boolean = false;
-	@Input('select') isSelect?: boolean = false;
-	@Input('edit') isEdit?: boolean = false;
+	@Input('select') isSelect?: boolean = true;
+	@Input('edit') isEdit?: boolean = true;
 
 	@Output() confirmedSelection = new EventEmitter<any[]>();
 	@Output() editRow = new EventEmitter<any>();
@@ -48,12 +48,11 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 				: [];
 
 		if (this.isSelect) {
-			this.tableHeaders.unshift('select');
+			this.tableHeaders = [' ',...this.tableHeaders];
 			this.tableCols.unshift('select');
 		}
 
 		if (this.isEdit) {
-			this.tableHeaders.push(' ');
 			this.tableCols.push('edit');
 		}
 
