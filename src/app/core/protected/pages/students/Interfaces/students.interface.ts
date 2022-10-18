@@ -7,6 +7,9 @@ export interface Student {
 	last_name: string;
 	career: string;
 	total_hours: number;
+	email: string;
+	phone: string;
+	status: string;
 }
 
 export interface AssignedStudent extends Student{
