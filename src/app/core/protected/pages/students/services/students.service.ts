@@ -1,7 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { ChangeStatus } from '../../../interfaces/users.interface';
 import {
 	ApprovedStudent,
 	AssignedStudent,
@@ -12,31 +13,43 @@ import {
 	providedIn: 'root',
 })
 export class StudentsService {
-	private baseUrl: string = `${environment.baseUrlProjects}/users/get_students`;
+	private baseUrl: string = `${environment.baseUrlProjects}/users`;
 	constructor(private _httpClient: HttpClient) {}
 
 	findActiveStudents(): Observable<Student[]> {
-		const url: string = `${this.baseUrl}/Activo`;
+		const url: string = `${this.baseUrl}/get_students/Activo`;
 		return this._httpClient.get<Student[]>(url);
 	}
 
 	findInactiveStudents(): Observable<Student[]> {
-		const url: string = `${this.baseUrl}/Inactivo`;
+		const url: string = `${this.baseUrl}/get_students/Inactivo`;
 		return this._httpClient.get<Student[]>(url);
 	}
 
 	findAssignedStudents(): Observable<AssignedStudent[]> {
-		const url: string = `${this.baseUrl}/Asignado`;
+		const url: string = `${this.baseUrl}/get_students/Asignado`;
 		return this._httpClient.get<AssignedStudent[]>(url);
 	}
 
 	findUnassignedStudents(): Observable<Student[]> {
-		const url: string = `${this.baseUrl}/No-asignado`;
+		const url: string = `${this.baseUrl}/get_students/No-asignado`;
 		return this._httpClient.get<Student[]>(url);
 	}
 
 	findApprovedStudents(): Observable<ApprovedStudent[]> {
-		const url: string = `${this.baseUrl}/Aprobado`;
+		const url: string = `${this.baseUrl}/get_students/Aprobado`;
 		return this._httpClient.get<ApprovedStudent[]>(url);
+	}
+
+	updateStatusByIdentificationList(
+		changeStatus: ChangeStatus
+	): Observable<boolean> {
+		const url: string = `${this.baseUrl}/update_students_status/${changeStatus.status}`;
+		return this._httpClient
+			.put<boolean>(url, { id_list: changeStatus.identifications })
+			.pipe(
+				map((res) => true),
+				catchError((err) => of(false))
+			);
 	}
 }

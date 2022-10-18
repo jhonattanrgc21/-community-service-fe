@@ -19,7 +19,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 		ProjectCardComponent,
 		DynamicRegisterComponent,
 		PaginatePipe,
-		FilterPipe,
+		FilterPipe
 	],
 	exports: [
 		SharedComponent,
@@ -27,7 +27,7 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 		ProjectCardComponent,
 		DynamicRegisterComponent,
 		PaginatePipe,
-		FilterPipe,
+		FilterPipe
 	],
 	imports: [
 		CommonModule,

@@ -3,6 +3,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ROUTES } from 'src/app/shared/constants/constants';
+import { ChangeStatus } from '../../interfaces/users.interface';
 import {
 	ApprovedStudent,
 	AssignedStudent,
@@ -10,6 +11,7 @@ import {
 } from './Interfaces/students.interface';
 import { EditStudentComponent } from './pages/edit-student/edit-student.component';
 import { StudentsService } from './services/students.service';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-students',
@@ -18,6 +20,8 @@ import { StudentsService } from './services/students.service';
 })
 export class StudentsComponent implements OnInit {
 	@ViewChild(MatTabGroup) matTabGroup: any;
+
+	statuses: string[] = [];
 
 	// Lista de datos par las tablas
 	activeStudents: Student[] = [];
@@ -54,11 +58,12 @@ export class StudentsComponent implements OnInit {
 		private _studenstServices: StudentsService,
 		private _activatedRoute: ActivatedRoute,
 		private _router: Router,
-		public dialog: MatDialog,
+		public dialog: MatDialog
 	) {}
 
 	ngOnInit(): void {
 		this.activeStudents = this._activatedRoute.snapshot.data['students'];
+		this.statuses = ['Inactivo', 'Aprobado'];
 	}
 
 	handleTabChange() {
@@ -86,7 +91,8 @@ export class StudentsComponent implements OnInit {
 		this._studenstServices
 			.findActiveStudents()
 			.subscribe((res: Student[]) => {
-				this.activeStudents = res;
+				this.statuses = ['Inactivo', 'Aprobado'];
+				this.activeStudents = [...res];
 			});
 	}
 
@@ -95,6 +101,7 @@ export class StudentsComponent implements OnInit {
 		this._studenstServices
 			.findInactiveStudents()
 			.subscribe((res: Student[]) => {
+				this.statuses = ['Activo', 'Aprobado'];
 				this.inactiveStudents = res;
 			});
 	}
@@ -104,6 +111,7 @@ export class StudentsComponent implements OnInit {
 		this._studenstServices
 			.findApprovedStudents()
 			.subscribe((res: ApprovedStudent[]) => {
+				this.statuses = ['Activo', 'Inactivo'];
 				this.approvedStudents = res;
 			});
 	}
@@ -142,5 +150,26 @@ export class StudentsComponent implements OnInit {
 				this.handleTabChange();
 			}
 		});
+	}
+
+	onChangeStatus(changeStatus: ChangeStatus): void {
+		this._studenstServices
+			.updateStatusByIdentificationList(changeStatus)
+			.subscribe((ok: boolean) => {
+				if (ok) {
+					Swal.fire({
+						title: 'Guardado',
+						text: 'El estatus de los registros fue modificado con exito!',
+						icon: 'success',
+					});
+					this.handleTabChange();
+				} else {
+					Swal.fire({
+						title: 'Error',
+						text: 'No se pudo Modificar el estatus de los registros seleccionados.',
+						icon: 'error',
+					});
+				}
+			});
 	}
 }

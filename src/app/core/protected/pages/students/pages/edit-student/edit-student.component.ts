@@ -22,7 +22,7 @@ export class EditStudentComponent implements OnInit {
 		first_name: ['', [Validators.required]],
 		last_name: ['', [Validators.required]],
 		identification: [
-			{disabled: true, value: null},
+			{ disabled: true, value: null },
 			[Validators.required],
 		],
 		email: [
@@ -53,24 +53,16 @@ export class EditStudentComponent implements OnInit {
 	) {}
 
 	ngOnInit(): void {
-		this._generalService
-			.findUserByIdentification(this.data?.identification)
-			.subscribe((res) => {
-				this.profileForm.controls['identification'].setValue(
-					this.data?.identification
-				);
+		this.profileForm.controls['identification'].setValue(
+			this.data?.identification
+		);
 
-				this.profileForm.controls['first_name'].setValue(
-					this.data?.first_name
-				);
-				this.profileForm.controls['last_name'].setValue(
-					this.data?.last_name
-				);
-				this.profileForm.controls['email'].setValue(res.email);
-				this.profileForm.controls['phone'].setValue(res.phone);
-				this.profileForm.controls['career'].setValue(this.data?.career);
-				this.profileForm.controls['status'].setValue(res.status);
-			});
+		this.profileForm.controls['first_name'].setValue(this.data?.first_name);
+		this.profileForm.controls['last_name'].setValue(this.data?.last_name);
+		this.profileForm.controls['email'].setValue(this.data?.email);
+		this.profileForm.controls['phone'].setValue(this.data?.phone);
+		this.profileForm.controls['career'].setValue(this.data?.career);
+		this.profileForm.controls['status'].setValue(this.data?.status);
 	}
 
 	/**

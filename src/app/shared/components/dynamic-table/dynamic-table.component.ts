@@ -6,26 +6,36 @@ import {
 	ViewChild,
 	Input,
 	Output,
-	EventEmitter
+	EventEmitter,
+	ChangeDetectorRef,
+	ChangeDetectionStrategy,
+	SimpleChanges,
+	OnChanges,
 } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ChangeStatus } from 'src/app/core/protected/interfaces/users.interface';
 
 @Component({
 	selector: 'app-dynamic-table',
 	templateUrl: './dynamic-table.component.html',
 	styleUrls: ['./dynamic-table.component.scss'],
+	changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DynamicTableComponent implements OnInit, AfterViewInit {
+export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 	// Valores de entrada
 	@Input('headers') tableHeaders: string[] = [];
 	@Input('data') tableData!: any[];
 	@Input('filter') isFilter?: boolean = false;
 	@Input('select') isSelect?: boolean = true;
 	@Input('edit') isEdit?: boolean = true;
+	@Input('statuses') statuses?: string[] = [];
+	@Input('typeTable') typeTable?: string = '';
 
 	@Output() confirmedSelection = new EventEmitter<any[]>();
+	@Output() confirmedChangeStatus = new EventEmitter<ChangeStatus>();
 	@Output() editRow = new EventEmitter<any>();
 
 	@ViewChild(MatSort) sort!: MatSort;
@@ -38,9 +48,14 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 	dataSource = new MatTableDataSource<any>();
 	selection = new SelectionModel<any>(true, []);
 
-	constructor() {}
+	generalForm: FormGroup = this._fb.group({
+		status: ['', [Validators.required]],
+	});
+
+	constructor(private _fb: FormBuilder, private cd: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
+		this.cd.markForCheck();
 		this.dataSource.data = this.tableData;
 		this.tableCols =
 			this.tableData && this.tableData.length > 0
@@ -48,7 +63,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 				: [];
 
 		if (this.isSelect) {
-			this.tableHeaders = [' ',...this.tableHeaders];
+			this.tableHeaders = [' ', ...this.tableHeaders];
 			this.tableCols.unshift('select');
 		}
 
@@ -60,6 +75,15 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 		this.removeAatributes(this.tableCols, 'id');
 		this.removeAatributes(this.tableCols, 'project_id');
 		this.removeAatributes(this.tableCols, 'role');
+		this.removeAatributes(this.tableCols, 'email');
+		this.removeAatributes(this.tableCols, 'phone');
+		this.removeAatributes(this.tableCols, 'status');
+	}
+
+	ngOnChanges(changes: SimpleChanges): void {
+		this.generalForm.reset();
+		this.selection.clear();
+		this.dataSource.data = this.tableData;
 	}
 
 	ngAfterViewInit() {
@@ -111,7 +135,29 @@ export class DynamicTableComponent implements OnInit, AfterViewInit {
 	}
 
 	onConfirmSelection(): void {
-		this.confirmedSelection.emit(this.selection.selected);
+		this.confirmedSelection.emit(
+			this.selection.selected.map((item) => item.identification)
+		);
+	}
+
+	onConfirmChangeStatus(): void {
+		const changeStatus: ChangeStatus = {
+			identifications: this.selection.selected.map((item) => item.id),
+			status: this.generalForm.controls['status'].value,
+		};
+		this.confirmedChangeStatus.emit(changeStatus);
+	}
+
+	/**
+	 * @description Verifica si el formulario no es valido
+	 * @param field
+	 * @returns boolean
+	 */
+	isNotValid(field: string): boolean {
+		return (
+			this.generalForm.controls[field].invalid &&
+			this.generalForm.controls[field].touched
+		);
 	}
 
 	onEdit(row: any): void {
