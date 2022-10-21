@@ -8,6 +8,7 @@ import { ProjectDetailsComponent } from './pages/project-details/project-details
 import { MaterialModule } from 'src/app/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NewProjectComponent } from './pages/new-project/new-project.component';
+import { AddStudentsComponent } from './pages/project-details/dialogs/add-students/add-students.component';
 
 @NgModule({
 	declarations: [
@@ -15,6 +16,7 @@ import { NewProjectComponent } from './pages/new-project/new-project.component';
 		InactiveProjectsComponent,
 		ProjectDetailsComponent,
 		NewProjectComponent,
+		AddStudentsComponent,
 	],
 	imports: [
 		CommonModule,

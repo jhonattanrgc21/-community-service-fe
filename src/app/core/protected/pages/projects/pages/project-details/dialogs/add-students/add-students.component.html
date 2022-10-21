@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Añadir Estudiante(es)</h1>
+<div mat-dialog-content>
+	<ng-container *ngIf="unassignedStudents.length > 0">
+		<app-dynamic-table
+			[data]="unassignedStudents"
+			[headers]="studentHeaders"
+			[filter]="true"
+			[edit]="false"
+			(confirmedSelection)="onAddStudents($event)"
+		>
+		</app-dynamic-table>
+	</ng-container>
+
+</div>
+<div mat-dialog-actions class="d-flex flex-wrap justify-content-center">
+	<button class="btn btn-secondary" (click)="onClose()">Cancelar</button>
+</div>

@@ -136,7 +136,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 
 	onConfirmSelection(): void {
 		this.confirmedSelection.emit(
-			this.selection.selected.map((item) => item.identification)
+			this.selection.selected
 		);
 	}
 

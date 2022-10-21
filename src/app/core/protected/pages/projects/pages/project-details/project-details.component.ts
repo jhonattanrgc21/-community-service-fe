@@ -1,11 +1,14 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
 import { Student } from '../../../students/Interfaces/students.interface';
+import { StudentsService } from '../../../students/services/students.service';
 import { TaskProject } from '../../../tasks/interfaces/tasks.iterface';
 import { TasksService } from '../../../tasks/services/tasks.service';
 import { ProjectDetails } from '../../interfaces/projects.interface';
 import { ProjectService } from '../../services/projects.service';
+import { AddStudentsComponent } from './dialogs/add-students/add-students.component';
 
 @Component({
 	selector: 'app-project-details',
@@ -46,7 +49,9 @@ export class ProjectDetailsComponent implements OnInit {
 	constructor(
 		private _activatedRoute: ActivatedRoute,
 		private _projectService: ProjectService,
-		private _tasksService: TasksService
+		private _tasksService: TasksService,
+		private _studentsService: StudentsService,
+		public dialog: MatDialog
 	) {}
 
 	ngOnInit(): void {
@@ -129,7 +134,7 @@ export class ProjectDetailsComponent implements OnInit {
 						total_hours: elem.total_hours,
 						email: elem.email,
 						phone: elem.phone,
-						status: elem.status
+						status: elem.status,
 					};
 					this.studentsApproval.push(newStudent);
 				});
@@ -144,5 +149,26 @@ export class ProjectDetailsComponent implements OnInit {
 
 		// Para refrescar la tabla
 		this.onStudentsAprobbal();
+	}
+
+	onAddStudents(): void {
+		this._studentsService.findUnassignedStudents().subscribe((res) => {
+			const unassignedStudents: Student[] = res;
+			const dialogRef = this.dialog.open(AddStudentsComponent, {
+				width: '50%',
+				height: 'auto',
+				data: unassignedStudents,
+			});
+
+			dialogRef.afterClosed().subscribe((isRefresh) => {
+				if (isRefresh) {
+					this.onStudentsProject();
+				}
+			});
+		});
+	}
+
+	onExportStudents(studentsSelected: any[]): void{
+		// TODO: aquis e debe agregar una alerta de confirmacion y la peticion al backend
 	}
 }
