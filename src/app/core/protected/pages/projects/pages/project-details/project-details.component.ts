@@ -101,8 +101,11 @@ export class ProjectDetailsComponent implements OnInit {
 						identification: elem.identification,
 						first_name: elem.first_name,
 						last_name: elem.last_name,
-						career: elem.career_id,
+						career: elem.career,
 						total_hours: elem.total_hours,
+						email: elem.email,
+						phone: elem.phone,
+						status: elem.status,
 					};
 					this.students.push(newStudent);
 				});
@@ -122,8 +125,11 @@ export class ProjectDetailsComponent implements OnInit {
 						identification: elem.identification,
 						first_name: elem.first_name,
 						last_name: elem.last_name,
-						career: elem.career_id,
+						career: elem.career,
 						total_hours: elem.total_hours,
+						email: elem.email,
+						phone: elem.phone,
+						status: elem.status
 					};
 					this.studentsApproval.push(newStudent);
 				});

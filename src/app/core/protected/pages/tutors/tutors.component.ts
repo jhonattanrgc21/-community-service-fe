@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
+import { MatDialog } from '@angular/material/dialog';
 import { Tutor } from './interfaces/tutors.interface';
+import { EditTutorComponent } from './pages/edit-tutor/edit-tutor.component';
+import { TutorsService } from './services/tutors.service';
 
 @Component({
 	selector: 'app-tutors',
@@ -16,14 +19,14 @@ export class TutorsComponent implements OnInit {
 		'Cédula',
 		'Nnombre',
 		'Apellido',
-		'Correo eectrónico',
-		'Teléfono',
 		'Carrera',
 	];
 
 	constructor(
 		private _activatedRoute: ActivatedRoute,
-		private _router: Router
+		private _router: Router,
+		private _tutorsService: TutorsService,
+		public dialog: MatDialog
 	) {}
 
 	ngOnInit(): void {
@@ -32,5 +35,20 @@ export class TutorsComponent implements OnInit {
 
 	goToNewTutor(): void {
 		this._router.navigateByUrl('/layout/tutors/new-tutor');
+	}
+
+	onEditTutor(tutor: any): void {
+		const dialogRef = this.dialog.open(EditTutorComponent, {
+			width: '25%',
+			data: tutor,
+		});
+
+		dialogRef.afterClosed().subscribe((isRefresh) => {
+			if (isRefresh) {
+				this._tutorsService.findAllTutors().subscribe((tutors: Tutor[]) => {
+					this.allTutors = tutors;
+				});
+			}
+		});
 	}
 }

@@ -20,6 +20,8 @@
 			[data]="allTutors"
 			[headers]="tutorHheaders"
 			[filter]="true"
+			[select]="false"
+			(editRow)="onEditTutor($event)"
 		>
 		</app-dynamic-table>
 	</ng-container>

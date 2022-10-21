@@ -1,0 +1,133 @@
+<div>
+	<h1 mat-dialog-title>Editar</h1>
+	<form [formGroup]="profileForm">
+		<div mat-dialog-content>
+			<div class="d-flex flex-column">
+				<!-- Cedula Inicio -->
+				<mat-form-field>
+					<input
+						formControlName="identification"
+						matInput
+						type="text"
+						placeholder="C.I"
+					/>
+					<mat-error
+						*ngIf="isNotValid(profileForm, 'identification')"
+						class="mb-3"
+					>
+						Este campo es
+						<strong>obligatorio</strong>
+					</mat-error>
+				</mat-form-field>
+				<!-- Cedula Fin -->
+
+				<!-- Nombre Inicio -->
+				<mat-form-field>
+					<input
+						formControlName="first_name"
+						matInput
+						type="text"
+						placeholder="Nombre"
+					/>
+					<mat-error
+						*ngIf="isNotValid(profileForm, 'first_name')"
+						class="mb-3"
+					>
+						Este campo es
+						<strong>obligatorio</strong>
+					</mat-error>
+				</mat-form-field>
+				<!-- Nombre Fin -->
+
+				<!-- Apellido Inicio -->
+				<mat-form-field>
+					<input
+						formControlName="last_name"
+						matInput
+						type="text"
+						placeholder="Apellido"
+					/>
+					<mat-error
+						*ngIf="isNotValid(profileForm, 'last_name')"
+						class="mb-3"
+					>
+						Este campo es
+						<strong>obligatorio</strong>
+					</mat-error>
+				</mat-form-field>
+				<!-- Apellido Fin -->
+
+				<!-- Email Inicio -->
+				<mat-form-field>
+					<input
+						formControlName="email"
+						matInput
+						type="email"
+						placeholder="Correo Electrónico"
+					/>
+					<mat-error
+						*ngIf="isNotValid(profileForm, 'email')"
+						class="mb-3"
+					>
+						Este campo es
+						<strong>obligatorio</strong>
+					</mat-error>
+				</mat-form-field>
+				<!-- Email Fin -->
+
+				<!-- Email Inicio -->
+				<mat-form-field>
+					<input
+						formControlName="phone"
+						matInput
+						type="text"
+						placeholder="Télefono"
+					/>
+					<mat-error
+						*ngIf="isNotValid(profileForm, 'phone')"
+						class="mb-3"
+					>
+						Este campo es
+						<strong>obligatorio</strong>
+					</mat-error>
+				</mat-form-field>
+				<!-- Email Fin -->
+
+				<!-- Carrera Inicio -->
+				<mat-form-field>
+					<mat-select placeholder="Carrera" formControlName="career">
+						<mat-option
+							*ngFor="let career of careers"
+							[value]="career.name"
+						>
+							{{ career.name }}
+						</mat-option>
+					</mat-select>
+					<mat-error
+						*ngIf="isNotValid(profileForm, 'career')"
+						class="mb-3"
+					>
+						Este campo es <strong>obligatorio</strong>
+					</mat-error>
+				</mat-form-field>
+				<!-- Carrera Fin -->
+			</div>
+		</div>
+		<div
+			mat-dialog-actions
+			class="d-flex flex-wrap justify-content-between"
+		>
+			<button class="btn btn-secondary" (click)="onClose()">
+				Cancelar
+			</button>
+			<button
+				[disabled]="profileForm.invalid"
+				(click)="onSaveEditUser()"
+				class="btn btn-primary"
+				cdkFocusInitial
+			>
+				Guardar
+			</button>
+		</div>
+	</form>
+</div>
