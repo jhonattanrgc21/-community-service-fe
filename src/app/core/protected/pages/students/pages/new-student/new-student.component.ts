@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NewUser } from 'src/app/core/protected/interfaces/users.interface';
 import { StudentsService } from '../../services/students.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { ROUTES } from 'src/app/shared/constants/constants';
 
 @Component({
 	selector: 'app-new-student',
@@ -25,7 +27,10 @@ export class NewStudentComponent implements OnInit {
 	newStudent!: NewUser;
 	newStudents: NewUser[] = [];
 
-	constructor(private _studentsService: StudentsService) {}
+	constructor(
+		private _studentsService: StudentsService,
+		private router: Router
+	) {}
 
 	ngOnInit(): void {}
 
@@ -41,6 +46,7 @@ export class NewStudentComponent implements OnInit {
 					text: 'Estudiante registrado con exito!',
 					icon: 'success',
 				});
+				this.router.navigateByUrl(ROUTES.students);
 			} else {
 				Swal.fire({
 					title: 'Error',
@@ -53,20 +59,23 @@ export class NewStudentComponent implements OnInit {
 
 	onSaveStudents(students: NewUser[]): void {
 		this.newStudents = students;
-		this._studentsService.createStudents(this.newStudents).subscribe((ok) => {
-			if (ok) {
-				Swal.fire({
-					title: 'Guardado',
-					text: 'Estudiantes registrados con exito!',
-					icon: 'success',
-				});
-			} else {
-				Swal.fire({
-					title: 'Error',
-					text: 'No se pudo realizar el registro masivo de estudiantes',
-					icon: 'error',
-				});
-			}
-		});
+		this._studentsService
+			.createStudents(this.newStudents)
+			.subscribe((ok) => {
+				if (ok) {
+					Swal.fire({
+						title: 'Guardado',
+						text: 'Estudiantes registrados con exito!',
+						icon: 'success',
+					});
+					this.router.navigateByUrl(ROUTES.students);
+				} else {
+					Swal.fire({
+						title: 'Error',
+						text: 'No se pudo realizar el registro masivo de estudiantes',
+						icon: 'error',
+					});
+				}
+			});
 	}
 }

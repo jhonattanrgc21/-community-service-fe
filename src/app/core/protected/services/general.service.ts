@@ -16,7 +16,7 @@ export class GeneralService {
 		return this._httpClient.post<any>(url, { identification });
 	}
 
-	editUser(identification: string, user: any): Observable<boolean> {
+	editUser(user: any): Observable<boolean> {
 		const url: string = `${this._baseUrl}/users/update_user`;
 		return this._httpClient.put<boolean>(url, user).pipe(
 			map((res) => true),

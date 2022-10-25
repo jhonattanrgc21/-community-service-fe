@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { ChangePassowrd, GeneralProfile } from './interfaces/profile.interface';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
+import { GeneralService } from '../../services/general.service';
+import { ChangePassowrd } from './interfaces/profile.interface';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-profile',
@@ -8,9 +11,10 @@ import { ChangePassowrd, GeneralProfile } from './interfaces/profile.interface';
 	styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
-	generalProfile!: GeneralProfile;
+	generalProfile!: any;
 	changePassword!: ChangePassowrd;
 
+	identification!: string;
 	selectedOption: number = 1;
 	settings = [
 		{ id: 1, title: 'General' },
@@ -26,7 +30,6 @@ export class ProfileComponent implements OnInit {
 	];
 
 	generalForm: FormGroup = this._fb.group({
-		id: [],
 		first_name: ['', [Validators.required]],
 		last_name: ['', [Validators.required]],
 		identification: [
@@ -35,7 +38,6 @@ export class ProfileComponent implements OnInit {
 		],
 		phone: ['', [Validators.required]],
 		email: ['', [Validators.required, Validators.email]],
-		username: [{ disabled: true, value: null }, [Validators.required]],
 		career: ['', [Validators.required]],
 	});
 
@@ -45,12 +47,29 @@ export class ProfileComponent implements OnInit {
 		confirm_new_password: ['', [Validators.required]],
 	});
 
-	constructor(private _fb: FormBuilder) {}
+	constructor(
+		private _fb: FormBuilder,
+		private _generalService: GeneralService,
+		private _authService: AuthService
+	) {}
 
 	ngOnInit(): void {
 		// TODO: aqui va la integracion con el back
-		this.generalForm.get('identification')?.setValue('Test');
-		this.generalForm.get('username')?.setValue('Test');
+		this.identification = this._authService.user.identification
+			? this._authService.user.identification
+			: '';
+		this._generalService
+			.findUserByIdentification(this.identification)
+			.subscribe((user) => {
+				this.generalForm
+					.get('identification')
+					?.setValue(user.identification);
+				this.generalForm.get('first_name')?.setValue(user.first_name);
+				this.generalForm.get('last_name')?.setValue(user.last_name);
+				this.generalForm.get('email')?.setValue(user.email);
+				this.generalForm.get('phone')?.setValue(user.phone);
+				this.generalForm.get('career')?.setValue(user.career_name);
+			});
 	}
 
 	/**
@@ -73,6 +92,23 @@ export class ProfileComponent implements OnInit {
 		this.generalProfile.first_name = this.generalProfile.first_name.trim();
 		this.generalProfile.last_name = this.generalProfile.last_name.trim();
 		this.generalProfile.phone = this.generalProfile.phone.trim();
+		this.generalProfile.identification = this.identification;
+
+		this._generalService.editUser(this.generalProfile).subscribe((ok) => {
+			if (ok) {
+				Swal.fire({
+					title: 'Guardado',
+					text: 'Perfil actualizado con exito!',
+					icon: 'success',
+				});
+			} else {
+				Swal.fire({
+					title: 'Error',
+					text: 'No se pudo actualizar el perfil',
+					icon: 'error',
+				});
+			}
+		});
 	}
 
 	onSaveChangePassword(): void {

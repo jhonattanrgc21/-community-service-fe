@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NewUser } from 'src/app/core/protected/interfaces/users.interface';
 import { TutorsService } from '../../services/tutors.service';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
+import { ROUTES } from 'src/app/shared/constants/constants';
 @Component({
 	selector: 'app-new-tutor',
 	templateUrl: './new-tutor.component.html',
@@ -22,7 +24,10 @@ export class NewTutorComponent implements OnInit {
 	newTutor!: NewUser;
 	newTutors: NewUser[] = [];
 
-	constructor(private _tutorsService: TutorsService) {}
+	constructor(
+		private _tutorsService: TutorsService,
+		private router: Router
+	) {}
 
 	ngOnInit(): void {}
 
@@ -35,6 +40,7 @@ export class NewTutorComponent implements OnInit {
 					text: 'Tutor registrado con exito!',
 					icon: 'success',
 				});
+				this.router.navigateByUrl(ROUTES.tutors);
 			} else {
 				Swal.fire({
 					title: 'Error',
@@ -54,6 +60,7 @@ export class NewTutorComponent implements OnInit {
 					text: 'Tutores registrados con exito!',
 					icon: 'success',
 				});
+				this.router.navigateByUrl(ROUTES.tutors);
 			} else {
 				Swal.fire({
 					title: 'Error',

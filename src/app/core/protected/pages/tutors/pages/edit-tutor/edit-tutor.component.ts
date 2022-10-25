@@ -77,7 +77,7 @@ export class EditTutorComponent implements OnInit {
 	onSaveEditUser(): void {
 		let tutor = this.profileForm.getRawValue();
 		this._generalService
-			.editUser(this.data?.identification, tutor)
+			.editUser(tutor)
 			.subscribe((isEdited) => {
 				if (isEdited) {
 					Swal.fire({
