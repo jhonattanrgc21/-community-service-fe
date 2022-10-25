@@ -15,7 +15,6 @@ import { DatePipe } from '@angular/common';
 })
 export class DynamicRegisterComponent implements OnInit {
 	@Input('name') name!: string;
-	@Input('role') role?: string;
 	@Input('settings') settings!: any[];
 	@Input('pathFormat') pathFormat!: string;
 	@Input('downloadName') downloadName!: string;
@@ -126,7 +125,6 @@ export class DynamicRegisterComponent implements OnInit {
 						project.date_start,
 						'dd/MM/yyyy'
 					);
-					console.log(project);
 					this.rows.push(project);
 				});
 				this.headers = [
@@ -148,7 +146,6 @@ export class DynamicRegisterComponent implements OnInit {
 						email: data['Email'],
 						phone: data['Teléfono'],
 						career: data['.Carrera'],
-						role: this.role,
 					};
 
 					user.first_name = user.first_name.trim();
@@ -189,7 +186,6 @@ export class DynamicRegisterComponent implements OnInit {
 			email: this.generalForm.get('email')?.value,
 			phone: this.generalForm.get('phone')?.value,
 			career: this.generalForm.get('career')?.value,
-			role: this.role,
 		};
 
 		// Limpiando los espacios en blanco de cada campo del objeto
@@ -199,6 +195,7 @@ export class DynamicRegisterComponent implements OnInit {
 		this.newUser.email = this.newUser.email.trim();
 		this.newUser.phone = this.newUser.phone.trim();
 
+		this.generalForm.reset();
 		this.addNewUser.emit(this.newUser);
 	}
 

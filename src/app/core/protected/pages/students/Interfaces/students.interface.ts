@@ -20,5 +20,5 @@ export interface ApprovedStudent extends AssignedStudent {
 };
 
 export interface NewStudent extends Omit<GeneralProfile, 'username' | 'id'>{
-	role: string;
+	//role: string;
 }

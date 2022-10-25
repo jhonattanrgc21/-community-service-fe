@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewUser } from 'src/app/core/protected/interfaces/users.interface';
-
+import { TutorsService } from '../../services/tutors.service';
+import Swal from 'sweetalert2';
 @Component({
 	selector: 'app-new-tutor',
 	templateUrl: './new-tutor.component.html',
@@ -21,21 +22,45 @@ export class NewTutorComponent implements OnInit {
 	newTutor!: NewUser;
 	newTutors: NewUser[] = [];
 
-	constructor() {}
+	constructor(private _tutorsService: TutorsService) {}
 
 	ngOnInit(): void {}
 
 	onSaveTutor(tutor: NewUser): void {
 		this.newTutor = tutor;
-		console.log(this.newTutor);
-
-		// TODO: Agregar la peticion al backend para registrar el tutor
+		this._tutorsService.createTutor(this.newTutor).subscribe((ok) => {
+			if (ok) {
+				Swal.fire({
+					title: 'Guardado',
+					text: 'Tutor registrado con exito!',
+					icon: 'success',
+				});
+			} else {
+				Swal.fire({
+					title: 'Error',
+					text: 'El tutor no pudo ser registrado',
+					icon: 'error',
+				});
+			}
+		});
 	}
 
 	onSaveTutors(tutors: NewUser[]): void {
 		this.newTutors = tutors;
-		console.log(this.newTutors);
-
-		// TODO: Agregar la peticion al backend para registrar los tutores
+		this._tutorsService.createTutors(this.newTutors).subscribe((ok) => {
+			if (ok) {
+				Swal.fire({
+					title: 'Guardado',
+					text: 'Tutores registrados con exito!',
+					icon: 'success',
+				});
+			} else {
+				Swal.fire({
+					title: 'Error',
+					text: 'No se pudo realizar el registro masivo de tutores',
+					icon: 'error',
+				});
+			}
+		});
 	}
 }

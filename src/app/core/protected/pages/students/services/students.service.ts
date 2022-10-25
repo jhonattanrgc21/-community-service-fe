@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
-import { ChangeStatus } from '../../../interfaces/users.interface';
+import { ChangeStatus, NewUser } from '../../../interfaces/users.interface';
 import {
 	ApprovedStudent,
 	AssignedStudent,
@@ -51,5 +51,21 @@ export class StudentsService {
 				map((res) => true),
 				catchError((err) => of(false))
 			);
+	}
+
+	createStudent(user: NewUser): Observable<boolean> {
+		const url: string = `${this.baseUrl}/create_student`;
+		return this._httpClient.post<boolean>(url, user).pipe(
+			map((res) => true),
+			catchError((err) => of(false))
+		);
+	}
+
+	createStudents(users: NewUser[]) {
+		const url: string = `${this.baseUrl}/create_students`;
+		return this._httpClient.post<boolean>(url, users).pipe(
+			map((res) => true),
+			catchError((err) => of(false))
+		);
 	}
 }

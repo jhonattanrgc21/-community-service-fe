@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NewUser } from 'src/app/core/protected/interfaces/users.interface';
+import { StudentsService } from '../../services/students.service';
+import Swal from 'sweetalert2';
 
 @Component({
 	selector: 'app-new-student',
@@ -23,7 +25,7 @@ export class NewStudentComponent implements OnInit {
 	newStudent!: NewUser;
 	newStudents: NewUser[] = [];
 
-	constructor() {}
+	constructor(private _studentsService: StudentsService) {}
 
 	ngOnInit(): void {}
 
@@ -32,15 +34,39 @@ export class NewStudentComponent implements OnInit {
 	 */
 	onSaveStudent(student: NewUser): void {
 		this.newStudent = student;
-		console.log(this.newStudent);
-
-		// TODO: Agregar la peticion al backend para registrar el estudiante
+		this._studentsService.createStudent(this.newStudent).subscribe((ok) => {
+			if (ok) {
+				Swal.fire({
+					title: 'Guardado',
+					text: 'Estudiante registrado con exito!',
+					icon: 'success',
+				});
+			} else {
+				Swal.fire({
+					title: 'Error',
+					text: 'El estudiante no pudo ser registrado',
+					icon: 'error',
+				});
+			}
+		});
 	}
 
 	onSaveStudents(students: NewUser[]): void {
 		this.newStudents = students;
-		console.log(this.newStudents);
-
-		// TODO: Agregar la peticion al backend para registrar a los estudiantes
+		this._studentsService.createStudents(this.newStudents).subscribe((ok) => {
+			if (ok) {
+				Swal.fire({
+					title: 'Guardado',
+					text: 'Estudiantes registrados con exito!',
+					icon: 'success',
+				});
+			} else {
+				Swal.fire({
+					title: 'Error',
+					text: 'No se pudo realizar el registro masivo de estudiantes',
+					icon: 'error',
+				});
+			}
+		});
 	}
 }
