@@ -4,6 +4,7 @@ import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { GeneralService } from '../../services/general.service';
 import { ChangePassowrd } from './interfaces/profile.interface';
 import Swal from 'sweetalert2';
+import { Router } from '@angular/router';
 
 @Component({
 	selector: 'app-profile',
@@ -11,6 +12,7 @@ import Swal from 'sweetalert2';
 	styleUrls: ['./profile.component.scss'],
 })
 export class ProfileComponent implements OnInit {
+	isValid: boolean = false;
 	generalProfile!: any;
 	changePassword!: ChangePassowrd;
 
@@ -42,15 +44,16 @@ export class ProfileComponent implements OnInit {
 	});
 
 	changePasswordForm: FormGroup = this._fb.group({
-		current_password: ['', [Validators.required]],
-		new_password: ['', [Validators.required]],
-		confirm_new_password: ['', [Validators.required]],
+		old_password: ['', [Validators.required]],
+		password: ['', [Validators.required]],
+		confirm_password: ['', [Validators.required]],
 	});
 
 	constructor(
 		private _fb: FormBuilder,
 		private _generalService: GeneralService,
-		private _authService: AuthService
+		private _authService: AuthService,
+		private _router: Router
 	) {}
 
 	ngOnInit(): void {
@@ -78,7 +81,7 @@ export class ProfileComponent implements OnInit {
 	 * @returns boolean
 	 */
 	isNotValid(form: FormGroup, field: string): boolean {
-		return form.controls[field].invalid && form.controls[field].touched;
+		return form.controls[field].invalid && form.controls[field].touched ;
 	}
 
 	changeOption(option: any) {
@@ -112,6 +115,36 @@ export class ProfileComponent implements OnInit {
 	}
 
 	onSaveChangePassword(): void {
-		this.changePassword = this.changePasswordForm.getRawValue();
+		const identification: string = this._authService.user.identification
+			? this._authService.user.identification
+			: '';
+
+		this.changePassword = {
+			old_password:
+				this.changePasswordForm.controls['old_password'].value,
+			password: this.changePasswordForm.controls['password'].value,
+			confirm_password:
+				this.changePasswordForm.controls['confirm_password'].value,
+			identification,
+		};
+
+		this._authService
+			.changePasswordProfile(this.changePassword)
+			.subscribe((ok) => {
+				if (ok) {
+					this.changePasswordForm.reset();
+					Swal.fire({
+						title: 'Guardado',
+						text: 'Perfil actualizado con exito!',
+						icon: 'success',
+					});
+				} else {
+					Swal.fire({
+						title: 'Error',
+						text: 'No se pudo actualizar el perfil',
+						icon: 'error',
+					});
+				}
+			});
 	}
 }

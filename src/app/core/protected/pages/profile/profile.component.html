@@ -193,7 +193,7 @@
 				<mat-card-title>Cambio de contraseña</mat-card-title>
 				<mat-divider></mat-divider>
 
-				<form [formGroup]="changePasswordForm" (ngSubmit)="onSaveChangePassword()" class="mt-3">
+				<form [formGroup]="changePasswordForm" class="mt-3">
 					<div class="row d-flex flex-wrap">
 						<!-------------- Contraseña actual Inicio -------------->
 						<div class="col-12 col-md-6">
@@ -205,12 +205,12 @@
 								<input
 									type="password"
 									matInput
-									formControlName="current_password"
+									formControlName="old_password"
 									placeholder="Ingrese su contraseña actual"
 								/>
 								<mat-error
 									*ngIf="
-										isNotValid(changePasswordForm, 'current_password')
+										isNotValid(changePasswordForm, 'old_password')
 									"
 								>
 									Este campo es <strong>obligatorio</strong>
@@ -229,12 +229,12 @@
 								<input
 									type="password"
 									matInput
-									formControlName="new_password"
+									formControlName="password"
 									placeholder="Ingrese su nueva contraseña"
 								/>
 								<mat-error
 									*ngIf="
-										isNotValid(changePasswordForm, 'new_password')
+										isNotValid(changePasswordForm, 'password')
 									"
 								>
 									Este campo es <strong>obligatorio</strong>
@@ -253,12 +253,12 @@
 								<input
 									type="password"
 									matInput
-									formControlName="confirm_new_password"
+									formControlName="confirm_password"
 									placeholder="Vuelva a ingresar su nueva contraseña"
 								/>
 								<mat-error
 									*ngIf="
-										isNotValid(changePasswordForm, 'confirm_new_password')
+										isNotValid(changePasswordForm, 'confirm_password')
 									"
 								>
 									Este campo es <strong>obligatorio</strong>
@@ -271,6 +271,7 @@
 					<div class="d-flex justify-content-center">
 						<button
 							type="submit"
+							(click)="onSaveChangePassword()"
 							[disabled]="changePasswordForm.invalid"
 							class="btn btn-primary"
 						>

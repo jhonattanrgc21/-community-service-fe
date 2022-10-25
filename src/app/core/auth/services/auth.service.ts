@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { AuthLogin, AuthResponse, User } from '../interfaces/auth.interface';
+import { ChangePassowrd } from '../../protected/pages/profile/interfaces/profile.interface';
 
 @Injectable({
 	providedIn: 'root',
@@ -36,10 +37,7 @@ export class AuthService {
 					// Agregando datos al localStorage
 					localStorage.setItem('token', res.token!);
 					localStorage.setItem('role', res.role!);
-					localStorage.setItem(
-						'document',
-						res.identification!
-					);
+					localStorage.setItem('document', res.identification!);
 					this._user = {
 						uuid: res.uuid!,
 						identification: res.identification!,
@@ -93,6 +91,16 @@ export class AuthService {
 				};
 				return res.ok!;
 			}),
+			catchError((err) => of(false))
+		);
+	}
+
+	changePasswordProfile(
+		changePassword: ChangePassowrd
+	): Observable<boolean> {
+		const url: string = `${this.baseUrl}/change-password`;
+		return this.httpClient.put<boolean>(url, changePassword).pipe(
+			map((res) => true),
 			catchError((err) => of(false))
 		);
 	}

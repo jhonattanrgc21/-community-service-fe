@@ -10,7 +10,8 @@ export interface GeneralProfile{
 }
 
 export interface ChangePassowrd {
-	current_password: string;
-	new_password: string;
-	confirm_new_password: string;
+	old_password: string;
+	password: string;
+	confirm_password: string;
+	identification: string;
 }
