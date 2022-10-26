@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { catchError, map, Observable, of, tap } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -99,9 +99,7 @@ export class AuthService {
 		);
 	}
 
-	changePasswordProfile(
-		changePassword: ChangePassowrd
-	): Observable<boolean> {
+	changePasswordProfile(changePassword: ChangePassowrd): Observable<boolean> {
 		const url: string = `${this.baseUrl}/change-password`;
 		return this.httpClient.put<boolean>(url, changePassword).pipe(
 			map((res) => true),
@@ -111,5 +109,18 @@ export class AuthService {
 
 	forgotPassword(email: string) {
 		const url: string = `${this.baseUrl}/forgot-password`;
+		return this.httpClient.post<boolean>(url, { email }).pipe(
+			map((res) => true),
+			catchError((err) => of(false))
+		);
+	}
+
+	resetPassword(token: string , changePassword: any): Observable<boolean> {
+		const url: string = `${this.baseUrl}/reset-password`;
+		let headers: HttpHeaders = new HttpHeaders().set('Authorization', token);
+		return this.httpClient.put<boolean>(url, changePassword, {headers}).pipe(
+			map((res) => true),
+			catchError((err) => of(false))
+		);
 	}
 }
