@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
 
 	ngOnInit(): void {
 		this._homeService
-			.findCompletedTasks()
+			.getInfoProject()
 			.subscribe((res: RegisteredProject) => {
 				this.cardInfo = res;
 				this.tasksList = res.task_list;

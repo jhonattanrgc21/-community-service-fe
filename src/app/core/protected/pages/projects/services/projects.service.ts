@@ -48,7 +48,7 @@ export class ProjectService {
 	}
 
 	findStudentsAprobbalByProject(projectId: number): Observable<any[]> {
-		const url: string = `${this._baseUrl}/get_students_to_approval/${projectId}`;
+		const url: string = `${this._baseUrl}/projects/get_students_to_approval/${projectId}`;
 		return this._httpClient.get<any[]>(url);
 	}
 }

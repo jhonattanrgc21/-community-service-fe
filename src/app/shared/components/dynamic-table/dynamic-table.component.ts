@@ -31,6 +31,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 	@Input('filter') isFilter?: boolean = false;
 	@Input('select') isSelect?: boolean = true;
 	@Input('edit') isEdit?: boolean = true;
+	@Input('isUser') isUser?: boolean = false;
 	@Input('statuses') statuses?: string[] = [];
 	@Input('typeTable') typeTable?: string = '';
 
@@ -72,12 +73,14 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 		}
 
 		// Eliminando columnas innecesarios
-		this.removeAatributes(this.tableCols, 'id');
-		this.removeAatributes(this.tableCols, 'project_id');
-		this.removeAatributes(this.tableCols, 'role');
-		this.removeAatributes(this.tableCols, 'email');
-		this.removeAatributes(this.tableCols, 'phone');
-		this.removeAatributes(this.tableCols, 'status');
+		this.removeAtributes(this.tableCols, 'id');
+		this.removeAtributes(this.tableCols, 'project_id');
+		this.removeAtributes(this.tableCols, 'role');
+		this.removeAtributes(this.tableCols, 'email');
+		this.removeAtributes(this.tableCols, 'phone');
+		if (this.isUser) {
+			this.removeAtributes(this.tableCols, 'status');
+		}
 	}
 
 	ngOnChanges(changes: SimpleChanges): void {
@@ -96,7 +99,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 		this.dataSource.filter = filterValue.trim().toLowerCase();
 	}
 
-	removeAatributes(array: any, value: string): void {
+	removeAtributes(array: any, value: string): void {
 		const posId = array.indexOf(value);
 		if (posId != -1) {
 			array.splice(posId, 1);

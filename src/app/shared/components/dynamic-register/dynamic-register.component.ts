@@ -151,7 +151,6 @@ export class DynamicRegisterComponent implements OnInit {
 					user.first_name = user.first_name.trim();
 					user.last_name = user.last_name.trim();
 					user.email = user.email.trim();
-					user.career = user.career.trim();
 					this.rows.push(user);
 				});
 				this.headers = [

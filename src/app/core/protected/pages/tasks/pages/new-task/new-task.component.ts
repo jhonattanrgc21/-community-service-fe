@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { Project } from '../../../projects/interfaces/projects.interface';
@@ -10,6 +10,9 @@ import { TutorsService } from '../../../tutors/services/tutors.service';
 import { NewTask } from '../../interfaces/tasks.iterface';
 import { TasksService } from '../../services/tasks.service';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
+import { HomeService } from '../../../home/services/home.service';
+import { RegisteredProject } from '../../../home/interfaces/home.interface';
 
 @Component({
 	selector: 'app-new-task',
@@ -30,6 +33,7 @@ export class NewTaskComponent implements OnInit {
 	tutors: Tutor[] = [];
 	projects: Project[] = [];
 
+	identification: string = '';
 	newTask!: NewTask;
 
 	constructor(
@@ -73,8 +77,6 @@ export class NewTaskComponent implements OnInit {
 	 * @description Guarda el registro de la nueva tarea
 	 */
 	onSaveNewTask(): void {
-		this.newTask = this.taskForm.value;
-
 		// Limpiando los espacios en blanco de los campos string
 		this.newTask.name = this.newTask.name.trim();
 		this.newTask.description = this.newTask.description.trim();

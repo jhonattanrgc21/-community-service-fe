@@ -18,7 +18,7 @@ export class HomeService {
 		private _datePipe: DatePipe
 	) {}
 
-	findCompletedTasks(): Observable<RegisteredProject | any> {
+	getInfoProject(): Observable<RegisteredProject | any> {
 		const url: string = `${this._baseUrl}/users/get_project_info_by_student`;
 		return this._httpClient
 			.post<RegisteredProject>(url, {

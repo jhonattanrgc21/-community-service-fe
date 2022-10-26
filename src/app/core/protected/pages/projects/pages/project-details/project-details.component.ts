@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Student } from '../../../students/Interfaces/students.interface';
 import { StudentsService } from '../../../students/services/students.service';
 import { TaskProject } from '../../../tasks/interfaces/tasks.iterface';
+import { EditTaskComponent } from '../../../tasks/pages/edit-task/edit-task.component';
 import { TasksService } from '../../../tasks/services/tasks.service';
 import { ProjectDetails } from '../../interfaces/projects.interface';
 import { ProjectService } from '../../services/projects.service';
@@ -141,6 +142,19 @@ export class ProjectDetailsComponent implements OnInit {
 			});
 	}
 
+	editTask(task: any): void {
+		const dialogRef = this.dialog.open(EditTaskComponent, {
+			width: '25%',
+			data: task,
+		});
+
+		dialogRef.afterClosed().subscribe((isRefresh) => {
+			if (isRefresh) {
+				this.onTasksProject();
+			}
+		});
+	}
+
 	/**
 	 * @description Guarda en la BD a los estudiantes aprobados
 	 */
@@ -168,7 +182,7 @@ export class ProjectDetailsComponent implements OnInit {
 		});
 	}
 
-	onExportStudents(studentsSelected: any[]): void{
+	onExportStudents(studentsSelected: any[]): void {
 		// TODO: aquis e debe agregar una alerta de confirmacion y la peticion al backend
 	}
 }

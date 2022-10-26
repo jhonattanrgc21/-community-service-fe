@@ -25,6 +25,7 @@
 					[headers]="studentHeaders"
 					[filter]="true"
 					[statuses]="statuses"
+					[isUser]="true"
 					(editRow)="onEditStudent($event)"
 					(confirmedChangeStatus)="onChangeStatus($event)"
 				>
@@ -40,6 +41,7 @@
 					[data]="inactiveStudents"
 					[headers]="studentHeaders"
 					[filter]="true"
+					[isUser]="true"
 					[statuses]="statuses"
 					(editRow)="onEditStudent($event)"
 					(confirmedChangeStatus)="onChangeStatus($event)"
@@ -56,6 +58,7 @@
 					[data]="approvedStudents"
 					[headers]="approvedStudentHeaders"
 					[filter]="true"
+					[isUser]="true"
 					[select]="false"
 					[edit]="false"
 				>
@@ -71,6 +74,7 @@
 					[data]="assignedStudents"
 					[headers]="assignedStudentHeaders"
 					[filter]="true"
+					[isUser]="true"
 					[select]="false"
 					(editRow)="onEditStudent($event)"
 				>
@@ -86,6 +90,7 @@
 					[data]="unassignedStudents"
 					[headers]="studentHeaders"
 					[filter]="true"
+					[isUser]="true"
 					[select]="false"
 					(editRow)="onEditStudent($event)"
 				>
