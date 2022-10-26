@@ -32,6 +32,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 	@Input('select') isSelect?: boolean = true;
 	@Input('edit') isEdit?: boolean = true;
 	@Input('isUser') isUser?: boolean = false;
+	@Input('isRegister') isRegister?: boolean = false;
 	@Input('statuses') statuses?: string[] = [];
 	@Input('typeTable') typeTable?: string = '';
 
@@ -76,8 +77,11 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 		this.removeAtributes(this.tableCols, 'id');
 		this.removeAtributes(this.tableCols, 'project_id');
 		this.removeAtributes(this.tableCols, 'role');
-		this.removeAtributes(this.tableCols, 'email');
-		this.removeAtributes(this.tableCols, 'phone');
+
+		if (!this.isRegister) {
+			this.removeAtributes(this.tableCols, 'email');
+			this.removeAtributes(this.tableCols, 'phone');
+		}
 		if (this.isUser) {
 			this.removeAtributes(this.tableCols, 'status');
 		}

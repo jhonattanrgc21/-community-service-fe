@@ -21,6 +21,7 @@ export class DynamicRegisterComponent implements OnInit {
 	@Input('selectedOption') selectedOption!: any;
 	@Input('isProject') isProject?: boolean = false;
 
+
 	@Output() addNewUser = new EventEmitter<any>();
 	@Output() addNewUsers = new EventEmitter<any[]>();
 	@Output() addNewProject = new EventEmitter<any>();
@@ -145,7 +146,7 @@ export class DynamicRegisterComponent implements OnInit {
 						last_name: data['Apellido'],
 						email: data['Email'],
 						phone: data['Teléfono'],
-						career: data['.Carrera'],
+						career: data['Carrera'],
 					};
 
 					user.first_name = user.first_name.trim();
