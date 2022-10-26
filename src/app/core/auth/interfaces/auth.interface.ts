@@ -13,7 +13,9 @@ export interface AuthLogin {
 	password: string;
 }
 
-export type User = Pick<
+export interface User extends Pick<
 	AuthResponse,
 	'uuid' | 'name' | 'identification' | 'token' | 'role'
->;
+	>{
+	projectId?: number;
+}

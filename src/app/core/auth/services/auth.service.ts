@@ -22,6 +22,10 @@ export class AuthService {
 		return { ...this._user };
 	}
 
+	set projectId(id: number) {
+		this._user.projectId = id;
+	}
+
 	/**
 	 * @description Hace una peticion al backend para iniciar sesión
 	 * @param authLogin

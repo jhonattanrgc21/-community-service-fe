@@ -114,7 +114,9 @@
 							aria-label="Toggle menu"
 						>
 							<mat-icon>person</mat-icon>
-							<span class="nav-user-name">Nombre Apellido</span>
+							<ng-container *ngIf="fullName">
+								<span class="nav-user-name">{{ fullName }}</span>
+							</ng-container>
 							<mat-icon>keyboard_arrow_down</mat-icon>
 						</div>
 						<mat-menu #menu="matMenu" xPosition="before">
