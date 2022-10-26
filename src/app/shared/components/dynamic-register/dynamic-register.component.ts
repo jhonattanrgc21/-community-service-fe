@@ -193,8 +193,6 @@ export class DynamicRegisterComponent implements OnInit {
 		this.newUser.identification = this.newUser.identification.trim();
 		this.newUser.email = this.newUser.email.trim();
 		this.newUser.phone = this.newUser.phone.trim();
-
-		this.generalForm.reset();
 		this.addNewUser.emit(this.newUser);
 	}
 

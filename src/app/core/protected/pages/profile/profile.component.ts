@@ -5,6 +5,7 @@ import { GeneralService } from '../../services/general.service';
 import { ChangePassowrd } from './interfaces/profile.interface';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
+import { ROUTES } from 'src/app/shared/constants/constants';
 
 @Component({
 	selector: 'app-profile',
@@ -104,6 +105,7 @@ export class ProfileComponent implements OnInit {
 					text: 'Perfil actualizado con exito!',
 					icon: 'success',
 				});
+				this._router.navigateByUrl(ROUTES.dashboard);
 			} else {
 				Swal.fire({
 					title: 'Error',
@@ -132,12 +134,12 @@ export class ProfileComponent implements OnInit {
 			.changePasswordProfile(this.changePassword)
 			.subscribe((ok) => {
 				if (ok) {
-					this.changePasswordForm.reset();
 					Swal.fire({
 						title: 'Guardado',
 						text: 'Perfil actualizado con exito!',
 						icon: 'success',
 					});
+					this._router.navigateByUrl(ROUTES.dashboard);
 				} else {
 					Swal.fire({
 						title: 'Error',

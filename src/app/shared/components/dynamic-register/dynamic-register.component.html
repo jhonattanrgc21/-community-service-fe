@@ -28,7 +28,6 @@
 				<ng-container *ngIf="isProject; else notProject">
 					<form
 						[formGroup]="projectForm"
-						(ngSubmit)="saveNewProject()"
 						class="mt-3"
 					>
 						<div class="d-flex flex-wrap">
@@ -306,8 +305,9 @@
 
 						<div class="d-flex justify-content-center">
 							<button
-								type="submit"
+								type="button"
 								[disabled]="projectForm.invalid"
+								(click)="saveNewProject()"
 								class="btn btn-primary"
 							>
 								<span
@@ -326,7 +326,6 @@
 				<ng-template #notProject>
 					<form
 						[formGroup]="generalForm"
-						(ngSubmit)="saveNewUser()"
 						class="mt-3"
 					>
 						<div class="row d-flex flex-wrap">
@@ -524,8 +523,9 @@
 
 						<div class="d-flex justify-content-center">
 							<button
-								type="submit"
+								type="button"
 								[disabled]="generalForm.invalid"
+								(click)="saveNewUser()"
 								class="btn btn-primary"
 							>
 								<span
