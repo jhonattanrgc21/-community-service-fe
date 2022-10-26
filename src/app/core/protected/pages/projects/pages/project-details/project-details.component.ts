@@ -6,6 +6,7 @@ import { Student } from '../../../students/Interfaces/students.interface';
 import { StudentsService } from '../../../students/services/students.service';
 import { TaskProject } from '../../../tasks/interfaces/tasks.iterface';
 import { EditTaskComponent } from '../../../tasks/pages/edit-task/edit-task.component';
+import { NewTaskComponent } from '../../../tasks/pages/new-task/new-task.component';
 import { TasksService } from '../../../tasks/services/tasks.service';
 import { ProjectDetails } from '../../interfaces/projects.interface';
 import { ProjectService } from '../../services/projects.service';
@@ -94,6 +95,18 @@ export class ProjectDetailsComponent implements OnInit {
 			});
 	}
 
+	addNewTask() {
+		const dialogRef = this.dialog.open(NewTaskComponent, {
+			width: '25%',
+		});
+
+		dialogRef.afterClosed().subscribe((isRefresh) => {
+			if (isRefresh) {
+				this.onTasksProject();
+			}
+		});
+	}
+
 	/**
 	 * @description Obtiene la lista de estudiantes inscritos en el proyecto asociado al ID
 	 */
@@ -171,11 +184,11 @@ export class ProjectDetailsComponent implements OnInit {
 			const dialogRef = this.dialog.open(AddStudentsComponent, {
 				width: '50%',
 				height: 'auto',
-				data: unassignedStudents,
+				data: { unassignedStudents, projectId: this.projectId },
 			});
 
 			dialogRef.afterClosed().subscribe((isRefresh) => {
-				if (isRefresh) {
+				if (isRefresh == 'add') {
 					this.onStudentsProject();
 				}
 			});
