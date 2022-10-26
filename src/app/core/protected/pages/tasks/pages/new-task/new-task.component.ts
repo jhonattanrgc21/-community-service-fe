@@ -78,6 +78,7 @@ export class NewTaskComponent implements OnInit {
 	 */
 	onSaveNewTask(): void {
 		// Limpiando los espacios en blanco de los campos string
+		this.newTask = this.taskForm.value;
 		this.newTask.name = this.newTask.name.trim();
 		this.newTask.description = this.newTask.description.trim();
 

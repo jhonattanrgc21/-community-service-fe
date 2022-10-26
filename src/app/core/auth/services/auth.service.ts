@@ -108,4 +108,8 @@ export class AuthService {
 			catchError((err) => of(false))
 		);
 	}
+
+	forgotPassword(email: string) {
+		const url: string = `${this.baseUrl}/forgot-password`;
+	}
 }
