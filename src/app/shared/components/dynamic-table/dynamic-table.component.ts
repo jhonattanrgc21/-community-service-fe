@@ -90,6 +90,14 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 	ngOnChanges(changes: SimpleChanges): void {
 		this.generalForm.reset();
 		this.selection.clear();
+		this.isSelect = this.isSelect;
+		if (this.isSelect) {
+			this.tableHeaders = [' ', ...this.tableHeaders];
+			this.tableCols.unshift('select');
+		} else {
+			this.removeAtributes(this.tableHeaders, ' ');
+			this.removeAtributes(this.tableCols, 'select');
+		}
 		this.dataSource.data = this.tableData;
 	}
 
@@ -142,9 +150,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 	}
 
 	onConfirmSelection(): void {
-		this.confirmedSelection.emit(
-			this.selection.selected
-		);
+		this.confirmedSelection.emit(this.selection.selected);
 	}
 
 	onConfirmChangeStatus(): void {

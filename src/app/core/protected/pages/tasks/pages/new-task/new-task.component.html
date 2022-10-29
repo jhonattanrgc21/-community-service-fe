@@ -11,7 +11,10 @@
 						type="text"
 						placeholder="Nombre"
 					/>
-					<mat-error *ngIf="isNotValid(taskForm, 'name')" class="mb-3">
+					<mat-error
+						*ngIf="isNotValid(taskForm, 'name')"
+						class="mb-3"
+					>
 						Este campo es
 						<strong>obligatorio</strong>
 					</mat-error>
@@ -26,7 +29,10 @@
 						type="text"
 						placeholder="Descripción"
 					/>
-					<mat-error *ngIf="isNotValid(taskForm, 'description')" class="mb-3">
+					<mat-error
+						*ngIf="isNotValid(taskForm, 'description')"
+						class="mb-3"
+					>
 						Este campo es
 						<strong>obligatorio</strong>
 					</mat-error>
@@ -41,12 +47,41 @@
 						type="number"
 						placeholder="Peso en horas"
 					/>
-					<mat-error *ngIf="isNotValid(taskForm, 'cost')" class="mb-3">
+					<mat-error
+						*ngIf="isNotValid(taskForm, 'cost')"
+						class="mb-3"
+					>
 						Este campo es
 						<strong>obligatorio</strong>
 					</mat-error>
 				</mat-form-field>
 				<!--Costo Fin -->
+
+				<!--  Asignar a un proyecto Inicio -->
+				<ng-container *ngIf="projects.length > 0 && !hideProjectSelect">
+					<mat-form-field>
+						<mat-select
+							placeholder="Asignar a un proyecto "
+							formControlName="project_id"
+							(selectionChange)="selectedProject()"
+							[disabled]="isStudent"
+						>
+							<mat-option
+								*ngFor="let project of projects"
+								[value]="project.id"
+							>
+								{{ project.name }}
+							</mat-option>
+						</mat-select>
+						<mat-error
+							*ngIf="isNotValid(taskForm, 'project_id')"
+							class="mb-3"
+						>
+							Este campo es <strong>obligatorio</strong>
+						</mat-error>
+					</mat-form-field>
+				</ng-container>
+				<!--  Asignar a un proyecto Fin -->
 
 				<!-- Responsable Inicio -->
 				<ng-container *ngIf="students.length > 0">
@@ -54,6 +89,7 @@
 						<mat-select
 							placeholder="Responsable"
 							formControlName="student_identification"
+							[disabled]="isStudent"
 						>
 							<mat-option
 								*ngFor="let student of students"
@@ -81,6 +117,7 @@
 						<mat-select
 							placeholder="Tutor del Responsable"
 							formControlName="tutor_identification"
+							[disabled]="isTutor"
 						>
 							<mat-option
 								*ngFor="let tutor of tutors"
@@ -99,34 +136,15 @@
 					</mat-form-field>
 				</ng-container>
 				<!--  Tutor del Responsable Fin -->
-
-				<!--  Asignar a un proyecto Inicio -->
-				<ng-container *ngIf="projects.length > 0">
-					<mat-form-field>
-						<mat-select
-							placeholder="Asignar a un proyecto "
-							formControlName="project_id"
-						>
-							<mat-option
-								*ngFor="let project of projects"
-								[value]="project.id"
-							>
-								{{ project.name }}
-							</mat-option>
-						</mat-select>
-						<mat-error
-							*ngIf="isNotValid(taskForm, 'project_id')"
-							class="mb-3"
-						>
-							Este campo es <strong>obligatorio</strong>
-						</mat-error>
-					</mat-form-field>
-				</ng-container>
-				<!--  Asignar a un proyecto Fin -->
 			</div>
 		</div>
-		<div mat-dialog-actions class="d-flex flex-wrap justify-content-between">
-			<button class="btn btn-secondary" (click)="onClose()">Cancelar</button>
+		<div
+			mat-dialog-actions
+			class="d-flex flex-wrap justify-content-between"
+		>
+			<button class="btn btn-secondary" (click)="onClose()">
+				Cancelar
+			</button>
 			<button
 				[disabled]="taskForm.invalid"
 				(click)="onSaveNewTask()"

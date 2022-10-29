@@ -94,14 +94,15 @@
 				<div
 					style="width: 24rem"
 					class="d-flex justify-content-between align-items-center"
-					(click)="onAddStudents()"
+
 				>
-					<button type="button" class="btn btn-outline-primary">
+					<button type="button" (click)="onAddStudents()" class="btn btn-outline-primary">
 						Añadir Estudiante(es)
 					</button>
 
 					<button
 						style="margin-left: 1rem"
+						(click)="onActiveSelect()"
 						type="button"
 						class="btn btn-outline-primary"
 					>
@@ -116,7 +117,7 @@
 					[headers]="studentHeaders"
 					[filter]="true"
 					[isUser]="true"
-					[select]="false"
+					[select]="isSelect"
 					[edit]="false"
 					(confirmedSelection)="onExportStudents($event)"
 				>

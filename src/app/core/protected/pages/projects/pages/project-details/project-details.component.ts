@@ -8,11 +8,11 @@ import { Student } from '../../../students/Interfaces/students.interface';
 import { StudentsService } from '../../../students/services/students.service';
 import { TaskProject } from '../../../tasks/interfaces/tasks.iterface';
 import { EditTaskComponent } from '../../../tasks/pages/edit-task/edit-task.component';
-import { NewTaskComponent } from '../../../tasks/pages/new-task/new-task.component';
 import { TasksService } from '../../../tasks/services/tasks.service';
 import { ProjectDetails } from '../../interfaces/projects.interface';
 import { ProjectService } from '../../services/projects.service';
 import { AddStudentsComponent } from './dialogs/add-students/add-students.component';
+import { NewTaskComponent } from '../../../tasks/pages/new-task/new-task.component';
 
 @Component({
 	selector: 'app-project-details',
@@ -22,6 +22,7 @@ import { AddStudentsComponent } from './dialogs/add-students/add-students.compon
 export class ProjectDetailsComponent implements OnInit {
 	@ViewChild(MatTabGroup) matTabGroup: any;
 
+	isSelect: boolean = false;
 	projectId!: number;
 	project!: ProjectDetails;
 
@@ -100,6 +101,7 @@ export class ProjectDetailsComponent implements OnInit {
 	addNewTask() {
 		const dialogRef = this.dialog.open(NewTaskComponent, {
 			width: '25%',
+			data: { projectId: this.projectId },
 		});
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
@@ -212,6 +214,10 @@ export class ProjectDetailsComponent implements OnInit {
 				}
 			});
 		});
+	}
+
+	onActiveSelect(): void{
+		this.isSelect = !(this.isSelect);
 	}
 
 	onExportStudents(studentsSelected: any[]): void {

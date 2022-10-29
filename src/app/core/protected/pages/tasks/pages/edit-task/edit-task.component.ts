@@ -26,7 +26,7 @@ export class EditTaskComponent implements OnInit {
 		private _fb: FormBuilder,
 		private _tasksService: TasksService,
 		public dialogRef: MatDialogRef<EditTaskComponent>,
-		@Inject(MAT_DIALOG_DATA) public data: any
+		@Inject(MAT_DIALOG_DATA) public data?: any
 	) {}
 
 	ngOnInit(): void {

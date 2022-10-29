@@ -16,7 +16,7 @@ import { AddStudentsComponent } from './pages/project-details/dialogs/add-studen
 		InactiveProjectsComponent,
 		ProjectDetailsComponent,
 		NewProjectComponent,
-		AddStudentsComponent,
+		AddStudentsComponent
 	],
 	imports: [
 		CommonModule,
