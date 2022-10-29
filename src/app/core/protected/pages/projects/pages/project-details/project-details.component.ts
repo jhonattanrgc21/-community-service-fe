@@ -2,6 +2,8 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabGroup } from '@angular/material/tabs';
 import { ActivatedRoute } from '@angular/router';
+import Swal from 'sweetalert2';
+import { ChangeStatus } from 'src/app/core/protected/interfaces/users.interface';
 import { Student } from '../../../students/Interfaces/students.interface';
 import { StudentsService } from '../../../students/services/students.service';
 import { TaskProject } from '../../../tasks/interfaces/tasks.iterface';
@@ -172,10 +174,27 @@ export class ProjectDetailsComponent implements OnInit {
 	 * @description Guarda en la BD a los estudiantes aprobados
 	 */
 	onSaveStudentsAprobbal(studentsApproval: Student[]): void {
-		// TODO: Agregar la peticion que guarda los estudiantes aprobados
+		let changeStatus: ChangeStatus = {
+			identifications: this.studentsApproval.map((student) => student.id),
+			status: 'Aprobado'
+		};
 
-		// Para refrescar la tabla
-		this.onStudentsAprobbal();
+		this._studentsService.updateStatusByIdentificationList(changeStatus).subscribe(ok => {
+			if (ok) {
+				Swal.fire({
+					title: 'Guardado',
+					text: 'Estudiante(es) aprobado(os) con exito!',
+					icon: 'success',
+				});
+				this.onStudentsAprobbal();
+			} else {
+				Swal.fire({
+					title: 'Error',
+					text: 'No se pudo realizar la operación',
+					icon: 'error',
+				});
+			}
+		})
 	}
 
 	onAddStudents(): void {

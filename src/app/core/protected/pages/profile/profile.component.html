@@ -171,21 +171,42 @@
 					</div>
 
 					<div class="d-flex justify-content-center">
-						<button
-							type="submit"
-							[disabled]="generalForm.invalid"
-							(click)="onSaveGeneral()"
-							class="btn btn-primary"
+						<div
+							style="width: 20rem"
+							class="d-flex justify-content-between align-items-center"
 						>
-							<span
-								class="d-flex justify-content-between align-items-center"
+							<button
+								type="submit"
+								[disabled]="!isProject"
+								(click)="onExitProject()"
+								class="btn btn-danger"
 							>
-								<mat-icon style="margin-right: 5px"
-									>save</mat-icon
+								<span
+									class="d-flex justify-content-between align-items-center"
 								>
-								Guardar
-							</span>
-						</button>
+									<mat-icon style="margin-right: 5px"
+										>not_interested</mat-icon
+									>
+									Salir del proyecto
+								</span>
+							</button>
+
+							<button
+								type="submit"
+								[disabled]="generalForm.invalid"
+								(click)="onSaveGeneral()"
+								class="btn btn-primary"
+							>
+								<span
+									class="d-flex justify-content-between align-items-center"
+								>
+									<mat-icon style="margin-right: 5px"
+										>save</mat-icon
+									>
+									Guardar
+								</span>
+							</button>
+						</div>
 					</div>
 				</form>
 			</section>
@@ -211,7 +232,10 @@
 								/>
 								<mat-error
 									*ngIf="
-										isNotValid(changePasswordForm, 'old_password')
+										isNotValid(
+											changePasswordForm,
+											'old_password'
+										)
 									"
 								>
 									Este campo es <strong>obligatorio</strong>
@@ -235,7 +259,10 @@
 								/>
 								<mat-error
 									*ngIf="
-										isNotValid(changePasswordForm, 'password')
+										isNotValid(
+											changePasswordForm,
+											'password'
+										)
 									"
 								>
 									Este campo es <strong>obligatorio</strong>
@@ -259,7 +286,10 @@
 								/>
 								<mat-error
 									*ngIf="
-										isNotValid(changePasswordForm, 'confirm_password')
+										isNotValid(
+											changePasswordForm,
+											'confirm_password'
+										)
 									"
 								>
 									Este campo es <strong>obligatorio</strong>

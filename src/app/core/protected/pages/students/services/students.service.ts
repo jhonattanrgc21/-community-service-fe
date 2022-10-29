@@ -68,4 +68,12 @@ export class StudentsService {
 			catchError((err) => of(false))
 		);
 	}
+
+	exitProject(identification: string): Observable<boolean> {
+		const url: string = `${this.baseUrl}/delete_student_project`;
+		return this._httpClient.put<boolean>(url, {identification}).pipe(
+			map((res) => true),
+			catchError((err) => of(false))
+		);
+	}
 }

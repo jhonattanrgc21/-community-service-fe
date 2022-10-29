@@ -14,9 +14,11 @@
 				<mat-card-content class="pt-3">
 					<p>
 						<span style="font-weight: 500">Nombre: </span>
-						<ng-container *ngIf="cardInfo?.name; else notFound">{{
+						<ng-container *ngIf="cardInfo?.name; else noProject">{{
 							cardInfo.name
 						}}</ng-container>
+
+						<ng-template #noProject>Sin proyecto inscrito</ng-template>
 					</p>
 					<p>
 						<span style="font-weight: 500">Fecha de inicio: </span>
@@ -66,9 +68,11 @@
 				<mat-card-content class="pt-3">
 					<p>
 						<span style="font-weight: 500">Acumuladas: </span>
-						<ng-container *ngIf="cardInfo?.hours; else notFound">{{
+						<ng-container *ngIf="cardInfo?.hours; noHours">{{
 							cardInfo.hours
 						}}</ng-container>
+
+						<ng-template #noHours>0</ng-template>
 					</p>
 					<p>
 						<span style="font-weight: 500">Pendiente:</span>

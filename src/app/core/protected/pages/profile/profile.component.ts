@@ -6,6 +6,7 @@ import { ChangePassowrd } from './interfaces/profile.interface';
 import Swal from 'sweetalert2';
 import { Router } from '@angular/router';
 import { ROUTES } from 'src/app/shared/constants/constants';
+import { StudentsService } from '../students/services/students.service';
 
 @Component({
 	selector: 'app-profile',
@@ -54,11 +55,11 @@ export class ProfileComponent implements OnInit {
 		private _fb: FormBuilder,
 		private _generalService: GeneralService,
 		private _authService: AuthService,
+		private _studentsService: StudentsService,
 		private _router: Router
 	) {}
 
 	ngOnInit(): void {
-		// TODO: aqui va la integracion con el back
 		this.identification = this._authService.user.identification
 			? this._authService.user.identification
 			: '';
@@ -76,13 +77,17 @@ export class ProfileComponent implements OnInit {
 			});
 	}
 
+	get isProject(): boolean {
+		return this._authService.user.projectId ? true : false;
+	}
+
 	/**
 	 * @description Verifica si el loginForm no es valido
 	 * @param field
 	 * @returns boolean
 	 */
 	isNotValid(form: FormGroup, field: string): boolean {
-		return form.controls[field].invalid && form.controls[field].touched ;
+		return form.controls[field].invalid && form.controls[field].touched;
 	}
 
 	changeOption(option: any) {
@@ -148,5 +153,38 @@ export class ProfileComponent implements OnInit {
 					});
 				}
 			});
+	}
+
+	onExitProject(): void {
+		Swal.fire({
+			title: '¿Desea salir del proyecto?',
+			text: 'Esta acción no se podra deshacer',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, salir',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				this._studentsService
+					.exitProject(this.identification)
+					.subscribe((ok) => {
+						if (ok) {
+							Swal.fire({
+								title: 'Guardado',
+								text: 'Usted ha salido del proyecto con exito!',
+								icon: 'success',
+							});
+							this._router.navigateByUrl(ROUTES.dashboard);
+						} else {
+							Swal.fire({
+								title: 'Error',
+								text: 'No se pudo realizar la operación',
+								icon: 'error',
+							});
+						}
+					});
+			}
+		});
 	}
 }
