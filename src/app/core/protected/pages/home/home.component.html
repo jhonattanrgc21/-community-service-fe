@@ -18,7 +18,9 @@
 							cardInfo.name
 						}}</ng-container>
 
-						<ng-template #noProject>Sin proyecto inscrito</ng-template>
+						<ng-template #noProject
+							>Sin proyecto inscrito</ng-template
+						>
 					</p>
 					<p>
 						<span style="font-weight: 500">Fecha de inicio: </span>
@@ -92,6 +94,8 @@
 			[data]="tasksList"
 			[headers]="headersList"
 			[filter]="true"
+			[select]="false"
+			(editRow)="editTask($event)"
 		>
 		</app-dynamic-table>
 	</ng-container>

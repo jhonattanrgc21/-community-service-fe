@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { Task } from '../tasks/interfaces/tasks.iterface';
+import { EditTaskComponent } from '../tasks/pages/edit-task/edit-task.component';
 import { RegisteredProject } from './interfaces/home.interface';
 import { HomeService } from './services/home.service';
 @Component({
@@ -18,14 +20,20 @@ export class HomeComponent implements OnInit {
 
 	pendingHours: number = 120;
 
-	constructor(private _homeService: HomeService) {}
+	constructor(private _homeService: HomeService, public dialog: MatDialog) {}
 
 	ngOnInit(): void {
+		this.loadData();
+	}
+
+	loadData(): void {
 		this._homeService
 			.getInfoProject()
 			.subscribe((res: RegisteredProject) => {
 				this.cardInfo = res;
-				this.cardInfo.hours = this.cardInfo.hours? this.cardInfo.hours : 0;
+				this.cardInfo.hours = this.cardInfo.hours
+					? this.cardInfo.hours
+					: 0;
 				this.tasksList = res.task_list;
 
 				this.pendingHours -= this.cardInfo.hours;
@@ -45,5 +53,18 @@ export class HomeComponent implements OnInit {
 					'Estatus',
 				];
 			});
+	}
+
+	editTask(task: any): void {
+		const dialogRef = this.dialog.open(EditTaskComponent, {
+			width: '25%',
+			data: task,
+		});
+
+		dialogRef.afterClosed().subscribe((isRefresh) => {
+			if (isRefresh) {
+				this.loadData();
+			}
+		});
 	}
 }
