@@ -17,6 +17,7 @@ export class HomeComponent implements OnInit {
 	headersList: string[] = [];
 
 	cardInfo!: RegisteredProject;
+	hours: number = 0;
 
 	pendingHours: number = 120;
 
@@ -31,7 +32,7 @@ export class HomeComponent implements OnInit {
 			.getInfoProject()
 			.subscribe((res: RegisteredProject) => {
 				this.cardInfo = res;
-				this.cardInfo.hours = this.cardInfo.hours
+				this.hours = this.cardInfo.hours
 					? this.cardInfo.hours
 					: 0;
 				this.tasksList = res.task_list;

@@ -22,8 +22,7 @@ export class HomeService {
 		const url: string = `${this._baseUrl}/users/get_project_info_by_student`;
 		return this._httpClient
 			.post<RegisteredProject>(url, {
-				identification:
-					'V-26000012' /*this._authService.user.identification,*/,
+				identification: this._authService.user.identification,
 			})
 			.pipe(
 				tap((res: RegisteredProject) => {
