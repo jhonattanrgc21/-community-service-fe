@@ -65,8 +65,9 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 				: [];
 
 		if (this.isSelect) {
-			this.tableHeaders = [' ', ...this.tableHeaders];
-			this.tableCols.unshift('select');
+			if (!this.tableCols.includes('select')) {
+				this.tableCols.unshift('select');
+			}
 		}
 
 		if (this.isEdit) {
@@ -92,8 +93,10 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 		this.selection.clear();
 		this.isSelect = this.isSelect;
 		if (this.isSelect) {
-			this.tableHeaders = [' ', ...this.tableHeaders];
-			this.tableCols.unshift('select');
+			if (!this.tableCols.includes('select')) {
+				this.tableHeaders = [' ', ...this.tableHeaders];
+				this.tableCols.unshift('select');
+			}
 		} else {
 			this.removeAtributes(this.tableHeaders, ' ');
 			this.removeAtributes(this.tableCols, 'select');

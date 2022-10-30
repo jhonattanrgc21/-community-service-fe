@@ -21,7 +21,6 @@ export class DynamicRegisterComponent implements OnInit {
 	@Input('selectedOption') selectedOption!: any;
 	@Input('isProject') isProject?: boolean = false;
 
-
 	@Output() addNewUser = new EventEmitter<any>();
 	@Output() addNewUsers = new EventEmitter<any[]>();
 	@Output() addNewProject = new EventEmitter<any>();
@@ -103,13 +102,16 @@ export class DynamicRegisterComponent implements OnInit {
 		const fileReader = new FileReader();
 		fileReader.readAsBinaryString(selectedFile);
 		fileReader.onload = (event: any) => {
-			let workBook = XLSX.read(fileReader.result, { type: 'binary' });
+			let workBook = XLSX.read(fileReader.result, {
+				type: 'binary',
+				cellDates: true,
+			});
 			const sheetNames = workBook.SheetNames;
 			const excelData = XLSX.utils.sheet_to_json(
 				workBook.Sheets[sheetNames[0]]
 			);
 			if (this.isProject) {
-				// TODO: corregir la lectura de la fecha de inicio en ms
+				this.rows = [];
 				excelData.forEach((data: any) => {
 					let project: any = {
 						name: data['Nombre'],
@@ -136,15 +138,16 @@ export class DynamicRegisterComponent implements OnInit {
 					'C.I Coordinador',
 					'Nombre del Coordinador',
 					'Apellido del Coordinador',
-					'Carrera del Coordinador'
+					'Carrera del Coordinador',
 				];
 			} else {
+				this.rows = [];
 				excelData.forEach((data: any) => {
 					let user: any = {
 						identification: data['Cédula'],
 						first_name: data['Nombre'],
 						last_name: data['Apellido'],
-						email: data['Email'],
+						email: data['Correo'],
 						phone: data['Teléfono'],
 						career: data['Carrera'],
 					};
