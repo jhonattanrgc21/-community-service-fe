@@ -267,7 +267,57 @@
 									</mat-error>
 								</mat-form-field>
 							</div>
-							<!-------------- Apellido Fin -------------->
+							<!-------------- Apellido del coordinador Fin -------------->
+
+
+							<!-------------- Correo del coordinador Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix>email</mat-icon>
+										Correo del Coordinador
+									</mat-label>
+									<input
+										type="email"
+										matInput
+										formControlName="coordinator_email"
+										placeholder="Ingrese el correo"
+									/>
+									<mat-error
+										*ngIf="isNotValid(projectForm, 'coordinator_email')"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Correo del coordinador Fin -------------->
+
+							<!-------------- Teléfono del coordinador Inicio -------------->
+							<div class="col-12 col-md-6">
+								<mat-form-field class="text-dark mb-4 w-75">
+									<mat-label>
+										<mat-icon matPrefix
+											>phone_in_talk_watchface_indicator</mat-icon
+										>
+										Teléfono del Coordinador
+									</mat-label>
+									<input
+										type="text"
+										matInput
+										formControlName="coordinator_phone"
+										placeholder="Ingrese su teléfono"
+									/>
+									<mat-error
+										*ngIf="isNotValid(projectForm, 'coordinator_phone')"
+									>
+										Este campo es
+										<strong>obligatorio</strong>
+									</mat-error>
+								</mat-form-field>
+							</div>
+							<!-------------- Teléfono del coordinador Fin -------------->
+
 
 							<!-------------- Carrera Inicio -------------->
 							<div class="col-12 col-md-6">

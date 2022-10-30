@@ -21,6 +21,9 @@ export interface NewProject
 		ProjectDetails,
 		'id' | 'date_end' | 'status' | 'coordinator_id' | 'career_name'
 	> {
+
 	career: string;
 	coordinator_career: string;
+	coordinator_email: string;
+	coordinator_phone: string;
 }

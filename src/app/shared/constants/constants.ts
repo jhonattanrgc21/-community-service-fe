@@ -22,6 +22,8 @@ export const ROUTES = {
 	profile: '/layout/profile',
 	newStudents: '/layout/students/new-student',
 	newProjects: '/layout/projects/new-project',
+	activeProject: '/layout/projects/actives',
+	inactiveProject: '/layout/projects/inactives',
 	activeProjectDetails: '/layout/projects/actives',
 	inactiveProjectDetails: '/layout/projects/inactives',
 };

@@ -41,6 +41,22 @@ export class DynamicRegisterComponent implements OnInit {
 		coordinator_identification: ['', [Validators.required]],
 		coordinator_first_name: ['', [Validators.required]],
 		coordinator_last_name: ['', [Validators.required]],
+		coordinator_email: [
+			'',
+			[
+				Validators.required,
+				Validators.email,
+				Validators.pattern(emailPattern),
+			],
+		],
+		coordinator_phone: [
+			'',
+			[
+				Validators.required,
+				Validators.minLength(11),
+				Validators.maxLength(11),
+			],
+		],
 		coordinator_career: ['', [Validators.required]],
 	});
 
@@ -121,6 +137,8 @@ export class DynamicRegisterComponent implements OnInit {
 						coordinator_identification: data['Cédula'],
 						coordinator_first_name: data['Nombre del Coordinador'],
 						coordinator_last_name: data['Apellido del Coordinador'],
+						coordinator_email: data['Correo del Coordinador'],
+						coordinator_phone: data['Teléfono del Coordinador'],
 						coordinator_career: data['Carrera del Coordinador'],
 					};
 					// Formateando la fecha local seleccionada
@@ -232,15 +250,11 @@ export class DynamicRegisterComponent implements OnInit {
 			)?.value,
 			coordinator_last_name: this.projectForm.get('coordinator_last_name')
 				?.value,
+			coordinator_email: this.projectForm.get('coordinator_email')?.value,
+			coordinator_phone: this.projectForm.get('coordinator_phone')?.value,
 			coordinator_career:
 				this.projectForm.get('coordinator_career')?.value,
 		};
-
-		// Formateando la fecha local seleccionada
-		this.newProject.date_start = this._datePipe.transform(
-			this.newProject.date_start,
-			'dd/MM/yyyy'
-		);
 
 		// Limpiando los espacios en blanco de cada campo del objeto
 		this.newProject.name = this.newProject.name.trim();
@@ -249,6 +263,10 @@ export class DynamicRegisterComponent implements OnInit {
 			this.newProject.coordinator_first_name.trim();
 		this.newProject.coordinator_last_name =
 			this.newProject.coordinator_last_name.trim();
+		this.newProject.coordinator_email =
+			this.newProject.coordinator_email.trim();
+		this.newProject.coordinator_phone =
+			this.newProject.coordinator_phone.trim();
 
 		this.addNewProject.emit(this.newProject);
 	}

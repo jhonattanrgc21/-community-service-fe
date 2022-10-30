@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { ROUTES } from 'src/app/shared/constants/constants';
+import Swal from 'sweetalert2';
 import { NewProject } from '../../interfaces/projects.interface';
+import { ProjectService } from '../../services/projects.service';
 
 @Component({
 	selector: 'app-new-project',
@@ -23,17 +27,50 @@ export class NewProjectComponent implements OnInit {
 	newProject!: NewProject;
 	newProjects: NewProject[] = [];
 
-	constructor() {}
+	constructor(
+		private _projectService: ProjectService,
+		private _router: Router
+	) {}
 
 	ngOnInit(): void {}
 
 	onSaveProject(project: NewProject): void {
-		// TODO: Realizar la peticion al backend para guardar el proyecto
 		this.newProject = project;
+		this._projectService.createProject(project).subscribe((ok) => {
+			if (ok) {
+				Swal.fire({
+					title: 'Guardado',
+					text: 'Proyecto registrado con exito!',
+					icon: 'success',
+				});
+				this._router.navigateByUrl(ROUTES.activeProject);
+			} else {
+				Swal.fire({
+					title: 'Error',
+					text: 'No se pudo registrar el proyecto',
+					icon: 'error',
+				});
+			}
+		});
 	}
 
 	onSaveProjects(projects: NewProject[]): void {
-		// TODO: Realizar la peticion al backend para guardar los proyecto
 		this.newProjects = projects;
+		this._projectService.createProjects(projects).subscribe((ok) => {
+			if (ok) {
+				Swal.fire({
+					title: 'Guardado',
+					text: 'Proyectos registrados con exito!',
+					icon: 'success',
+				});
+				this._router.navigateByUrl(ROUTES.activeProject);
+			} else {
+				Swal.fire({
+					title: 'Error',
+					text: 'No se pudieron registrar los proyectos',
+					icon: 'error',
+				});
+			}
+		});
 	}
 }
