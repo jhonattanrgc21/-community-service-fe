@@ -6,6 +6,8 @@ export const Careers = [
 	{ id: 5, name: 'Biología' },
 ];
 
+export const StatusProject: string[] = ['Activo', 'Inactivo'];
+
 export const StatusUser: string[] = ['Activo', 'Inactivo', 'Aprobado']
 
 export const Nationalities: string[] = ['V', 'E'];

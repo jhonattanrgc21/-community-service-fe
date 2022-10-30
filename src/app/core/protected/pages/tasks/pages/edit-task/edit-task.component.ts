@@ -2,7 +2,6 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { TaskStatuses } from 'src/app/shared/constants/constants';
-import { Task, TutorTask } from '../../interfaces/tasks.iterface';
 import { TasksService } from '../../services/tasks.service';
 import Swal from 'sweetalert2';
 
@@ -13,8 +12,6 @@ import Swal from 'sweetalert2';
 	styleUrls: ['./edit-task.component.scss'],
 })
 export class EditTaskComponent implements OnInit {
-	task?: Task;
-	tasTutor?: TutorTask;
 	isStudent: boolean = false;
 	statuses: string[] = TaskStatuses;
 

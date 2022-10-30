@@ -16,6 +16,7 @@ import { NewTaskComponent } from '../../../tasks/pages/new-task/new-task.compone
 import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { ROUTES } from 'src/app/shared/constants/constants';
 import { GeneralService } from 'src/app/core/protected/services/general.service';
+import { EditProjectComponent } from './dialogs/edit-project/edit-project.component';
 
 @Component({
 	selector: 'app-project-details',
@@ -218,6 +219,20 @@ export class ProjectDetailsComponent implements OnInit {
 		const role = this.isStudent;
 		const isEnroll = this._authService.user.projectId ? false : true;
 		return role && !isEnroll;
+	}
+
+	onEditProject(): void {
+		const dialogRef = this.dialog.open(EditProjectComponent, {
+			width: 'auto',
+			height: 'auto',
+			data: this.project
+		});
+
+		dialogRef.afterClosed().subscribe((isRefresh) => {
+			if (isRefresh == 'edit') {
+				this._router.navigateByUrl(ROUTES.inactiveProject);
+			}
+		});
 	}
 
 	/**

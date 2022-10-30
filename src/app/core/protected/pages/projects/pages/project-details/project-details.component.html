@@ -2,6 +2,11 @@
 
 <div class="mb-5 d-flex align-items-start justify-content-center">
 	<mat-card class="w-75">
+		<div class="d-flex justify-content-end">
+			<button mat-icon-button (click)="onEditProject()">
+				<mat-icon>edit</mat-icon>
+			</button>
+		</div>
 		<mat-card-title class="text-center">
 			<ng-container *ngIf="project?.name">
 				{{ project.name | titlecase }}
@@ -51,7 +56,7 @@
 				</ng-container>
 			</p>
 
-			<ng-container *ngIf="isStudent">
+			<ng-container *ngIf="isStudent && project?.status == 'Activo'">
 				<div class="d-flex justify-content-center">
 					<button
 						type="button"

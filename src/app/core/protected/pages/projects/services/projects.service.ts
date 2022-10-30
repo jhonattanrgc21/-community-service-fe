@@ -77,4 +77,12 @@ export class ProjectService {
 			catchError((err) => of(false))
 		);
 	}
+
+	editProject(projectId: number, status: string): Observable<boolean> {
+		const url: string = `${this._baseUrl}/projects/update_project_status/${projectId}/${status}`;
+		return this._httpClient.put<boolean>(url, {}).pipe(
+			map((res) => true),
+			catchError((err) => of(false))
+		);
+	}
 }

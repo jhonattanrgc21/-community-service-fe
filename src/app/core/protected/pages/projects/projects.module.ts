@@ -9,6 +9,8 @@ import { MaterialModule } from 'src/app/material.module';
 import { SharedModule } from 'src/app/shared/shared.module';
 import { NewProjectComponent } from './pages/new-project/new-project.component';
 import { AddStudentsComponent } from './pages/project-details/dialogs/add-students/add-students.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { EditProjectComponent } from './pages/project-details/dialogs/edit-project/edit-project.component';
 
 @NgModule({
 	declarations: [
@@ -16,10 +18,12 @@ import { AddStudentsComponent } from './pages/project-details/dialogs/add-studen
 		InactiveProjectsComponent,
 		ProjectDetailsComponent,
 		NewProjectComponent,
-		AddStudentsComponent
+		AddStudentsComponent,
+		EditProjectComponent
 	],
 	imports: [
 		CommonModule,
+		ReactiveFormsModule,
 		SharedModule,
 		ProjectsRoutingModule,
 		MaterialModule,

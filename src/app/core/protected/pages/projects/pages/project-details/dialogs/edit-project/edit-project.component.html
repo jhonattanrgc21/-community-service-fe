@@ -1,0 +1,66 @@
+<ng-container *ngIf="data.name">
+	<h1 mat-dialog-title>{{ data.name }}</h1>
+</ng-container>
+
+<form [formGroup]="projectForm">
+	<div mat-dialog-content>
+		<div class="d-flex flex-column">
+			<!-- Descripcion Inicio -->
+			<p>
+				<span style="font-weight: 500">Descripci&oacute;n:</span>
+				<ng-container *ngIf="data?.description">
+					{{ data.description | titlecase }}
+				</ng-container>
+			</p>
+			<!-- Descripcion Fin -->
+
+			<!-- Fecha de inicio Inicio -->
+			<p>
+				<span style="font-weight: 500">fecha de inicio:</span>
+				<ng-container *ngIf="data.date_start">
+					{{ data.date_start }}
+				</ng-container>
+			</p>
+			<!-- Fecha de inicio Fin -->
+
+			<!-- Responsable Inicio -->
+			<p>
+				<span style="font-weight: 500">C.I Coordinador:</span>
+				<ng-container *ngIf="data?.tutor_indentification">
+					{{ data.tutor_indentification | uppercase }}
+				</ng-container>
+			</p>
+
+			<p>
+				<span style="font-weight: 500">Nombre y Apellido del Coordinador:</span>
+				<ng-container *ngIf="data?.name">
+					{{ data.name }}
+				</ng-container>
+			</p>
+			<!-- Responsable Fin -->
+
+
+			<!--  Estatus del proyecto Inicio -->
+			<ng-container *ngIf="data?.status">
+				<mat-form-field>
+					<mat-select placeholder="Estatus" formControlName="status">
+						<mat-option
+							*ngFor="let status of statuses"
+							[value]="status"
+						>
+							{{ status | titlecase }}
+						</mat-option>
+					</mat-select>
+				</mat-form-field>
+			</ng-container>
+			<!--  Estatus del proyecto Fin -->
+		</div>
+	</div>
+
+	<div mat-dialog-actions class="d-flex flex-wrap justify-content-between">
+		<button class="btn btn-secondary" (click)="onClose()">Cancelar</button>
+		<button (click)="onSaveProject()" class="btn btn-primary" cdkFocusInitial>
+			Guardar
+		</button>
+	</div>
+</form>
