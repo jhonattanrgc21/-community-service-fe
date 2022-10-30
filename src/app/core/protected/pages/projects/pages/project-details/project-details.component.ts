@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatTabGroup } from '@angular/material/tabs';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import Swal from 'sweetalert2';
 import { ChangeStatus } from 'src/app/core/protected/interfaces/users.interface';
 import { Student } from '../../../students/Interfaces/students.interface';
@@ -13,6 +13,9 @@ import { ProjectDetails } from '../../interfaces/projects.interface';
 import { ProjectService } from '../../services/projects.service';
 import { AddStudentsComponent } from './dialogs/add-students/add-students.component';
 import { NewTaskComponent } from '../../../tasks/pages/new-task/new-task.component';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
+import { ROUTES } from 'src/app/shared/constants/constants';
+import { GeneralService } from 'src/app/core/protected/services/general.service';
 
 @Component({
 	selector: 'app-project-details',
@@ -22,6 +25,7 @@ import { NewTaskComponent } from '../../../tasks/pages/new-task/new-task.compone
 export class ProjectDetailsComponent implements OnInit {
 	@ViewChild(MatTabGroup) matTabGroup: any;
 
+	myPerson!: Student;
 	isSelect: boolean = false;
 	projectId!: number;
 	project!: ProjectDetails;
@@ -53,9 +57,12 @@ export class ProjectDetailsComponent implements OnInit {
 
 	constructor(
 		private _activatedRoute: ActivatedRoute,
+		private _router: Router,
 		private _projectService: ProjectService,
 		private _tasksService: TasksService,
 		private _studentsService: StudentsService,
+		private _generalService: GeneralService,
+		private _authService: AuthService,
 		public dialog: MatDialog
 	) {}
 
@@ -71,6 +78,16 @@ export class ProjectDetailsComponent implements OnInit {
 					this.onTasksProject();
 				}
 			});
+
+		this._generalService
+			.findUserByIdentification(this._authService.identification)
+			.subscribe((res) => {
+				this.myPerson = res;
+			});
+	}
+
+	get isStudent(): boolean {
+		return this._authService.isStudent;
 	}
 
 	handleTabChange() {
@@ -172,31 +189,64 @@ export class ProjectDetailsComponent implements OnInit {
 		});
 	}
 
+	onEnrollProject(): void {
+		let studentId: number[] = [];
+		studentId.push(this.myPerson.id ? this.myPerson.id : 0);
+
+		this._projectService
+			.onAddStudents(this.projectId, studentId)
+			.subscribe((ok) => {
+				if (ok) {
+					Swal.fire({
+						title: 'Guardado',
+						text: 'Su inscriptción fue procesada con exito!',
+						icon: 'success',
+					});
+					this._authService.projectId = this.projectId;
+					this._router.navigateByUrl(ROUTES.dashboard);
+				} else {
+					Swal.fire({
+						title: 'Error',
+						text: 'No se pudo realizar el proceso de inscriptción',
+						icon: 'error',
+					});
+				}
+			});
+	}
+
+	canInscription(): boolean {
+		const role = this.isStudent;
+		const isEnroll = this._authService.user.projectId ? false : true;
+		return role && !isEnroll;
+	}
+
 	/**
 	 * @description Guarda en la BD a los estudiantes aprobados
 	 */
 	onSaveStudentsAprobbal(studentsApproval: Student[]): void {
 		let changeStatus: ChangeStatus = {
 			identifications: this.studentsApproval.map((student) => student.id),
-			status: 'Aprobado'
+			status: 'Aprobado',
 		};
 
-		this._studentsService.updateStatusByIdentificationList(changeStatus).subscribe(ok => {
-			if (ok) {
-				Swal.fire({
-					title: 'Guardado',
-					text: 'Estudiante(es) aprobado(os) con exito!',
-					icon: 'success',
-				});
-				this.onStudentsAprobbal();
-			} else {
-				Swal.fire({
-					title: 'Error',
-					text: 'No se pudo realizar la operación',
-					icon: 'error',
-				});
-			}
-		})
+		this._studentsService
+			.updateStatusByIdentificationList(changeStatus)
+			.subscribe((ok) => {
+				if (ok) {
+					Swal.fire({
+						title: 'Guardado',
+						text: 'Estudiante(es) aprobado(os) con exito!',
+						icon: 'success',
+					});
+					this.onStudentsAprobbal();
+				} else {
+					Swal.fire({
+						title: 'Error',
+						text: 'No se pudo realizar la operación',
+						icon: 'error',
+					});
+				}
+			});
 	}
 
 	onAddStudents(): void {
@@ -216,8 +266,8 @@ export class ProjectDetailsComponent implements OnInit {
 		});
 	}
 
-	onActiveSelect(): void{
-		this.isSelect = !(this.isSelect);
+	onActiveSelect(): void {
+		this.isSelect = !this.isSelect;
 	}
 
 	onExportStudents(studentsSelected: any[]): void {

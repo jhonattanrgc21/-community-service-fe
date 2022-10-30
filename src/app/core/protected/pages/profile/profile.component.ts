@@ -175,6 +175,7 @@ export class ProfileComponent implements OnInit {
 								text: 'Usted ha salido del proyecto con exito!',
 								icon: 'success',
 							});
+							this._authService.projectId = null;
 							this._router.navigateByUrl(ROUTES.dashboard);
 						} else {
 							Swal.fire({

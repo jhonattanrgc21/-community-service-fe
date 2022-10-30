@@ -22,8 +22,24 @@ export class AuthService {
 		return { ...this._user };
 	}
 
-	set projectId(id: number) {
+	set projectId(id: any) {
 		this._user.projectId = id;
+	}
+
+	get identification(): string{
+		return this._user.identification ? this._user.identification : '';
+	}
+
+	get isTutor(): boolean {
+		return this._user.role == 'tutor' ? true : false;
+	}
+
+	get isStudent(): boolean {
+		return this._user.role == 'student' ? true : false;
+	}
+
+	get isCoordinator(): boolean {
+		return this._user.role == 'coordinator' ? true : false;
 	}
 
 	/**
@@ -115,12 +131,17 @@ export class AuthService {
 		);
 	}
 
-	resetPassword(token: string , changePassword: any): Observable<boolean> {
+	resetPassword(token: string, changePassword: any): Observable<boolean> {
 		const url: string = `${this.baseUrl}/reset-password`;
-		let headers: HttpHeaders = new HttpHeaders().set('Authorization', token);
-		return this.httpClient.put<boolean>(url, changePassword, {headers}).pipe(
-			map((res) => true),
-			catchError((err) => of(false))
+		let headers: HttpHeaders = new HttpHeaders().set(
+			'Authorization',
+			token
 		);
+		return this.httpClient
+			.put<boolean>(url, changePassword, { headers })
+			.pipe(
+				map((res) => true),
+				catchError((err) => of(false))
+			);
 	}
 }

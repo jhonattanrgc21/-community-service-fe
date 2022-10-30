@@ -36,15 +36,15 @@ export class NewTaskComponent implements OnInit {
 	) {}
 
 	get isStudent(): boolean {
-		return this._authService.user.role == 'student' ? true : false;
+		return this._authService.isStudent;
 	}
 
 	get isTutor(): boolean {
-		return this._authService.user.role == 'tutor' ? true : false;
+		return this._authService.isTutor;
 	}
 
 	get isCoordinator(): boolean {
-		return this._authService.user.role == 'coordinator' ? true : false;
+		return this._authService.isCoordinator;
 	}
 
 	get identification(): string {

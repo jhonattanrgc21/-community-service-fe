@@ -8,7 +8,7 @@ export const Careers = [
 
 export const StatusUser: string[] = ['Activo', 'Inactivo', 'Aprobado']
 
-export const Nationalities: string[] = ['V', 'E', 'J', 'G'];
+export const Nationalities: string[] = ['V', 'E'];
 
 export const TaskStatuses: string[] = ['Pendiente', 'En progreso', 'Completada', 'Inactivo'];
 
