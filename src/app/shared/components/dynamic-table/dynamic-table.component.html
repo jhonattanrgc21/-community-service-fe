@@ -46,25 +46,37 @@
 	</div>
 
 	<!-- Filtro de busqueda Inicio -->
-	<mat-form-field
-		*ngIf="isFilter"
-		class="mt-2 mb-2 w-25"
-		appearance="standard"
-	>
-		<mat-label>Filtro</mat-label>
-		<input
-			matInput
-			(keyup)="applyFilter($event)"
-			placeholder="Buscar..."
-			autocomplete="off"
-			#input
-		/>
-	</mat-form-field>
+	<div class="d-flex justify-content-between align-items-center">
+		<mat-form-field
+			*ngIf="isFilter"
+			class="mt-2 mb-2 w-25"
+			appearance="standard"
+		>
+			<mat-label>Filtro</mat-label>
+			<input
+				matInput
+				(keyup)="applyFilter($event)"
+				placeholder="Buscar..."
+				autocomplete="off"
+				#input
+			/>
+		</mat-form-field>
+
+		<button (click)="exportExcel()" class="btn btn-primary">
+			Exportar a Excel
+		</button>
+	</div>
 	<!-- Filtro de busqueda Fin -->
 
 	<!-- Tabla dinamica Inicio -->
 	<div class="mat-elevation-z8 mb-1">
-		<table class="w-100" mat-table matSort [dataSource]="dataSource">
+		<table
+			id="exportToExcel"
+			class="w-100"
+			mat-table
+			matSort
+			[dataSource]="dataSource"
+		>
 			<ng-container *ngFor="let col of tableCols; index as i">
 				<ng-container matColumnDef="{{ col }}">
 					<!-- Columna de edicion -->

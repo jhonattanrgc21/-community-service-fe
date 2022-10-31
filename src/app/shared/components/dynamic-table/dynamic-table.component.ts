@@ -16,6 +16,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import {ExportTable} from './exportTable'
 import { ChangeStatus } from 'src/app/core/protected/interfaces/users.interface';
 
 @Component({
@@ -178,5 +179,9 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 
 	onEdit(row: any): void {
 		this.editRow.emit(row);
+	}
+
+	exportExcel(): void {
+		ExportTable.exportTableToExcel('exportToExcel');
 	}
 }
