@@ -199,13 +199,11 @@ export class DynamicRegisterComponent implements OnInit {
 			'-' +
 			this.generalForm.get('identification')?.value;
 
-		this.generalForm.get('identification')?.setValue(document);
-
 		// Convirtiendo el formulario en un objeto
 		this.newUser = {
 			first_name: this.generalForm.get('first_name')?.value,
 			last_name: this.generalForm.get('last_name')?.value,
-			identification: this.generalForm.get('identification')?.value,
+			identification: document,
 			email: this.generalForm.get('email')?.value,
 			phone: this.generalForm.get('phone')?.value,
 			career: this.generalForm.get('career')?.value,
@@ -237,16 +235,12 @@ export class DynamicRegisterComponent implements OnInit {
 			'-' +
 			this.projectForm.get('coordinator_identification')?.value;
 
-		this.projectForm.get('coordinator_identification')?.setValue(document);
-
 		this.newProject = {
 			name: this.projectForm.get('name')?.value,
 			description: this.projectForm.get('description')?.value,
 			date_start: this.projectForm.get('date_start')?.value,
 			career: this.projectForm.get('career')?.value,
-			coordinator_identification: this.projectForm.get(
-				'coordinator_identification'
-			)?.value,
+			coordinator_identification: document,
 			coordinator_first_name: this.projectForm.get(
 				'coordinator_first_name'
 			)?.value,

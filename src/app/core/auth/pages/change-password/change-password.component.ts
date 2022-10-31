@@ -21,8 +21,8 @@ export class ChangePasswordComponent implements OnInit {
 		private authService: AuthService
 	) {
 		this.form = this.fb.group({
-			password: [, [Validators.required, Validators.minLength(8)]],
-			confirm_password: [, [Validators.required, Validators.minLength(8)]],
+			password: [, [Validators.required, Validators.minLength(4)]],
+			confirm_password: [, [Validators.required, Validators.minLength(4)]],
 		});
 	}
 

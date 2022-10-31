@@ -204,25 +204,37 @@ export class ProjectDetailsComponent implements OnInit {
 		let studentId: number[] = [];
 		studentId.push(this.myPerson.id ? this.myPerson.id : 0);
 
-		this._projectService
-			.onAddStudents(this.projectId, studentId)
-			.subscribe((ok) => {
-				if (ok) {
-					Swal.fire({
-						title: 'Guardado',
-						text: 'Su inscriptción fue procesada con exito!',
-						icon: 'success',
+		Swal.fire({
+			title: 'Inscripción',
+			text: '¿Desea inscribirse al proyecto?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, inscribir',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				this._projectService
+					.onAddStudents(this.projectId, studentId)
+					.subscribe((ok) => {
+						if (ok) {
+							Swal.fire({
+								title: 'Guardado',
+								text: 'Su inscriptción fue procesada con exito!',
+								icon: 'success',
+							});
+							this._authService.projectId = this.projectId;
+							this._router.navigateByUrl(ROUTES.dashboard);
+						} else {
+							Swal.fire({
+								title: 'Error',
+								text: 'No se pudo realizar el proceso de inscriptción',
+								icon: 'error',
+							});
+						}
 					});
-					this._authService.projectId = this.projectId;
-					this._router.navigateByUrl(ROUTES.dashboard);
-				} else {
-					Swal.fire({
-						title: 'Error',
-						text: 'No se pudo realizar el proceso de inscriptción',
-						icon: 'error',
-					});
-				}
-			});
+			}
+		});
 	}
 
 	canInscription(): boolean {
@@ -263,7 +275,7 @@ export class ProjectDetailsComponent implements OnInit {
 						text: 'Estudiante(es) aprobado(os) con exito!',
 						icon: 'success',
 					});
-					this.studentsApproval = []
+					this.studentsApproval = [];
 					this.onStudentsAprobbal();
 				} else {
 					Swal.fire({
@@ -298,26 +310,24 @@ export class ProjectDetailsComponent implements OnInit {
 	}
 
 	onExportStudents(studentsSelected: any[]): void {
-		const ids = studentsSelected.map(student => student.id);
-				this._projectService
-					.exportTudentsByProject(ids)
-					.subscribe((ok) => {
-						if (ok) {
-							Swal.fire({
-								title: 'Guardado',
-								text: 'Operación realizada con exito!',
-								icon: 'success',
-							});
-							this.isSelect = false
-							this.students = [];
-							this.onStudentsProject();
-						} else {
-							Swal.fire({
-								title: 'Error',
-								text: 'No se pudo realizar la operación',
-								icon: 'error',
-							});
-						}
-					});
+		const ids = studentsSelected.map((student) => student.id);
+		this._projectService.exportTudentsByProject(ids).subscribe((ok) => {
+			if (ok) {
+				Swal.fire({
+					title: 'Guardado',
+					text: 'Operación realizada con exito!',
+					icon: 'success',
+				});
+				this.isSelect = false;
+				this.students = [];
+				this.onStudentsProject();
+			} else {
+				Swal.fire({
+					title: 'Error',
+					text: 'No se pudo realizar la operación',
+					icon: 'error',
+				});
+			}
+		});
 	}
 }

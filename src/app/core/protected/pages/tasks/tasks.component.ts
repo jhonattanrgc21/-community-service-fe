@@ -32,6 +32,7 @@ export class TasksComponent implements OnInit {
 			this._tasksSrvices
 				.findAllTaskByStudent()
 				.subscribe((res: Task[]) => {
+					this.tasksList = []
 					this.tasksList = res;
 					this.headersList = [
 						'Nombre',
@@ -50,6 +51,7 @@ export class TasksComponent implements OnInit {
 			this._tasksSrvices
 				.findAllTaskByTutor()
 				.subscribe((res: TutorTask[]) => {
+					this.tasksList = [];
 					this.tasksList = res;
 					this.headersList = [
 						'Nombre',

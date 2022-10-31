@@ -64,14 +64,17 @@
 					<span>Proyectos inactivos </span>
 				</li>
 			</ng-container>
-			<li
-				class="sidebar-item d-flex align-items-center justify-content-start"
-				routerLink="/layout/tasks"
-				routerLinkActive="active"
-			>
-				<mat-icon class="icon-menu">task</mat-icon>
-				<span>Tareas </span>
-			</li>
+
+			<ng-container *ngIf="!isCoordinator">
+				<li
+					class="sidebar-item d-flex align-items-center justify-content-start"
+					routerLink="/layout/tasks"
+					routerLinkActive="active"
+				>
+					<mat-icon class="icon-menu">task</mat-icon>
+					<span>Tareas </span>
+				</li>
+			</ng-container>
 			<ng-container *ngIf="!isStudent">
 				<li
 					class="sidebar-item d-flex align-items-center justify-content-start"

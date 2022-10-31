@@ -53,9 +53,9 @@ export class ProfileComponent implements OnInit {
 	});
 
 	changePasswordForm: FormGroup = this._fb.group({
-		old_password: ['', [Validators.required]],
-		password: ['', [Validators.required]],
-		confirm_password: ['', [Validators.required]],
+		old_password: ['', [Validators.required, Validators.minLength(4)]],
+		password: ['', [Validators.required, Validators.minLength(4)]],
+		confirm_password: ['', [Validators.required, Validators.minLength(4)]],
 	});
 
 	constructor(

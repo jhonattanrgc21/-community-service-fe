@@ -95,7 +95,7 @@
 						class="btn btn-outline-primary"
 						(click)="addNewTask()"
 					>
-						Nuevo
+						Nueva Tarea
 					</button>
 				</div>
 				<ng-container *ngIf="taskStudent.length > 0">
@@ -103,6 +103,7 @@
 						[data]="taskStudent"
 						[headers]="taskHeaders"
 						[filter]="true"
+						[edit]="!isStudent"
 						[select]="false"
 						(editRow)="editTask($event)"
 					>

@@ -127,6 +127,10 @@ export class StudentsComponent implements OnInit {
 			.subscribe((res: ApprovedStudent[]) => {
 				this.statuses = ['Activo', 'Inactivo'];
 				this.approvedStudents = res;
+				this.approvedStudents.forEach(student => {
+					let date = student.date_approval.split('T')[0].split('-');;
+					student.date_approval = date[2] + '-' + date[1] + '-' + date[0];
+				})
 			});
 	}
 
