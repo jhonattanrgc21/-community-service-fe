@@ -57,12 +57,11 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 	constructor(private _fb: FormBuilder, private cd: ChangeDetectorRef) {}
 
 	ngOnInit(): void {
-		this.cd.markForCheck();
 		this.dataSource.data = this.tableData;
 		this.tableCols =
-			this.tableData && this.tableData.length > 0
-				? Object.keys(this.tableData[0])
-				: [];
+		this.tableData && this.tableData.length > 0
+		? Object.keys(this.tableData[0])
+		: [];
 
 		if (this.isSelect) {
 			if (!this.tableCols.includes('select')) {
@@ -102,6 +101,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 			this.removeAtributes(this.tableCols, 'select');
 		}
 		this.dataSource.data = this.tableData;
+		this.cd.markForCheck();
 	}
 
 	ngAfterViewInit() {

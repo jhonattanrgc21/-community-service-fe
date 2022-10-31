@@ -85,4 +85,12 @@ export class ProjectService {
 			catchError((err) => of(false))
 		);
 	}
+
+	exportTudentsByProject(ids: number[]): Observable<boolean>{
+		const url: string = `${this._baseUrl}/users/delete_students_project`;
+		return this._httpClient.put<boolean>(url, { id_list: ids }).pipe(
+			map((res) => true),
+			catchError((err) => of(false))
+		);
+	};
 }

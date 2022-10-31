@@ -173,8 +173,10 @@
 					<div class="d-flex justify-content-center">
 						<div
 							style="width: 20rem"
-							class="d-flex justify-content-between align-items-center"
+							[ngClass]="{'justify-content-between': isStudent, 'justify-content-center': !isStudent}"
+							class="d-flex  align-items-center"
 						>
+						<ng-container *ngIf="isStudent">
 							<button
 								type="submit"
 								[disabled]="!isProject"
@@ -190,6 +192,7 @@
 									Salir del proyecto
 								</span>
 							</button>
+						</ng-container>
 
 							<button
 								type="submit"

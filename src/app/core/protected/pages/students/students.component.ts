@@ -12,6 +12,7 @@ import {
 import { EditStudentComponent } from './pages/edit-student/edit-student.component';
 import { StudentsService } from './services/students.service';
 import Swal from 'sweetalert2';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
 
 @Component({
 	selector: 'app-students',
@@ -55,11 +56,24 @@ export class StudentsComponent implements OnInit {
 	];
 
 	constructor(
+		private _authService: AuthService,
 		private _studenstServices: StudentsService,
 		private _activatedRoute: ActivatedRoute,
 		private _router: Router,
 		public dialog: MatDialog
 	) {}
+
+	get isStudent(): boolean {
+		return this._authService.isStudent;
+	}
+
+	get isTutor(): boolean {
+		return this._authService.isTutor;
+	}
+
+	get isCoordinator(): boolean {
+		return this._authService.isCoordinator;
+	}
 
 	ngOnInit(): void {
 		this.activeStudents = this._activatedRoute.snapshot.data['students'];

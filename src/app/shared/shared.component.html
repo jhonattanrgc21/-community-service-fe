@@ -17,14 +17,16 @@
 		</div>
 
 		<ul class="p-0">
-			<li
-				class="sidebar-item d-flex align-items-center justify-content-start bg-auth-container"
-				routerLink="/layout/home"
-				routerLinkActive="active"
-			>
-				<mat-icon class="icon-menu">home</mat-icon>
-				<span>Proyecto inscrito</span>
-			</li>
+			<ng-container *ngIf="isStudent">
+				<li
+					class="sidebar-item d-flex align-items-center justify-content-start bg-auth-container"
+					routerLink="/layout/home"
+					routerLinkActive="active"
+				>
+					<mat-icon class="icon-menu">home</mat-icon>
+					<span>Proyecto inscrito</span>
+				</li>
+			</ng-container>
 			<!-- <li
 				class="sidebar-item d-flex align-items-center justify-content-start"
 				routerLink="/layout/documents"
@@ -33,14 +35,16 @@
 				<mat-icon class="icon-menu"> description</mat-icon
 				><span>Documentos</span>
 			</li> -->
-			<li
-				class="sidebar-item d-flex align-items-center justify-content-start"
-				routerLink="/layout/students"
-				routerLinkActive="active"
-			>
-				<mat-icon class="icon-menu"> supervisor_account</mat-icon>
-				<span>Estudiantes inscritos</span>
-			</li>
+			<ng-container *ngIf="!isStudent">
+				<li
+					class="sidebar-item d-flex align-items-center justify-content-start"
+					routerLink="/layout/students"
+					routerLinkActive="active"
+				>
+					<mat-icon class="icon-menu"> supervisor_account</mat-icon>
+					<span>Estudiantes inscritos</span>
+				</li>
+			</ng-container>
 			<li
 				class="sidebar-item d-flex align-items-center justify-content-start"
 				routerLink="/layout/projects/actives"
@@ -50,14 +54,16 @@
 				<span>Proyectos activos </span>
 			</li>
 
-			<li
-				class="sidebar-item d-flex align-items-center justify-content-start"
-				routerLink="/layout/projects/inactives"
-				routerLinkActive="active"
-			>
-				<mat-icon class="icon-menu"> folder_off </mat-icon>
-				<span>Proyectos inactivos </span>
-			</li>
+			<ng-container *ngIf="isCoordinator">
+				<li
+					class="sidebar-item d-flex align-items-center justify-content-start"
+					routerLink="/layout/projects/inactives"
+					routerLinkActive="active"
+				>
+					<mat-icon class="icon-menu"> folder_off </mat-icon>
+					<span>Proyectos inactivos </span>
+				</li>
+			</ng-container>
 			<li
 				class="sidebar-item d-flex align-items-center justify-content-start"
 				routerLink="/layout/tasks"
@@ -66,14 +72,17 @@
 				<mat-icon class="icon-menu">task</mat-icon>
 				<span>Tareas </span>
 			</li>
-			<li
-				class="sidebar-item d-flex align-items-center justify-content-start"
-				routerLink="/layout/tutors"
-				routerLinkActive="active"
-			>
-				<mat-icon class="icon-menu">supervised_user_circle</mat-icon>
-				<span>Tutores </span>
-			</li>
+			<ng-container *ngIf="!isStudent">
+				<li
+					class="sidebar-item d-flex align-items-center justify-content-start"
+					routerLink="/layout/tutors"
+					routerLinkActive="active"
+				>
+					<mat-icon class="icon-menu">supervised_user_circle</mat-icon>
+					<span>Tutores </span>
+				</li>
+
+			</ng-container>
 		</ul>
 	</mat-sidenav>
 	<!-------------- Sidebar Item List Fin -------------->

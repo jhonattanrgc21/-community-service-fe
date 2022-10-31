@@ -29,3 +29,19 @@ export const ROUTES = {
 	activeProjectDetails: '/layout/projects/actives',
 	inactiveProjectDetails: '/layout/projects/inactives',
 };
+
+export const ROLES = {
+	student: 'student',
+	tutor: 'tutor',
+	coordinator: 'coordinator'
+}
+
+export const ACCESS_ROLES = {
+	home: [ROLES.student],
+	profile: [ROLES.student, ROLES.tutor, ROLES.coordinator],
+	students: [ROLES.tutor, ROLES.coordinator],
+	activeProjects: [ROLES.student, ROLES.tutor, ROLES.coordinator],
+	inactiveProjects: [ROLES.coordinator],
+	tasks: [ROLES.student, ROLES.tutor],
+	tutors: [ROLES.tutor, ROLES.coordinator],
+};

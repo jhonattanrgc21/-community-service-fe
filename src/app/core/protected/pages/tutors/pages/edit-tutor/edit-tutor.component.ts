@@ -33,7 +33,7 @@ export class EditTutorComponent implements OnInit {
 			[
 				Validators.required,
 				Validators.minLength(11),
-				Validators.maxLength(11),
+				Validators.maxLength(15),
 			],
 		],
 		career: ['', [Validators.required]],

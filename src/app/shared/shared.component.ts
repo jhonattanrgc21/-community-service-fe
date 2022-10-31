@@ -29,7 +29,19 @@ export class SharedComponent implements OnInit {
 		private generalServices: GeneralService,
 		private homeService: HomeService,
 		private router: Router
-	) { }
+	) {}
+
+	get isStudent(): boolean {
+		return this.authService.isStudent;
+	}
+
+	get isTutor(): boolean {
+		return this.authService.isTutor;
+	}
+
+	get isCoordinator(): boolean {
+		return this.authService.isCoordinator;
+	}
 
 	ngOnInit(): void {
 		const identification = this.authService.user.identification
@@ -41,11 +53,9 @@ export class SharedComponent implements OnInit {
 				this.fullName = res.first_name + ' ' + res.last_name;
 			});
 
-		this.homeService.getInfoProject().subscribe(res => {
+		this.homeService.getInfoProject().subscribe((res) => {
 			this.authService.projectId = res.id;
-		})
-
-
+		});
 	}
 
 	onGoProfile(): void {

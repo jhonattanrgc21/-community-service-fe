@@ -73,6 +73,7 @@ export class TasksComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
 			if (isRefresh) {
+				this.tasksList = [];
 				this.loadData();
 			}
 		});
@@ -86,6 +87,7 @@ export class TasksComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
 			if (isRefresh) {
+				this.tasksList = [];
 				this.loadData();
 			}
 		});

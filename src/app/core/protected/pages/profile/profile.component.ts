@@ -40,7 +40,14 @@ export class ProfileComponent implements OnInit {
 			{ disabled: true, value: null },
 			[Validators.required],
 		],
-		phone: ['', [Validators.required]],
+		phone: [
+			'',
+			[
+				Validators.required,
+				Validators.minLength(11),
+				Validators.maxLength(15),
+			],
+		],
 		email: ['', [Validators.required, Validators.email]],
 		career: ['', [Validators.required]],
 	});
@@ -58,6 +65,18 @@ export class ProfileComponent implements OnInit {
 		private _studentsService: StudentsService,
 		private _router: Router
 	) {}
+
+	get isStudent(): boolean {
+		return this._authService.isStudent;
+	}
+
+	get isTutor(): boolean {
+		return this._authService.isTutor;
+	}
+
+	get isCoordinator(): boolean {
+		return this._authService.isCoordinator;
+	}
 
 	ngOnInit(): void {
 		this.identification = this._authService.user.identification

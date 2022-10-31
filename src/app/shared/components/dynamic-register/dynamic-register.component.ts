@@ -7,6 +7,7 @@ import {
 } from '../../constants/constants';
 import * as XLSX from 'xlsx';
 import { DatePipe } from '@angular/common';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
 
 @Component({
 	selector: 'app-dynamic-register',
@@ -54,7 +55,7 @@ export class DynamicRegisterComponent implements OnInit {
 			[
 				Validators.required,
 				Validators.minLength(11),
-				Validators.maxLength(11),
+				Validators.maxLength(15),
 			],
 		],
 		coordinator_career: ['', [Validators.required]],
@@ -78,7 +79,7 @@ export class DynamicRegisterComponent implements OnInit {
 			[
 				Validators.required,
 				Validators.minLength(11),
-				Validators.maxLength(11),
+				Validators.maxLength(15),
 			],
 		],
 		career: ['', [Validators.required]],
@@ -91,6 +92,7 @@ export class DynamicRegisterComponent implements OnInit {
 	constructor(private _fb: FormBuilder, private _datePipe: DatePipe) {}
 
 	ngOnInit(): void {}
+
 
 	/**
 	 * @param option Opcion del menu para el tipo de registro del usuario
@@ -267,6 +269,11 @@ export class DynamicRegisterComponent implements OnInit {
 			this.newProject.coordinator_email.trim();
 		this.newProject.coordinator_phone =
 			this.newProject.coordinator_phone.trim();
+
+		this.newProject.date_start = this._datePipe.transform(
+			this.newProject.date_start,
+			'dd/MM/yyyy'
+		);
 
 		this.addNewProject.emit(this.newProject);
 	}

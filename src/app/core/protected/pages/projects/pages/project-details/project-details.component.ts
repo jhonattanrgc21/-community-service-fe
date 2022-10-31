@@ -67,6 +67,18 @@ export class ProjectDetailsComponent implements OnInit {
 		public dialog: MatDialog
 	) {}
 
+	get isStudent(): boolean {
+		return this._authService.isStudent;
+	}
+
+	get isTutor(): boolean {
+		return this._authService.isTutor;
+	}
+
+	get isCoordinator(): boolean {
+		return this._authService.isCoordinator;
+	}
+
 	ngOnInit(): void {
 		this.projectId = this._activatedRoute.snapshot.params['id'];
 
@@ -85,10 +97,6 @@ export class ProjectDetailsComponent implements OnInit {
 			.subscribe((res) => {
 				this.myPerson = res;
 			});
-	}
-
-	get isStudent(): boolean {
-		return this._authService.isStudent;
 	}
 
 	handleTabChange() {
@@ -124,6 +132,7 @@ export class ProjectDetailsComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
 			if (isRefresh) {
+				this.taskStudent = [];
 				this.onTasksProject();
 			}
 		});
@@ -185,6 +194,7 @@ export class ProjectDetailsComponent implements OnInit {
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
 			if (isRefresh) {
+				this.taskStudent = [];
 				this.onTasksProject();
 			}
 		});
@@ -225,7 +235,7 @@ export class ProjectDetailsComponent implements OnInit {
 		const dialogRef = this.dialog.open(EditProjectComponent, {
 			width: 'auto',
 			height: 'auto',
-			data: this.project
+			data: this.project,
 		});
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
@@ -253,6 +263,7 @@ export class ProjectDetailsComponent implements OnInit {
 						text: 'Estudiante(es) aprobado(os) con exito!',
 						icon: 'success',
 					});
+					this.studentsApproval = []
 					this.onStudentsAprobbal();
 				} else {
 					Swal.fire({
@@ -275,6 +286,7 @@ export class ProjectDetailsComponent implements OnInit {
 
 			dialogRef.afterClosed().subscribe((isRefresh) => {
 				if (isRefresh == 'add') {
+					this.students = [];
 					this.onStudentsProject();
 				}
 			});
@@ -286,6 +298,26 @@ export class ProjectDetailsComponent implements OnInit {
 	}
 
 	onExportStudents(studentsSelected: any[]): void {
-		// TODO: aquis e debe agregar una alerta de confirmacion y la peticion al backend
+		const ids = studentsSelected.map(student => student.id);
+				this._projectService
+					.exportTudentsByProject(ids)
+					.subscribe((ok) => {
+						if (ok) {
+							Swal.fire({
+								title: 'Guardado',
+								text: 'Operación realizada con exito!',
+								icon: 'success',
+							});
+							this.isSelect = false
+							this.students = [];
+							this.onStudentsProject();
+						} else {
+							Swal.fire({
+								title: 'Error',
+								text: 'No se pudo realizar la operación',
+								icon: 'error',
+							});
+						}
+					});
 	}
 }

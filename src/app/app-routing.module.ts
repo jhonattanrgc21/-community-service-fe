@@ -5,18 +5,21 @@ import { ValidateTokenGuard } from './shared/guards/validate-token.guard';
 const routes: Routes = [
 	{
 		path: 'auth',
-		loadChildren: () => import('./core/auth/auth.module').then(m => m.AuthModule)
+		loadChildren: () =>
+			import('./core/auth/auth.module').then((m) => m.AuthModule),
 	},
 	{
 		path: 'layout',
-		loadChildren: () => import('./core/protected/protected.module').then(m => m.ProtectedModule),
 		canActivate: [ValidateTokenGuard],
-		canLoad: [ValidateTokenGuard]
+		loadChildren: () =>
+			import('./core/protected/protected.module').then(
+				(m) => m.ProtectedModule
+			),
 	},
 	{
 		path: '**',
 		redirectTo: 'auth',
-	}
+	},
 ];
 
 @NgModule({
