@@ -7,6 +7,7 @@ export interface RegisteredProject{
 	date_start: string;
 	identification_coordinator: string;
 	coordinator: string;
+	status: string
 	hours: number;
 	task_list: Task[];
 }
