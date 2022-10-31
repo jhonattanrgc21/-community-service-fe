@@ -27,7 +27,7 @@ export class SharedComponent implements OnInit {
 		private breakpointObserver: BreakpointObserver,
 		private authService: AuthService,
 		private generalServices: GeneralService,
-		private homeService: HomeService,
+
 		private router: Router
 	) {}
 
@@ -52,10 +52,6 @@ export class SharedComponent implements OnInit {
 			.subscribe((res) => {
 				this.fullName = res.first_name + ' ' + res.last_name;
 			});
-
-		this.homeService.getInfoProject().subscribe((res) => {
-			this.authService.projectId = res.id;
-		});
 	}
 
 	onGoProfile(): void {
