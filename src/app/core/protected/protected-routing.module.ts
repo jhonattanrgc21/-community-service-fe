@@ -9,6 +9,12 @@ import { ProtectedComponent } from './protected.component';
 const routes: Routes = [
 	{
 		path: '',
+		pathMatch: 'full',
+		redirectTo: 'home',
+	},
+
+	{
+		path: '',
 		component: ProtectedComponent,
 		canActivateChild: [ValidateTokenGuard],
 		children: [
@@ -78,7 +84,7 @@ const routes: Routes = [
 			},
 			{
 				path: '**',
-				redirectTo: '404-notFound',
+				redirectTo: 'home',
 			},
 		],
 	},

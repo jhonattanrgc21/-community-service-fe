@@ -41,6 +41,8 @@ export const ACCESS_ROLES = {
 	home: [ROLES.student],
 	profile: [ROLES.student, ROLES.tutor, ROLES.coordinator],
 	students: [ROLES.tutor, ROLES.coordinator],
+	newProject: [ROLES.coordinator],
+	newStudent: [ROLES.coordinator],
 	activeProjects: [ROLES.student, ROLES.tutor, ROLES.coordinator],
 	inactiveProjects: [ROLES.coordinator],
 	tasks: [ROLES.student, ROLES.tutor],
