@@ -10,7 +10,7 @@ import { ChangePassowrd } from '../../protected/pages/profile/interfaces/profile
 })
 export class AuthService {
 	private baseUrl: string = environment.baseUrlAuth;
-	private _user!: User;
+	private _user: User = {};
 
 	constructor(private httpClient: HttpClient) {}
 
@@ -24,6 +24,10 @@ export class AuthService {
 
 	set projectId(id: any) {
 		this._user.projectId = id;
+	}
+
+	get role(): string{
+		return this._user.role ? this._user.role : '';
 	}
 
 	get identification(): string{

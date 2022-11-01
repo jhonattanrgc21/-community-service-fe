@@ -70,13 +70,16 @@
 				<mat-card-content class="pt-3">
 					<p>
 						<span style="font-weight: 500">Acumuladas: </span>
-						{{hours}}
+						{{ hours }}
 					</p>
 					<p>
 						<span style="font-weight: 500">Pendiente:</span>
 						{{ pendingHours }}
 					</p>
-					<span style="font-weight: 500">Estatus: </span> {{ cardInfo.status }}
+					<ng-container *ngIf="cardInfo?.status">
+						<span style="font-weight: 500">Estatus: </span>
+						{{ cardInfo.status }}
+					</ng-container>
 				</mat-card-content>
 			</mat-card>
 		</div>

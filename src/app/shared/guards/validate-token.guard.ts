@@ -20,17 +20,19 @@ export class ValidateTokenGuard
 	implements CanActivate, CanLoad, CanActivateChild
 {
 	constructor(
-		private roter: Router,
+		private router: Router,
 		private authService: AuthService,
 		private homeService: HomeService
 	) {}
-	canActivateChild(): Observable<boolean> | boolean {
+	canActivateChild(
+		route: ActivatedRouteSnapshot
+	): Observable<boolean> | boolean | UrlTree {
 		return this.authService.validateToken().pipe(
 			tap((valid: boolean) => {
 				if (!valid) {
-					this.roter.navigateByUrl(ROUTES.login);
+					this.router.navigateByUrl(ROUTES.login);
 				} else {
-					this.homeService.getInfoProject().subscribe((res:any) => {
+					this.homeService.getInfoProject().subscribe((res: any) => {
 						this.authService.projectId = res.id;
 					});
 				}
@@ -38,11 +40,11 @@ export class ValidateTokenGuard
 		);
 	}
 
-	canActivate(): Observable<boolean> | boolean {
+	canActivate(route: ActivatedRouteSnapshot): Observable<boolean> | boolean {
 		return this.authService.validateToken().pipe(
 			tap((valid: boolean) => {
 				if (!valid) {
-					this.roter.navigateByUrl(ROUTES.login);
+					this.router.navigateByUrl(ROUTES.login);
 				} else {
 					this.homeService.getInfoProject().subscribe((res: any) => {
 						this.authService.projectId = res.id;
@@ -56,7 +58,7 @@ export class ValidateTokenGuard
 		return this.authService.validateToken().pipe(
 			tap((valid: boolean) => {
 				if (!valid) {
-					this.roter.navigateByUrl(ROUTES.login);
+					this.router.navigateByUrl(ROUTES.login);
 				} else {
 					this.homeService.getInfoProject().subscribe((res: any) => {
 						this.authService.projectId = res.id;

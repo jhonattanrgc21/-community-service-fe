@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ACCESS_ROLES } from 'src/app/shared/constants/constants';
+import { ValidateRoleGuard } from 'src/app/shared/guards/validate-role.guard';
 import { ValidateTokenGuard } from 'src/app/shared/guards/validate-token.guard';
 
 import { ProtectedComponent } from './protected.component';
@@ -12,9 +14,20 @@ const routes: Routes = [
 		children: [
 			{
 				path: 'home',
+				canActivate: [ValidateRoleGuard],
+				data: { roles: ACCESS_ROLES.home },
 				loadChildren: () =>
 					import('./pages/home/home.module').then(
 						(m) => m.HomeModule
+					),
+			},
+			{
+				path: 'students',
+				canActivate: [ValidateRoleGuard],
+				data: { roles: ACCESS_ROLES.students },
+				loadChildren: () =>
+					import('./pages/students/students.module').then(
+						(m) => m.StudentsModule
 					),
 			},
 			{
@@ -24,22 +37,17 @@ const routes: Routes = [
 						(m) => m.ProjectsModule
 					),
 			},
-			{
+			/*{
 				path: 'documents',
 				loadChildren: () =>
 					import('./pages/documents/documents.module').then(
 						(m) => m.DocumentsModule
 					),
-			},
-			{
-				path: 'students',
-				loadChildren: () =>
-					import('./pages/students/students.module').then(
-						(m) => m.StudentsModule
-					),
-			},
+			},*/
 			{
 				path: 'tasks',
+				canActivate: [ValidateRoleGuard],
+				data: { roles: ACCESS_ROLES.tasks },
 				loadChildren: () =>
 					import('./pages/tasks/tasks.module').then(
 						(m) => m.TasksModule
@@ -47,6 +55,8 @@ const routes: Routes = [
 			},
 			{
 				path: 'tutors',
+				canActivate: [ValidateRoleGuard],
+				data: { roles: ACCESS_ROLES.tutors },
 				loadChildren: () =>
 					import('./pages/tutors/tutors.module').then(
 						(m) => m.TutorsModule
@@ -68,7 +78,7 @@ const routes: Routes = [
 			},
 			{
 				path: '**',
-				redirectTo: 'home',
+				redirectTo: '404-notFound',
 			},
 		],
 	},

@@ -10,12 +10,13 @@ const routes: Routes = [
 	},
 	{
 		path: 'layout',
-		canActivate: [ValidateTokenGuard],
+		canLoad: [ValidateTokenGuard],
 		loadChildren: () =>
 			import('./core/protected/protected.module').then(
 				(m) => m.ProtectedModule
 			),
 	},
+
 	{
 		path: '**',
 		redirectTo: 'auth',
@@ -24,6 +25,6 @@ const routes: Routes = [
 
 @NgModule({
 	imports: [RouterModule.forRoot(routes)],
-	exports: [RouterModule]
+	exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

@@ -20,7 +20,7 @@ export class AppInterceptor implements HttpInterceptor {
 		const newReq = req.clone({
 			setHeaders: {
 				Authorization: 'Bearer ' + localStorage.getItem('token'),
-				access_token: '3d14ce20-9c09-46a1-bc6a-a226b08b227b',
+				'access-token': '3d14ce20-9c09-46a1-bc6a-a226b08b227b',
 				Accept: 'application/json',
 			},
 		});
