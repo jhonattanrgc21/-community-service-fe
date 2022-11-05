@@ -19,7 +19,7 @@ export class HomeComponent implements OnInit {
 	cardInfo!: RegisteredProject;
 	hours: number = 0;
 
-	pendingHours: number = 120;
+	pendingHours: number = 0;
 
 	constructor(private _homeService: HomeService, public dialog: MatDialog) {}
 
@@ -37,7 +37,7 @@ export class HomeComponent implements OnInit {
 					: 0;
 				this.tasksList = res.task_list;
 
-				this.pendingHours -= this.cardInfo.hours;
+				this.pendingHours = 120 - this.cardInfo.hours;
 
 				if (this.pendingHours < 0) {
 					this.pendingHours = 0;

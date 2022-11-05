@@ -65,7 +65,8 @@
 					[headers]="approvedStudentHeaders"
 					[filter]="true"
 					[isUser]="true"
-					[select]="false"
+					[statuses]="statuses"
+					(confirmedChangeStatus)="onChangeStatus($event)"
 					[edit]="isCoordinator"
 					[edit]="false"
 				>

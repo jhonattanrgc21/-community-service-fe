@@ -125,12 +125,13 @@ export class StudentsComponent implements OnInit {
 		this._studenstServices
 			.findApprovedStudents()
 			.subscribe((res: ApprovedStudent[]) => {
-				this.statuses = ['Activo', 'Inactivo'];
+				this.statuses = ['Graduado'];
 				this.approvedStudents = res;
-				this.approvedStudents.forEach(student => {
-					let date = student.date_approval.split('T')[0].split('-');;
-					student.date_approval = date[2] + '-' + date[1] + '-' + date[0];
-				})
+				this.approvedStudents.forEach((student) => {
+					let date = student.date_approval.split('T')[0].split('-');
+					student.date_approval =
+						date[2] + '-' + date[1] + '-' + date[0];
+				});
 			});
 	}
 
@@ -170,23 +171,35 @@ export class StudentsComponent implements OnInit {
 	}
 
 	onChangeStatus(changeStatus: ChangeStatus): void {
-		this._studenstServices
-			.updateStatusByIdentificationList(changeStatus)
-			.subscribe((ok: boolean) => {
-				if (ok) {
-					Swal.fire({
-						title: 'Guardado',
-						text: 'El estatus de los registros fue modificado con exito!',
-						icon: 'success',
+		Swal.fire({
+			title: 'Cambio de Estatus',
+			text: '¿Esta seguro de que desea cambiar el estatus?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, inscribir',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				this._studenstServices
+					.updateStatusByIdentificationList(changeStatus)
+					.subscribe((ok: boolean) => {
+						if (ok) {
+							Swal.fire({
+								title: 'Guardado',
+								text: 'El estatus fue modificado con exito!',
+								icon: 'success',
+							});
+							this.handleTabChange();
+						} else {
+							Swal.fire({
+								title: 'Error',
+								text: 'No se pudo Modificar el estatus.',
+								icon: 'error',
+							});
+						}
 					});
-					this.handleTabChange();
-				} else {
-					Swal.fire({
-						title: 'Error',
-						text: 'No se pudo Modificar el estatus de los registros seleccionados.',
-						icon: 'error',
-					});
-				}
-			});
+			}
+		});
 	}
 }

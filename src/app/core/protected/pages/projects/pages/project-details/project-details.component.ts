@@ -14,7 +14,7 @@ import { ProjectService } from '../../services/projects.service';
 import { AddStudentsComponent } from './dialogs/add-students/add-students.component';
 import { NewTaskComponent } from '../../../tasks/pages/new-task/new-task.component';
 import { AuthService } from 'src/app/core/auth/services/auth.service';
-import { ROUTES } from 'src/app/shared/constants/constants';
+import { ROUTES, StatusUser } from 'src/app/shared/constants/constants';
 import { GeneralService } from 'src/app/core/protected/services/general.service';
 import { EditProjectComponent } from './dialogs/edit-project/edit-project.component';
 
@@ -30,6 +30,8 @@ export class ProjectDetailsComponent implements OnInit {
 	isSelect: boolean = false;
 	projectId!: number;
 	project!: ProjectDetails;
+
+	statuses: string[] = [];
 
 	// Filas de las tablas
 	taskStudent: TaskProject[] = [];
@@ -120,6 +122,7 @@ export class ProjectDetailsComponent implements OnInit {
 		this._tasksService
 			.findAllTaskByProject(this.projectId)
 			.subscribe((res: TaskProject[]) => {
+				this.taskStudent = [];
 				this.taskStudent = res;
 			});
 	}
@@ -145,6 +148,7 @@ export class ProjectDetailsComponent implements OnInit {
 		this._projectService
 			.findStudentsByProject(this.projectId)
 			.subscribe((res: any[]) => {
+				this.students = [];
 				res.forEach((elem) => {
 					let newStudent: Student = {
 						id: elem.id,
@@ -169,6 +173,8 @@ export class ProjectDetailsComponent implements OnInit {
 		this._projectService
 			.findStudentsAprobbalByProject(this.projectId)
 			.subscribe((res: any[]) => {
+				this.studentsApproval = [];
+				this.statuses = ['Graduado'];
 				res.forEach((elem) => {
 					let newStudent: Student = {
 						id: elem.id,
@@ -265,26 +271,37 @@ export class ProjectDetailsComponent implements OnInit {
 			identifications: this.studentsApproval.map((student) => student.id),
 			status: 'Aprobado',
 		};
-
-		this._studentsService
-			.updateStatusByIdentificationList(changeStatus)
-			.subscribe((ok) => {
-				if (ok) {
-					Swal.fire({
-						title: 'Guardado',
-						text: 'Estudiante(es) aprobado(os) con exito!',
-						icon: 'success',
+		Swal.fire({
+			title: 'Cambio de Estatus',
+			text: '¿Esta seguro(a) de que desea realizar esta operación? ?',
+			icon: 'warning',
+			showCancelButton: true,
+			confirmButtonColor: '#3085d6',
+			cancelButtonColor: '#d33',
+			confirmButtonText: 'Si, inscribir',
+		}).then((result) => {
+			if (result.isConfirmed) {
+				this._studentsService
+					.updateStatusByIdentificationList(changeStatus)
+					.subscribe((ok) => {
+						if (ok) {
+							Swal.fire({
+								title: 'Guardado',
+								text: 'Estudiante(es) aprobado(os) con exito!',
+								icon: 'success',
+							});
+							this.studentsApproval = [];
+							this.onStudentsAprobbal();
+						} else {
+							Swal.fire({
+								title: 'Error',
+								text: 'No se pudo realizar la operación',
+								icon: 'error',
+							});
+						}
 					});
-					this.studentsApproval = [];
-					this.onStudentsAprobbal();
-				} else {
-					Swal.fire({
-						title: 'Error',
-						text: 'No se pudo realizar la operación',
-						icon: 'error',
-					});
-				}
-			});
+			}
+		});
 	}
 
 	onAddStudents(): void {

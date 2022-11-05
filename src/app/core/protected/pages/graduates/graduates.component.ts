@@ -13,10 +13,9 @@ export class GraduatesComponent implements OnInit {
 		'Cédula',
 		'Nombre',
 		'Apellido',
+		'Estatus',
 		'Carrera',
-		'Horas',
-		'Proyecto',
-		'Fecha de aprobación',
+		'Horas'
 	];
 	constructor(private _graduatesService: GraduatesService) {}
 
@@ -27,11 +26,6 @@ export class GraduatesComponent implements OnInit {
 			.findGraduateStudents()
 			.subscribe((res: ApprovedStudent[]) => {
 				this.graduatedStudents = res;
-				this.graduatedStudents.forEach((student) => {
-					let date = student.date_approval.split('T')[0].split('-');
-					student.date_approval =
-						date[2] + '-' + date[1] + '-' + date[0];
-				});
 			});
 	}
 }

@@ -160,19 +160,22 @@
 		<!-- Estudiantes inscritos al proyecto Fin -->
 
 		<!-- Estudiantes Aprobados Inicio -->
-		<mat-tab label="Estudiantes para aprobar">
-			<ng-container *ngIf="studentsApproval.length > 0">
-				<app-dynamic-table
-					[data]="studentsApproval"
-					[headers]="studentHeaders"
-					[isUser]="true"
-					[filter]="true"
-					[edit]="false"
-					(confirmedSelection)="onSaveStudentsAprobbal($event)"
-				>
-				</app-dynamic-table>
-			</ng-container>
-		</mat-tab>
+		<ng-container *ngIf="!isStudent">
+			<mat-tab label="Estudiantes para aprobar">
+				<ng-container *ngIf="studentsApproval.length > 0">
+					<app-dynamic-table
+						[data]="studentsApproval"
+						[headers]="studentHeaders"
+						[isUser]="true"
+						[select]="true"
+						[filter]="true"
+						[edit]="false"
+						(confirmedSelection)="onSaveStudentsAprobbal($event)"
+					>
+					</app-dynamic-table>
+				</ng-container>
+			</mat-tab>
+		</ng-container>
 		<!-- Estudiantes Aprobados Fin -->
 	</mat-tab-group>
 </ng-container>
