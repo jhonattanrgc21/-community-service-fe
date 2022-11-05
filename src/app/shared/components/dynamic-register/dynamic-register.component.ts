@@ -158,6 +158,8 @@ export class DynamicRegisterComponent implements OnInit {
 					'C.I Coordinador',
 					'Nombre del Coordinador',
 					'Apellido del Coordinador',
+					'Correo del Coordinador',
+					'Teléfono del Coordinador',
 					'Carrera del Coordinador',
 				];
 			} else {

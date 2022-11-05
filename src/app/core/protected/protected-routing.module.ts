@@ -76,6 +76,15 @@ const routes: Routes = [
 					),
 			},
 			{
+				path: 'graduate-students',
+				canActivate: [ValidateRoleGuard],
+				data: { roles: ACCESS_ROLES.graduates },
+				loadChildren: () =>
+					import('./pages/graduates/graduates.module').then(
+						(m) => m.GraduatesModule
+					),
+			},
+			{
 				path: '404-notFound',
 				loadChildren: () =>
 					import('./pages/not-found/not-found.module').then(

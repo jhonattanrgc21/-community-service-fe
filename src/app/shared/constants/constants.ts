@@ -8,7 +8,7 @@ export const Careers = [
 
 export const StatusProject: string[] = ['Activo', 'Inactivo'];
 
-export const StatusUser: string[] = ['Activo', 'Inactivo', 'Aprobado']
+export const StatusUser: string[] = ['Activo', 'Inactivo', 'Aprobado', 'Graduado']
 
 export const Nationalities: string[] = ['V', 'E'];
 
@@ -47,4 +47,5 @@ export const ACCESS_ROLES = {
 	inactiveProjects: [ROLES.coordinator],
 	tasks: [ROLES.student, ROLES.tutor],
 	tutors: [ROLES.tutor, ROLES.coordinator],
+	graduates: [ROLES.coordinator],
 };

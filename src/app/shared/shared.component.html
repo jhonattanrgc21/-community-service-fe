@@ -45,6 +45,16 @@
 					<span>Estudiantes inscritos</span>
 				</li>
 			</ng-container>
+			<ng-container *ngIf="isCoordinator">
+				<li
+					class="sidebar-item d-flex align-items-center justify-content-start"
+					routerLink="/layout/graduate-students"
+					routerLinkActive="active"
+				>
+					<mat-icon class="icon-menu">supervisor_account</mat-icon>
+					<span>Estudiantes Graduados </span>
+				</li>
+			</ng-container>
 			<li
 				class="sidebar-item d-flex align-items-center justify-content-start"
 				routerLink="/layout/projects/actives"
@@ -81,10 +91,11 @@
 					routerLink="/layout/tutors"
 					routerLinkActive="active"
 				>
-					<mat-icon class="icon-menu">supervised_user_circle</mat-icon>
+					<mat-icon class="icon-menu"
+						>supervised_user_circle</mat-icon
+					>
 					<span>Tutores </span>
 				</li>
-
 			</ng-container>
 		</ul>
 	</mat-sidenav>
@@ -127,7 +138,9 @@
 						>
 							<mat-icon>person</mat-icon>
 							<ng-container *ngIf="fullName">
-								<span class="nav-user-name">{{ fullName }}</span>
+								<span class="nav-user-name">{{
+									fullName
+								}}</span>
 							</ng-container>
 							<mat-icon>keyboard_arrow_down</mat-icon>
 						</div>
@@ -150,14 +163,24 @@
 
 		<!-- Aqui se muestra el contenido correspondiente a cada item del sidebar -->
 		<div class="container p-1">
-			<div class="mt-1 card d-flex justify-content-between align-items-start">
-				<div class="w-100 card-body ">
+			<div
+				class="mt-1 card d-flex justify-content-between align-items-start"
+			>
+				<div class="w-100 card-body">
 					<div class="container">
 						<router-outlet></router-outlet>
-						<ngx-spinner bdColor = "rgba(0, 0, 0, 0.8)" size = "medium" color = "#fff" type = "ball-clip-rotate-pulse" [fullScreen] = "true"><p style="color: white" > Cargando... </p></ngx-spinner>
+						<ngx-spinner
+							bdColor="rgba(0, 0, 0, 0.8)"
+							size="medium"
+							color="#fff"
+							type="ball-clip-rotate-pulse"
+							[fullScreen]="true"
+							><p style="color: white">
+								Cargando...
+							</p></ngx-spinner
+						>
 					</div>
 				</div>
-
 			</div>
 		</div>
 	</mat-sidenav-content>
