@@ -134,9 +134,8 @@ export class ProjectDetailsComponent implements OnInit {
 		});
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
-			if (isRefresh) {
-				this.taskStudent = [];
-				this.onTasksProject();
+			if (isRefresh == 'created') {
+				this.handleTabChange();
 			}
 		});
 	}
@@ -199,9 +198,8 @@ export class ProjectDetailsComponent implements OnInit {
 		});
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
-			if (isRefresh) {
-				this.taskStudent = [];
-				this.onTasksProject();
+			if (isRefresh == 'edit') {
+				this.handleTabChange();
 			}
 		});
 	}
@@ -278,7 +276,7 @@ export class ProjectDetailsComponent implements OnInit {
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'Si, inscribir',
+			confirmButtonText: 'Si',
 		}).then((result) => {
 			if (result.isConfirmed) {
 				this._studentsService
@@ -291,7 +289,7 @@ export class ProjectDetailsComponent implements OnInit {
 								icon: 'success',
 							});
 							this.studentsApproval = [];
-							this.onStudentsAprobbal();
+							this.handleTabChange();
 						} else {
 							Swal.fire({
 								title: 'Error',
@@ -316,7 +314,7 @@ export class ProjectDetailsComponent implements OnInit {
 			dialogRef.afterClosed().subscribe((isRefresh) => {
 				if (isRefresh == 'add') {
 					this.students = [];
-					this.onStudentsProject();
+					this.handleTabChange();
 				}
 			});
 		});

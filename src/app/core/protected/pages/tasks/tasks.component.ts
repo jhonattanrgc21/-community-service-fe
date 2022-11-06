@@ -74,7 +74,7 @@ export class TasksComponent implements OnInit {
 		});
 
 		dialogRef.afterClosed().subscribe((isRefresh) => {
-			if (isRefresh) {
+			if (isRefresh == 'created') {
 				this.tasksList = [];
 				this.loadData();
 			}

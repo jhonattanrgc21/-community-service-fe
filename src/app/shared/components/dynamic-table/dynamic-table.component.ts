@@ -36,6 +36,7 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 	@Input('isRegister') isRegister?: boolean = false;
 	@Input('statuses') statuses?: string[] = [];
 	@Input('typeTable') typeTable?: string = '';
+	@Input('messageConfirmButton') messageConfirmButton?: string = 'Confirmar';
 
 	@Output() confirmedSelection = new EventEmitter<any[]>();
 	@Output() confirmedChangeStatus = new EventEmitter<ChangeStatus>();
@@ -60,9 +61,9 @@ export class DynamicTableComponent implements OnInit, AfterViewInit, OnChanges {
 	ngOnInit(): void {
 		this.dataSource.data = this.tableData;
 		this.tableCols =
-		this.tableData && this.tableData.length > 0
-		? Object.keys(this.tableData[0])
-		: [];
+			this.tableData && this.tableData.length > 0
+				? Object.keys(this.tableData[0])
+				: [];
 
 		if (this.isSelect) {
 			if (!this.tableCols.includes('select')) {

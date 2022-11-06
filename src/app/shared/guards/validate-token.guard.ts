@@ -32,9 +32,11 @@ export class ValidateTokenGuard
 				if (!valid) {
 					this.router.navigateByUrl(ROUTES.login);
 				} else {
-					this.homeService.getInfoProject().subscribe((res: any) => {
-						this.authService.projectId = res.id;
-					});
+					if (this.authService.isStudent) {
+						this.homeService.getInfoProject().subscribe((res: any) => {
+							this.authService.projectId = res.id;
+						});
+					}
 				}
 			})
 		);

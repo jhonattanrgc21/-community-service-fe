@@ -59,7 +59,7 @@ export class NewTaskComponent implements OnInit {
 			description: [, [Validators.required]],
 			cost: ['', [Validators.required, Validators.min(0)]],
 			student_identification: ['', [Validators.required]],
-			tutor_identification: ['', [Validators.required]],
+			tutor_identification: [''],
 			project_id: ['', [Validators.required]],
 		});
 		this.projectId = this.data?.projectId ? this.data.projectId! : 0;
@@ -131,17 +131,20 @@ export class NewTaskComponent implements OnInit {
 						text: 'Tarea creada con exito!',
 						icon: 'success',
 					});
+					// Cerrando el modal
+					this.onClose('created');
 				} else {
 					Swal.fire({
 						title: 'Error',
 						text: 'No se pudo crear la tarea',
 						icon: 'error',
 					});
+					// Cerrando el modal
+					this.onClose();
 				}
 			});
 
-		// Cerrando el modal
-		this.onClose('created');
+
 	}
 
 	/**

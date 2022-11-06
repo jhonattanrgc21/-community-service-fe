@@ -112,7 +112,7 @@
 				<!-- Responsable Fin -->
 
 				<!--  Tutor del Responsable Inicio -->
-				<ng-container *ngIf="tutors.length > 0">
+				<ng-container *ngIf="tutors.length > 0; else notTutors">
 					<mat-form-field>
 						<mat-select
 							placeholder="Tutor del Responsable"
@@ -127,14 +127,20 @@
 								{{ tutor.first_name }} {{ tutor.last_name }}
 							</mat-option>
 						</mat-select>
-						<mat-error
-							*ngIf="isNotValid(taskForm, 'tutor_identification')"
-							class="mb-3"
-						>
-							Este campo es <strong>obligatorio</strong>
-						</mat-error>
 					</mat-form-field>
 				</ng-container>
+				<ng-template #notTutors>
+					<mat-form-field>
+						<mat-select
+							placeholder="No existen tutores registrados"
+							[disabled]="true"
+						>
+							<mat-option>
+
+							</mat-option>
+						</mat-select>
+					</mat-form-field>
+				</ng-template>
 				<!--  Tutor del Responsable Fin -->
 			</div>
 		</div>

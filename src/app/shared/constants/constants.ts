@@ -12,7 +12,7 @@ export const StatusUser: string[] = ['Activo', 'Inactivo', 'Aprobado', 'Graduado
 
 export const Nationalities: string[] = ['V', 'E'];
 
-export const TaskStatuses: string[] = ['Pendiente', 'En progreso', 'Completada', 'Inactivo'];
+export const TaskStatuses: string[] = ['Pendiente', 'En progreso', 'Completada', 'Inactiva'];
 
 export const emailPattern: string = '^[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$';
 
