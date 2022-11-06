@@ -70,12 +70,9 @@ export class ProjectService {
 		);
 	}
 
-	createProjects(projects: NewProject[]): Observable<boolean> {
+	createProjects(projects: NewProject[]): Observable<any> {
 		const url: string = `${this._baseUrl}/projects/create_projects`;
-		return this._httpClient.post<boolean>(url, projects).pipe(
-			map((res) => true),
-			catchError((err) => of(false))
-		);
+		return this._httpClient.post<any>(url, projects)
 	}
 
 	editProject(projectId: number, status: string): Observable<boolean> {

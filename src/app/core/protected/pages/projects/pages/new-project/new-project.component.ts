@@ -56,18 +56,37 @@ export class NewProjectComponent implements OnInit {
 
 	onSaveProjects(projects: NewProject[]): void {
 		this.newProjects = projects;
-		this._projectService.createProjects(projects).subscribe((ok) => {
-			if (ok) {
-				Swal.fire({
-					title: 'Guardado',
-					text: 'Proyectos registrados con exito!',
-					icon: 'success',
-				});
+		this._projectService.createProjects(projects).subscribe((res) => {
+			if (res) {
+				let message: string = '';
+				const total = res.successful.length + res.failed.length;
+				const sizeSuccess = res.successful.length;
+				const sizeFailed = res.failed.length;
+
+				if (sizeFailed == 0) {
+					Swal.fire({
+						title: 'Guardado',
+						text: 'La operación fue realizada con exito!',
+						icon: 'success',
+					});
+				} else {
+					if (sizeSuccess > 0 && sizeFailed > 0) {
+						Swal.fire({
+							text: `Se registraron ${total} proyecto(s) de ${sizeSuccess}`,
+							icon: 'info',
+						});
+					} else {
+						Swal.fire({
+							text: 'Los proyecto(s) ya se encuentran registrado(s)',
+							icon: 'info',
+						});
+					}
+				}
 				this._router.navigateByUrl(ROUTES.activeProject);
 			} else {
 				Swal.fire({
 					title: 'Error',
-					text: 'No se pudieron registrar los proyectos',
+					text: 'No se pudo realizar la operación',
 					icon: 'error',
 				});
 			}

@@ -150,6 +150,7 @@
 					[headers]="studentHeaders"
 					[filter]="true"
 					[isUser]="true"
+					[messageConfirmButton]="'Retirar'"
 					[select]="isSelect"
 					[edit]="false"
 					(confirmedSelection)="onExportStudents($event)"
@@ -166,6 +167,7 @@
 					<app-dynamic-table
 						[data]="studentsApproval"
 						[headers]="studentHeaders"
+						[messageConfirmButton]="'Aprobar'"
 						[isUser]="true"
 						[select]="true"
 						[filter]="true"

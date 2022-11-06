@@ -61,18 +61,37 @@ export class NewStudentComponent implements OnInit {
 		this.newStudents = students;
 		this._studentsService
 			.createStudents(this.newStudents)
-			.subscribe((ok) => {
-				if (ok) {
-					Swal.fire({
-						title: 'Guardado',
-						text: 'Estudiantes registrados con exito!',
-						icon: 'success',
-					});
+			.subscribe((res) => {
+				if (Object.keys(res).length == 2) {
+					let message: string = '';
+					const total = res.successful.length + res.failed.length;
+					const sizeSuccess = res.successful.length;
+					const sizeFailed = res.failed.length;
+
+					if (sizeFailed == 0) {
+						Swal.fire({
+							title: 'Guardado',
+							text: 'La operación fue realizada con exito!',
+							icon: 'success',
+						});
+					} else {
+						if (sizeSuccess > 0 && sizeFailed > 0) {
+							Swal.fire({
+								text: `Se registraron ${total} estudiante(es) de ${sizeSuccess}`,
+								icon: 'info',
+							});
+						} else {
+							Swal.fire({
+								text: 'Los estudiante(s) ya se encuentran registrado(s)',
+								icon: 'info',
+							});
+						}
+					}
 					this.router.navigateByUrl(ROUTES.students);
 				} else {
 					Swal.fire({
 						title: 'Error',
-						text: 'No se pudo realizar el registro masivo de estudiantes',
+						text: 'No se pudo realizar la operación',
 						icon: 'error',
 					});
 				}

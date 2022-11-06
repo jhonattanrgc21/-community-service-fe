@@ -61,17 +61,14 @@ export class StudentsService {
 		);
 	}
 
-	createStudents(users: NewUser[]) {
+	createStudents(users: NewUser[]): Observable<any> {
 		const url: string = `${this.baseUrl}/create_students`;
-		return this._httpClient.post<boolean>(url, users).pipe(
-			map((res) => true),
-			catchError((err) => of(false))
-		);
+		return this._httpClient.post<any>(url, users)
 	}
 
 	exitProject(identification: string): Observable<boolean> {
 		const url: string = `${this.baseUrl}/delete_student_project`;
-		return this._httpClient.put<boolean>(url, {identification}).pipe(
+		return this._httpClient.put<boolean>(url, { identification }).pipe(
 			map((res) => true),
 			catchError((err) => of(false))
 		);
