@@ -69,6 +69,10 @@ export class ProjectDetailsComponent implements OnInit {
 		public dialog: MatDialog
 	) {}
 
+	get isStudentGraduated(): boolean {
+		return this._authService.isGraduated;
+	}
+
 	get isStudent(): boolean {
 		return this._authService.isStudent;
 	}

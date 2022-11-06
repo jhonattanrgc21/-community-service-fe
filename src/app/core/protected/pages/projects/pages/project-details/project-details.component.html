@@ -58,7 +58,7 @@
 				</ng-container>
 			</p>
 
-			<ng-container *ngIf="isStudent && project?.status == 'Activo'">
+			<ng-container *ngIf="isStudent && project?.status == 'Activo' && !isStudentGraduated">
 				<div class="d-flex justify-content-center">
 					<button
 						type="button"
@@ -89,15 +89,17 @@
 		<!-- Tareas del proyecto Inicio -->
 		<mat-tab label="Tareas">
 			<div class="mt-4">
-				<div style="width: 95%" class="mb-2 d-flex justify-content-end">
-					<button
-						type="button"
-						class="btn btn-outline-primary"
-						(click)="addNewTask()"
-					>
-						Nueva Tarea
-					</button>
-				</div>
+				<ng-container *ngIf="!isStudentGraduated">
+					<div style="width: 95%" class="mb-2 d-flex justify-content-end">
+						<button
+							type="button"
+							class="btn btn-outline-primary"
+							(click)="addNewTask()"
+						>
+							Nueva Tarea
+						</button>
+					</div>
+				</ng-container>
 				<ng-container *ngIf="taskStudent.length > 0">
 					<app-dynamic-table
 						[data]="taskStudent"

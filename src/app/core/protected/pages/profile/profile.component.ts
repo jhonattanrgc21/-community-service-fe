@@ -66,6 +66,10 @@ export class ProfileComponent implements OnInit {
 		private _router: Router
 	) {}
 
+	get isStudentGraduated(): boolean {
+		return this._authService.isGraduated;
+	}
+
 	get isStudent(): boolean {
 		return this._authService.isStudent;
 	}

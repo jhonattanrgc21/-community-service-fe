@@ -173,10 +173,10 @@
 					<div class="d-flex justify-content-center">
 						<div
 							style="width: 20rem"
-							[ngClass]="{'justify-content-between': isStudent, 'justify-content-center': !isStudent}"
+							[ngClass]="{'justify-content-between': isStudent && !isStudentGraduated, 'justify-content-center': !isStudent || isStudentGraduated}"
 							class="d-flex  align-items-center"
 						>
-						<ng-container *ngIf="isStudent">
+						<ng-container *ngIf="isStudent && !isStudentGraduated">
 							<button
 								type="submit"
 								[disabled]="!isProject"

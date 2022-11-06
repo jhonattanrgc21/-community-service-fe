@@ -23,6 +23,10 @@ export class TasksComponent implements OnInit {
 		private _authService: AuthService
 	) {}
 
+	get isStudentGraduated(): boolean {
+		return this._authService.isGraduated;
+	}
+
 	ngOnInit(): void {
 		this.loadData();
 	}
@@ -32,7 +36,7 @@ export class TasksComponent implements OnInit {
 			this._tasksSrvices
 				.findAllTaskByStudent()
 				.subscribe((res: Task[]) => {
-					this.tasksList = []
+					this.tasksList = [];
 					this.tasksList = res;
 					this.headersList = [
 						'Nombre',

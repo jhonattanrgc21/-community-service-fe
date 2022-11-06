@@ -5,7 +5,6 @@ export interface AuthResponse {
 	identification?: string;
 	role?: string;
 	token?: string;
-	message?: string;
 }
 
 export interface AuthLogin {
@@ -13,9 +12,11 @@ export interface AuthLogin {
 	password: string;
 }
 
-export interface User extends Pick<
-	AuthResponse,
-	'uuid' | 'name' | 'identification' | 'token' | 'role'
-	>{
+export interface User
+	extends Pick<
+		AuthResponse,
+		'uuid' | 'name' | 'identification' | 'token' | 'role'
+	> {
 	projectId?: number;
+	status?: string;
 }

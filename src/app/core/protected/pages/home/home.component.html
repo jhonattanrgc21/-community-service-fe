@@ -94,6 +94,7 @@
 			[data]="tasksList"
 			[headers]="headersList"
 			[filter]="true"
+			[edit]="!isStudentGraduated"
 			[select]="false"
 			(editRow)="editTask($event)"
 		>

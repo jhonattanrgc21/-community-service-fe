@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthService } from 'src/app/core/auth/services/auth.service';
 import { Task } from '../tasks/interfaces/tasks.iterface';
 import { EditTaskComponent } from '../tasks/pages/edit-task/edit-task.component';
 import { RegisteredProject } from './interfaces/home.interface';
@@ -21,7 +22,11 @@ export class HomeComponent implements OnInit {
 
 	pendingHours: number = 0;
 
-	constructor(private _homeService: HomeService, public dialog: MatDialog) {}
+	constructor(private _homeService: HomeService, private _authService: AuthService ,public dialog: MatDialog) {}
+
+	get isStudentGraduated(): boolean{
+		return this._authService.isGraduated;
+	}
 
 	ngOnInit(): void {
 		this.loadData();

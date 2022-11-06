@@ -26,11 +26,15 @@ export class AuthService {
 		this._user.projectId = id;
 	}
 
-	get role(): string{
+	set status(name: string) {
+		this._user.status = name;
+	}
+
+	get role(): string {
 		return this._user.role ? this._user.role : '';
 	}
 
-	get identification(): string{
+	get identification(): string {
 		return this._user.identification ? this._user.identification : '';
 	}
 
@@ -44,6 +48,10 @@ export class AuthService {
 
 	get isCoordinator(): boolean {
 		return this._user.role == 'coordinator' ? true : false;
+	}
+
+	get isGraduated(): boolean {
+		return this._user.status == 'Graduado' ? true : false;
 	}
 
 	/**

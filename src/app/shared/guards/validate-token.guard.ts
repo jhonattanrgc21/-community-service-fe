@@ -35,6 +35,7 @@ export class ValidateTokenGuard
 					if (this.authService.isStudent) {
 						this.homeService.getInfoProject().subscribe((res: any) => {
 							this.authService.projectId = res.id;
+							this.authService.status = res.status;
 						});
 					}
 				}

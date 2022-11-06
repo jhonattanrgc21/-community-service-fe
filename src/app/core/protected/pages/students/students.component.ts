@@ -178,7 +178,7 @@ export class StudentsComponent implements OnInit {
 			showCancelButton: true,
 			confirmButtonColor: '#3085d6',
 			cancelButtonColor: '#d33',
-			confirmButtonText: 'Si, cambiar',
+			confirmButtonText: 'Si',
 		}).then((result) => {
 			if (result.isConfirmed) {
 				this._studenstServices
